@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" class="text-end">Balance</th>
+      <th scope="col">User</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in user_list %}
+    <tr{% if user == request.user %} class="table-primary"{% endif %}>
+      <td class="euro">{{ user.balance }}</td>
+      <td>{{ user }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
