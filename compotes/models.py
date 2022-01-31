@@ -38,16 +38,23 @@ class Debt(Links, TimeStampedModel):
     creditor = models.ForeignKey(User, on_delete=models.PROTECT)
     value = models.DecimalField(max_digits=8, decimal_places=2)
     part_value = models.FloatField(default=0)
-    draft = models.BooleanField(default=True)
 
     def get_absolute_url(self):
-        return reverse("compotes:debt", kwargs={"pk": self.pk})
+        """Url to detail self."""
+        return reverse("debt_detail", kwargs={"pk": self.pk})
+
+    def get_edit_url(self):
+        """Url to edit self."""
+        return reverse("debt_update", kwargs={"pk": self.pk})
+
+    def get_parts_url(self):
+        """Url to update self parts."""
+        return reverse("parts_update", kwargs={"pk": self.pk})
 
     def update(self):
         """Update part_value, parts, and balances."""
-        self.part_value = float(self.value) / query_sum(
-            self.part_set, "part", output_field=models.FloatField()
-        )
+        parts = query_sum(self.part_set, "part", output_field=models.FloatField())
+        self.part_value = 0 if parts == 0 else float(self.value) / parts
         self.save()
         for part in self.part_set.all():
             part.update()

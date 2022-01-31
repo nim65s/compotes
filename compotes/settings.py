@@ -19,10 +19,10 @@ DEBUG = True
 
 ALLOWED_HOSTS: List[str] = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    PROJECT,
     "ndh",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_bootstrap5",
-    PROJECT,
 ]
 
 MIDDLEWARE = [
@@ -64,7 +63,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = f"{PROJECT}.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -74,7 +72,6 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -95,7 +92,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -106,7 +102,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
