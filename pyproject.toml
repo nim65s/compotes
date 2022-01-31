@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "compotes"
+version = "0.1.0"
+description = "Gestion des comptes et des cagnottes"
+authors = ["Guilhem Saurel <guilhem.saurel@laas.fr>"]
+license = "BSD-2-CLause"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+ndh = "^5.1.2"
+dmdm = "^1.4.5"
+
+[tool.poetry.dev-dependencies]
+coverage = "^5.5"
+black = "^21.12b0"
+django-stubs = "^1.7.0"
+flake8 = "^3.9.2"
+mypy = "^0.812"
+pre-commit = "^2.11.1"
+pydocstyle = "^6.0.0"
+safety = "^1.10.3"
+ipython = "^8.0.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
