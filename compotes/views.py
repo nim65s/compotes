@@ -34,7 +34,7 @@ class DebtCreateView(LoginRequiredMixin, NDHFormMixin, CreateView):
     """Debt create view."""
 
     model = Debt
-    fields = ["creditor", "value"]
+    fields = ["creditor", "description", "value"]
     title = "Add a debt"
 
     def form_valid(self, form):
@@ -47,7 +47,7 @@ class DebtUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
     """Debt update view."""
 
     model = Debt
-    fields = ["creditor", "value"]
+    fields = ["creditor", "description", "value"]
     title = "Update a debt"
 
     def form_valid(self, form):

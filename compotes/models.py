@@ -38,6 +38,11 @@ class Debt(Links, TimeStampedModel):
     creditor = models.ForeignKey(User, on_delete=models.PROTECT)
     value = models.DecimalField(max_digits=8, decimal_places=2)
     part_value = models.FloatField(default=0)
+    description = models.TextField(blank=True)
+
+    def __str__(self):
+        """Show PK."""
+        return f"debt {self.pk}"
 
     def get_absolute_url(self):
         """Url to detail self."""
@@ -61,6 +66,10 @@ class Debt(Links, TimeStampedModel):
         for user in User.objects.filter(Q(part__debt=self) | Q(debt=self)):
             user.update()
 
+    def get_debitors(self):
+        """Get number of parts."""
+        return self.part_set.count()
+
 
 class Part(models.Model):
     """Part of a Debt."""
@@ -81,11 +90,11 @@ class Part(models.Model):
         self.save()
 
 
-class Pool(TimeStampedModel, NamedModel):
+class Pool(Links, TimeStampedModel, NamedModel):
     """Create a crowd funding."""
 
     organiser = models.ForeignKey(User, on_delete=models.PROTECT)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     value = models.DecimalField(max_digits=8, decimal_places=2)
     ratio = models.FloatField(default=0)
 
