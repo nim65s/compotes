@@ -22,9 +22,7 @@ class CompotesTests(TestCase):
     def test_models_debt_100_3(self):
         """Test 100.3€ debt between 4 users, CLI only."""
         creditor = User.objects.first()
-        debt = Debt.objects.create(
-            scribe=creditor, creditor=creditor, value=100.03, draft=False
-        )
+        debt = Debt.objects.create(scribe=creditor, creditor=creditor, value=100.03)
         for user in User.objects.all():
             Part.objects.create(debt=debt, debitor=user, part=25)
         debt.update()
