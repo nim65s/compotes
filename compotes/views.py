@@ -9,7 +9,7 @@ from django.views.generic.edit import BaseUpdateView
 from django_tables2 import SingleTableView
 from ndh.mixins import NDHFormMixin
 
-from .models import Debt, User
+from .models import Debt, User, Pool
 from .forms import DebtPartsFormset
 from .tables import DebtTable
 
@@ -77,3 +77,36 @@ class PartsUpdateView(LoginRequiredMixin, BaseUpdateView, FormView):
         form.save()
         self.object.update()
         return HttpResponseRedirect(self.object.get_absolute_url())
+
+
+class PoolCreateView(LoginRequiredMixin, NDHFormMixin, CreateView):
+    """Pool create view."""
+
+    model = Pool
+    fields = ["name", "description", "value"]
+    title = "Add a pool"
+
+    def form_valid(self, form):
+        """Document organiser."""
+        form.instance.organiser = self.request.user
+        return super().form_valid(form)
+
+
+class PoolDetailView(LoginRequiredMixin, DetailView):
+    """Pool detail view."""
+
+    model = Pool
+
+
+class PoolUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
+    """Pool update view."""
+
+    model = Pool
+    fields = ["name", "description", "value"]
+    title = "Update a pool"
+
+    def form_valid(self, form):
+        """Ensure someone is not messing with someone else's debt."""
+        if form.instance.organiser != self.request.user:
+            raise PermissionDenied(f"Only {form.instance.organiser} can edit this.")
+        return super().form_valid(form)

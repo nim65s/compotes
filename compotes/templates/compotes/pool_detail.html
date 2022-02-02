@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<h1>Pool</h1>
+
+{% if pool.organiser == request.user %}
+  <div class="d-flex align-items-center my-3">
+    {% bootstrap_button "Edit Pool" href=pool.get_edit_url extra_classes="w-50 mx-auto py-3"%}
+  </div>
+{% endif %}
+
+{% include "compotes/_pool_detail.html" %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Participant</th>
+      <th scope="col" class="text-center">Maxi</th>
+      <th scope="col" class="text-end">Share</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for share in pool.share_set.all %}
+    <tr{% if share.participant == request.user %} class="table-primary"{% endif %}>
+      <td>{{ share.participant }}</td>
+      <td class="euro text-center">{{ share.maxi }}</td>
+      <td class="euro">{{ share.value|floatformat:2 }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

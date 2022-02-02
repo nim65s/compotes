@@ -81,13 +81,21 @@ class Part(models.Model):
         self.save()
 
 
-class Pool(Links, TimeStampedModel, NamedModel):
+class Pool(TimeStampedModel, NamedModel):
     """Create a crowd funding."""
 
     organiser = models.ForeignKey(User, on_delete=models.PROTECT)
     description = models.TextField()
     value = models.DecimalField(max_digits=8, decimal_places=2)
     ratio = models.FloatField(default=0)
+
+    def get_absolute_url(self):
+        """Url to detail self."""
+        return reverse("pool_detail", kwargs={"slug": self.slug})
+
+    def get_edit_url(self):
+        """Url to edit self."""
+        return reverse("pool_update", kwargs={"slug": self.slug})
 
     def update(self):
         """Update ratio, value, shares, and balances."""
