@@ -6,10 +6,12 @@ from django.http import HttpResponseRedirect
 from django.views.generic import CreateView, DetailView, ListView, FormView, UpdateView
 from django.views.generic.edit import BaseUpdateView
 
+from django_tables2 import SingleTableView
 from ndh.mixins import NDHFormMixin
 
 from .models import Debt, User
 from .forms import DebtPartsFormset
+from .tables import DebtTable
 
 
 class UserListView(LoginRequiredMixin, ListView):
@@ -17,6 +19,14 @@ class UserListView(LoginRequiredMixin, ListView):
 
     model = User
     ordering = ["balance"]
+
+
+class DebtListView(LoginRequiredMixin, SingleTableView):
+    """Debt list view."""
+
+    model = Debt
+    ordering = ["updated"]
+    table_class = DebtTable
 
 
 class DebtCreateView(LoginRequiredMixin, NDHFormMixin, CreateView):

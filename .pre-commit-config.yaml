@@ -34,6 +34,7 @@ repos:
         -   django-autoslug
         -   django-bootstrap5
         -   django-stubs
+        -   django-tables2
         -   types-setuptools
         -   ndh
 -   repo: https://github.com/psf/black

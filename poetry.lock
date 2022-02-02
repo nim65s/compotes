@@ -257,6 +257,20 @@ django = "*"
 typing-extensions = "*"
 
 [[package]]
+name = "django-tables2"
+version = "2.4.1"
+description = "Table/data-grid framework for Django"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Django = ">=1.11"
+
+[package.extras]
+tablib = ["tablib"]
+
+[[package]]
 name = "dmdm"
 version = "1.4.5"
 description = "Django MarkDown Mails"
@@ -874,7 +888,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "87f6e23f47f6ac80db649f6436790bf37f8b992b44b4e4b027a41c3de119de9f"
+content-hash = "f6cff02e788a853dedafa2d66f94e4879ff3d14ea11922eacc786eba1712975c"
 
 [metadata.files]
 appnope = [
@@ -1018,6 +1032,10 @@ django-stubs = [
 django-stubs-ext = [
     {file = "django-stubs-ext-0.3.1.tar.gz", hash = "sha256:783c198d7e39a41be0b90fd843fa2770243a642922af679be4b19e03b82c8c28"},
     {file = "django_stubs_ext-0.3.1-py3-none-any.whl", hash = "sha256:a51a3e9e844d4e1cacaaedbb33bf3def78a3956eed5d9575a640bd97ccd99cec"},
+]
+django-tables2 = [
+    {file = "django-tables2-2.4.1.tar.gz", hash = "sha256:6c72dd208358539e789e4c0efd7d151e43283a4aa4093a35f44c43489e7ddeaa"},
+    {file = "django_tables2-2.4.1-py2.py3-none-any.whl", hash = "sha256:50762bf3d7c61a4eb70e763c3e278650d7266bb78d0497fc8fafcf4e507c9a64"},
 ]
 dmdm = [
     {file = "dmdm-1.4.5-py3-none-any.whl", hash = "sha256:022b5bfe13087d638814822e28b59cbeb30aaffec17e80107be46da07148a640"},
