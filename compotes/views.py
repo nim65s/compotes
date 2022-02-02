@@ -6,13 +6,14 @@ from django.http import HttpResponseRedirect
 from django.views.generic import CreateView, DetailView, ListView, FormView, UpdateView
 from django.views.generic.edit import BaseUpdateView
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 from django_tables2 import SingleTableView
 from ndh.mixins import NDHFormMixin
 
 from .models import Debt, User, Pool, Share
 from .forms import DebtPartsFormset
-from .tables import DebtTable
+from .tables import DebtTable, PoolTable
 
 
 class UserListView(LoginRequiredMixin, ListView):
@@ -26,7 +27,6 @@ class DebtListView(LoginRequiredMixin, SingleTableView):
     """Debt list view."""
 
     model = Debt
-    ordering = ["updated"]
     table_class = DebtTable
 
 
@@ -132,3 +132,16 @@ class ShareUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
         ret = super().form_valid(form)
         self.object.pool.update()
         return ret
+
+
+class PoolListView(LoginRequiredMixin, SingleTableView):
+    """Debt list view."""
+
+    model = Pool
+    table_class = PoolTable
+
+    def get_queryset(self):
+        """Show only those the user knows."""
+        return self.model.objects.filter(
+            Q(organiser=self.request.user) | Q(share__participant=self.request.user)
+        ).distinct()
