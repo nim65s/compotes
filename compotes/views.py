@@ -5,11 +5,12 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
 from django.views.generic import CreateView, DetailView, ListView, FormView, UpdateView
 from django.views.generic.edit import BaseUpdateView
+from django.shortcuts import get_object_or_404
 
 from django_tables2 import SingleTableView
 from ndh.mixins import NDHFormMixin
 
-from .models import Debt, User, Pool
+from .models import Debt, User, Pool, Share
 from .forms import DebtPartsFormset
 from .tables import DebtTable
 
@@ -109,4 +110,25 @@ class PoolUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
         """Ensure someone is not messing with someone else's debt."""
         if form.instance.organiser != self.request.user:
             raise PermissionDenied(f"Only {form.instance.organiser} can edit this.")
-        return super().form_valid(form)
+        ret = super().form_valid(form)
+        self.object.update()
+        return ret
+
+
+class ShareUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
+    """Share update view."""
+
+    model = Share
+    fields = ["maxi"]
+    title = "Update my share"
+
+    def get_object(self, queryset=None):
+        """Instanciate the Debt/Parts formset."""
+        pool = get_object_or_404(Pool, slug=self.kwargs.get(self.slug_url_kwarg))
+        return Share.objects.get_or_create(pool=pool, participant=self.request.user)[0]
+
+    def form_valid(self, form):
+        """Save the form without overriding self.object and conclude."""
+        ret = super().form_valid(form)
+        self.object.pool.update()
+        return ret

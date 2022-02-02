@@ -12,6 +12,10 @@
 
 {% include "compotes/_pool_detail.html" %}
 
+<div class="d-flex align-items-center my-3">
+  {% bootstrap_button "Edit my share" href=pool.get_share_url extra_classes="w-50 mx-auto py-3"%}
+</div>
+
 <table class="table">
   <thead>
     <tr>

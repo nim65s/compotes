@@ -97,6 +97,10 @@ class Pool(TimeStampedModel, NamedModel):
         """Url to edit self."""
         return reverse("pool_update", kwargs={"slug": self.slug})
 
+    def get_share_url(self):
+        """Url to edit ones Share."""
+        return reverse("share_update", kwargs={"slug": self.slug})
+
     def update(self):
         """Update ratio, value, shares, and balances."""
         available = query_sum(self.share_set, "maxi", output_field=models.FloatField())
@@ -114,10 +118,19 @@ class Share(models.Model):
 
     pool = models.ForeignKey(Pool, on_delete=models.PROTECT)
     participant = models.ForeignKey(User, on_delete=models.PROTECT)
-    maxi = models.DecimalField(max_digits=8, decimal_places=2)
+    maxi = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     value = models.FloatField(default=0)
+
+    class Meta:
+        """Meta."""
+
+        unique_together = ["pool", "participant"]
 
     def update(self):
         """Update value."""
         self.value = float(self.maxi) * self.pool.ratio
         self.save()
+
+    def get_absolute_url(self):
+        """Return to Pool."""
+        return self.pool.get_absolute_url()
