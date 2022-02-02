@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Initial version
+
 
 [Unreleased]: https://github.com/nim65s/comptes/compare/v0.1.0...main
 [v0.1.0]: https://github.com/nim65s/compotes/releases/tag/v0.1.0

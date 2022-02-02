@@ -1,4 +1,4 @@
-name: Release on GitHub & PyPI
+name: Release on GitHub
 
 on:
   push:
@@ -11,7 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: python -m pip install -U poetry
-      - run: poetry publish -u __token__ -p ${{ secrets.PYPI_TOKEN }} --build
       - run: echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
       - run: gh release create -t "Release ${{ env.TAG}}" -n "$(awk '/## \[${{ env.TAG }}] - /{flag=1;next}/## \[/{flag=0}flag' CHANGELOG.md)" ${{ env.TAG }} dist/*
         env:

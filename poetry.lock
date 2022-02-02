@@ -271,6 +271,14 @@ Django = ">=1.11"
 tablib = ["tablib"]
 
 [[package]]
+name = "django-yeouia"
+version = "2.0.0"
+description = "A Django auth backend that works with email or username"
+category = "main"
+optional = false
+python-versions = ">=3.4"
+
+[[package]]
 name = "dmdm"
 version = "1.4.5"
 description = "Django MarkDown Mails"
@@ -888,7 +896,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "f6cff02e788a853dedafa2d66f94e4879ff3d14ea11922eacc786eba1712975c"
+content-hash = "54f2ec41211ac2dbccd409496f4c611c027fd9702fb637fd9db6db635eb70eac"
 
 [metadata.files]
 appnope = [
@@ -1036,6 +1044,10 @@ django-stubs-ext = [
 django-tables2 = [
     {file = "django-tables2-2.4.1.tar.gz", hash = "sha256:6c72dd208358539e789e4c0efd7d151e43283a4aa4093a35f44c43489e7ddeaa"},
     {file = "django_tables2-2.4.1-py2.py3-none-any.whl", hash = "sha256:50762bf3d7c61a4eb70e763c3e278650d7266bb78d0497fc8fafcf4e507c9a64"},
+]
+django-yeouia = [
+    {file = "django-yeouia-2.0.0.tar.gz", hash = "sha256:c6843be54720d2c953de7a4bfecc1b4cfb07e067107c28d9e7c53178d25cda18"},
+    {file = "django_yeouia-2.0.0-py3-none-any.whl", hash = "sha256:4b168d47aed43eb8a6d5d0be2f57a5eef6a934118117beed76988fcc57c154af"},
 ]
 dmdm = [
     {file = "dmdm-1.4.5-py3-none-any.whl", hash = "sha256:022b5bfe13087d638814822e28b59cbeb30aaffec17e80107be46da07148a640"},
