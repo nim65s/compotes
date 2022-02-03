@@ -7,8 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- clean
+
+## [v0.2.2] - 2022-02-03
+
+## [v0.2.1] - 2022-02-03
+
+- fix release process
+
+## [v0.2.0] - 2022-02-03
+
 - Initial version
 
 
-[Unreleased]: https://github.com/nim65s/comptes/compare/v0.1.0...main
+[Unreleased]: https://github.com/nim65s/comptes/compare/v0.2.2...main
+[v0.2.2]: https://github.com/nim65s/dmdm/compare/v0.2.1...v0.2.2
+[v0.2.1]: https://github.com/nim65s/dmdm/compare/v0.2.0...v0.2.1
+[v0.2.0]: https://github.com/nim65s/dmdm/compare/v0.1.0...v0.2.0
 [v0.1.0]: https://github.com/nim65s/compotes/releases/tag/v0.1.0

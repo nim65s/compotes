@@ -7,6 +7,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 PROJECT = "compotes"
+PROJECT_VERBOSE = PROJECT.capitalize()
 
 DEBUG = os.environ.get("DEBUG", "True").lower() == "true"
 if DEBUG:
@@ -17,6 +18,9 @@ else:
 DOMAIN_NAME = os.environ.get("DOMAIN_NAME", "localhost")
 HOSTNAME = os.environ.get("ALLOWED_HOST", f"{PROJECT}.{DOMAIN_NAME}")
 ALLOWED_HOSTS = [HOSTNAME, f"{HOSTNAME}:8000"]
+CSRF_TRUSTED_ORIGINS = [
+    "http://" if DEBUG else "https://" + host for host in ALLOWED_HOSTS
+]
 
 # Application definition
 
@@ -120,6 +124,16 @@ MEDIA_URL = "/media/"
 STATIC_URL = "/static/"
 STATIC_ROOT = f"/srv/{PROJECT}/static/"
 LOGIN_REDIRECT_URL = "/"
+
+EMAIL_USE_SSL = True
+EMAIL_PORT = 465
+EMAIL_HOST = "mail.gandi.net"
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", f"majo@{DOMAIN_NAME}")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", None)
+DEFAULT_FROM_EMAIL = f"{PROJECT_VERBOSE} <{EMAIL_HOST_USER}>"
+SERVER_EMAIL = f"Server {DEFAULT_FROM_EMAIL}"
+REPLY_TO = f"webmaster@{DOMAIN_NAME}"
+ADMINS = [(f"{PROJECT_VERBOSE} Webmasters", f"webmaster@{DOMAIN_NAME}")]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
