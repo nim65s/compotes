@@ -22,7 +22,6 @@ poetry run ./manage.py runserver
 ```bash
 echo POSTGRES_PASSWORD=$(openssl rand -base64 32) >> .env
 echo SECRET_KEY=$(openssl rand -base64 32) >> .env
-. .env
 docker compose up -d --build
 docker compose exec app ./manage.py createsuperuser
 ```
