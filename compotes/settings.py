@@ -7,6 +7,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 PROJECT = "compotes"
+PROJECT_VERBOSE = PROJECT.capitalize()
 
 DEBUG = os.environ.get("DEBUG", "True").lower() == "true"
 if DEBUG:
@@ -120,6 +121,17 @@ MEDIA_URL = "/media/"
 STATIC_URL = "/static/"
 STATIC_ROOT = f"/srv/{PROJECT}/static/"
 LOGIN_REDIRECT_URL = "/"
+
+EMAIL_USE_SSL = True
+EMAIL_PORT = 465
+EMAIL_HOST = "mail.gandi.net"
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", f"majo@{HOSTNAME}")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", None)
+DEFAULT_FROM_EMAIL = f"{PROJECT_VERBOSE} <{EMAIL_HOST_USER}>"
+SERVER_EMAIL = f"Server {DEFAULT_FROM_EMAIL}"
+REPLY_TO = f"webmaster@{HOSTNAME}"
+ADMINS = [(f"{PROJECT_VERBOSE} Webmasters", "webmaster@{HOSTNAME}")]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
