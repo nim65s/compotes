@@ -1,6 +1,7 @@
 # Compotes
 
 [![Tests](https://github.com/nim65s/compotes/actions/workflows/test.yml/badge.svg)](https://github.com/nim65s/compotes/actions/workflows/test.yml)
+[![Lints](https://github.com/nim65s/compotes/actions/workflows/lint.yml/badge.svg)](https://github.com/nim65s/compotes/actions/workflows/lint.yml)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/nim65s/compotes/master.svg)](https://results.pre-commit.ci/latest/github/nim65s/compotes/master)
 [![codecov](https://codecov.io/gh/nim65s/compotes/branch/master/graph/badge.svg?token=75XO2X5QW0)](https://codecov.io/gh/nim65s/compotes)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a0783da8c0461fe95eaf/maintainability)](https://codeclimate.com/github/nim65s/compotes/maintainability)
