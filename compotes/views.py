@@ -8,7 +8,7 @@ from django.views.generic.edit import BaseUpdateView
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 
-from django_tables2 import SingleTableView
+from django_tables2 import SingleTableView  # type: ignore
 from ndh.mixins import NDHFormMixin
 
 from .models import Debt, User, Pool, Share

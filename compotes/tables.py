@@ -1,6 +1,6 @@
 """Compotes Tables."""
 
-import django_tables2 as tables
+import django_tables2 as tables  # type: ignore
 
 from .models import Debt, Pool
 
