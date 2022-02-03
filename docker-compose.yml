@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - "${CHATONS_ROOT_DIR:-/srv/chatons}/compotes/sql:/var/lib/postgresql/data"
+  app:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - "${CHATONS_ROOT_DIR:-/srv/chatons}/compotes/srv:/srv"
+    env_file:
+      - .env
+    environment:
+      - DB=postgres
+    networks:
+      - web
+      - default
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.compotes-app.rule: "Host(`compotes.${DOMAIN_NAME:-localhost}`)"
+  nginx:
+    image: nim65s/ndh:nginx
+    restart: unless-stopped
+    volumes:
+      - "${CHATONS_ROOT_DIR:-/srv/chatons}/compotes/srv/compotes:/srv:ro"
+    networks:
+      - web
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.compotes-ngx.rule: "Host(`compotes.${DOMAIN_NAME:-localhost}`) && PathPrefix(`/static`, `/media`)"
+
+networks:
+  web:
+    external: true

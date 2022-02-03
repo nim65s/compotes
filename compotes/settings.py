@@ -1,23 +1,22 @@
 """Django settings for compotes project."""
 
+import os
 from pathlib import Path
-from typing import List
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 PROJECT = "compotes"
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
+DEBUG = os.environ.get("DEBUG", "True").lower() == "true"
+if DEBUG:
+    SECRET_KEY = "django-insecure-un&^-yd2(xdo#_@or@obzh)trtweg))^oegpor8@=$srjplaz1"
+else:
+    SECRET_KEY = os.environ["SECRET_KEY"]
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-un&^-yd2(xdo#_@or@obzh)trtweg))^oegpor8@=$srjplaz1"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS: List[str] = []
+DOMAIN_NAME = os.environ.get("DOMAIN_NAME", "localhost")
+HOSTNAME = os.environ.get("ALLOWED_HOST", f"{PROJECT}.{DOMAIN_NAME}")
+ALLOWED_HOSTS = [HOSTNAME, f"{HOSTNAME}:8000"]
 
 # Application definition
 
@@ -67,12 +66,21 @@ WSGI_APPLICATION = f"{PROJECT}.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+DB = os.environ.get("DB", "db.sqlite3")
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": BASE_DIR / DB,
     }
 }
+if DB == "postgres":
+    DATABASES["default"].update(
+        ENGINE="django.db.backends.postgresql",
+        NAME=os.environ.get("POSTGRES_DB", DB),
+        USER=os.environ.get("POSTGRES_USER", DB),
+        HOST=os.environ.get("POSTGRES_HOST", DB),
+        PASSWORD=os.environ["POSTGRES_PASSWORD"],
+    )
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -107,7 +115,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = "static/"
+MEDIA_ROOT = f"/srv/{PROJECT}/media/"
+MEDIA_URL = "/media/"
+STATIC_URL = "/static/"
+STATIC_ROOT = f"/srv/{PROJECT}/static/"
+LOGIN_REDIRECT_URL = "/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

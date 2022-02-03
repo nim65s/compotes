@@ -7,3 +7,26 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 Track debts & pools
+
+## Dev
+
+```bash
+poetry install
+poetry run ./manage.py migrate
+poetry run ./manage.py createsuperuser
+poetry run ./manage.py runserver
+```
+
+## Integration
+
+```bash
+echo POSTGRES_PASSWORD=$(openssl rand -base64 32) >> .env
+echo SECRET_KEY=$(openssl rand -base64 32) >> .env
+. .env
+docker compose up -d --build
+docker-compose exec app ./manage.py createsuperuser
+```
+
+## Prod
+
+Same, but with a real `DOMAIN_NAME` and with `DEBUG=False`. And don't forget https.
