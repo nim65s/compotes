@@ -18,7 +18,9 @@ else:
 DOMAIN_NAME = os.environ.get("DOMAIN_NAME", "localhost")
 HOSTNAME = os.environ.get("ALLOWED_HOST", f"{PROJECT}.{DOMAIN_NAME}")
 ALLOWED_HOSTS = [HOSTNAME, f"{HOSTNAME}:8000"]
-CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
+CSRF_TRUSTED_ORIGINS = [
+    "http://" if DEBUG else "https://" + host for host in ALLOWED_HOSTS
+]
 
 # Application definition
 
@@ -132,7 +134,6 @@ DEFAULT_FROM_EMAIL = f"{PROJECT_VERBOSE} <{EMAIL_HOST_USER}>"
 SERVER_EMAIL = f"Server {DEFAULT_FROM_EMAIL}"
 REPLY_TO = f"webmaster@{HOSTNAME}"
 ADMINS = [(f"{PROJECT_VERBOSE} Webmasters", "webmaster@{HOSTNAME}")]
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
