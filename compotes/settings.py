@@ -132,8 +132,8 @@ EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", f"majo@{DOMAIN_NAME}")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", None)
 DEFAULT_FROM_EMAIL = f"{PROJECT_VERBOSE} <{EMAIL_HOST_USER}>"
 SERVER_EMAIL = f"Server {DEFAULT_FROM_EMAIL}"
-REPLY_TO = f"webmaster@{HOSTNAME}"
-ADMINS = [(f"{PROJECT_VERBOSE} Webmasters", "webmaster@{HOSTNAME}")]
+REPLY_TO = f"webmaster@{DOMAIN_NAME}"
+ADMINS = [(f"{PROJECT_VERBOSE} Webmasters", "webmaster@{DOMAIN_NAME}")]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
