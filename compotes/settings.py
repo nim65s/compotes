@@ -18,6 +18,7 @@ else:
 DOMAIN_NAME = os.environ.get("DOMAIN_NAME", "localhost")
 HOSTNAME = os.environ.get("ALLOWED_HOST", f"{PROJECT}.{DOMAIN_NAME}")
 ALLOWED_HOSTS = [HOSTNAME, f"{HOSTNAME}:8000"]
+CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
 
 # Application definition
 
