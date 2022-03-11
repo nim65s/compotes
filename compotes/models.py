@@ -13,7 +13,9 @@ from ndh.utils import query_sum
 class User(AbstractUser):
     """Placeholder."""
 
-    balance = models.DecimalField(_("balance"), max_digits=8, decimal_places=2, default=0)
+    balance = models.DecimalField(
+        _("balance"), max_digits=8, decimal_places=2, default=0
+    )
 
     class Meta:
         """Meta."""
@@ -29,7 +31,9 @@ class User(AbstractUser):
             output_field=models.FloatField(),
         )
         parts = query_sum(self.part_set, "value", output_field=models.FloatField())
-        pools = query_sum(self.pool_set.exclude(ratio=0), "value", output_field=models.FloatField())
+        pools = query_sum(
+            self.pool_set.exclude(ratio=0), "value", output_field=models.FloatField()
+        )
         shares = query_sum(self.share_set, "value", output_field=models.FloatField())
         self.balance = debts + pools - parts - shares
         super().save(*args, **kwargs)
@@ -38,8 +42,12 @@ class User(AbstractUser):
 class Debt(Links, TimeStampedModel):
     """Declare a debt amount."""
 
-    scribe = models.ForeignKey(User, on_delete=models.PROTECT, related_name="+", verbose_name=_("scribe"))
-    creditor = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name=_("creditor"))
+    scribe = models.ForeignKey(
+        User, on_delete=models.PROTECT, related_name="+", verbose_name=_("scribe")
+    )
+    creditor = models.ForeignKey(
+        User, on_delete=models.PROTECT, verbose_name=_("creditor")
+    )
     value = models.DecimalField(_("value"), max_digits=8, decimal_places=2)
     part_value = models.FloatField(_("part value"), default=0)
     description = models.TextField(_("description"), blank=True)
@@ -84,7 +92,9 @@ class Part(models.Model):
     """Part of a Debt."""
 
     debt = models.ForeignKey(Debt, on_delete=models.PROTECT, verbose_name=_("debt"))
-    debitor = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name=_("debitor"))
+    debitor = models.ForeignKey(
+        User, on_delete=models.PROTECT, verbose_name=_("debitor")
+    )
     part = models.FloatField(_("part"), default=1)
     value = models.FloatField(_("value"), default=0)
 
@@ -105,7 +115,9 @@ class Part(models.Model):
 class Pool(Links, TimeStampedModel, NamedModel):
     """Create a crowd funding."""
 
-    organiser = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name=_("organiser"))
+    organiser = models.ForeignKey(
+        User, on_delete=models.PROTECT, verbose_name=_("organiser")
+    )
     description = models.TextField(_("description"), blank=True)
     value = models.DecimalField(_("value"), max_digits=8, decimal_places=2)
     ratio = models.FloatField(_("ratio"), default=0)
@@ -142,7 +154,9 @@ class Share(models.Model):
     """Share of a crowd funding."""
 
     pool = models.ForeignKey(Pool, on_delete=models.PROTECT, verbose_name=_("pool"))
-    participant = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name=_("participant"))
+    participant = models.ForeignKey(
+        User, on_delete=models.PROTECT, verbose_name=_("participant")
+    )
     maxi = models.DecimalField(_("maxi"), max_digits=8, decimal_places=2, default=0)
     value = models.FloatField(_("value"), default=0)
 
