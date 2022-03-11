@@ -4,9 +4,10 @@ import django_tables2 as tables  # type: ignore
 
 from .models import Debt, Pool
 
-END = {"th": {"class": "text-end"}, "td": {"class": "text-end"}}
-NBR = {"th": {"class": "text-end"}, "td": {"class": "nombre"}}
-EUR = {"th": {"class": "text-end"}, "td": {"class": "euro"}}
+END, NBR, EUR = (
+    {"th": {"class": "text-end"}, "td": {"class": cls}}
+    for cls in ("text-end", "nombre", "euro")
+)
 
 
 class DebtTable(tables.Table):
