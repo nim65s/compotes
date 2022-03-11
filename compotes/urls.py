@@ -9,6 +9,7 @@ app_name = "compotes"
 urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path("admin/", admin.site.urls),
+    path("i18n/", include("django.conf.urls.i18n")),
     path("", views.UserListView.as_view(), name="home"),
     path("debts", views.DebtListView.as_view(), name="debt_list"),
     path("debt/add", views.DebtCreateView.as_view(), name="debt_create"),
