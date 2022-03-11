@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models import Q
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from ndh.models import Links, TimeStampedModel, NamedModel
 from ndh.utils import query_sum
@@ -12,7 +13,7 @@ from ndh.utils import query_sum
 class User(AbstractUser):
     """Placeholder."""
 
-    balance = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    balance = models.DecimalField(_("balance"), max_digits=8, decimal_places=2, default=0)
 
     class Meta:
         """Meta."""
@@ -27,9 +28,7 @@ class User(AbstractUser):
             output_field=models.FloatField(),
         )
         parts = query_sum(self.part_set, "value", output_field=models.FloatField())
-        pools = query_sum(
-            self.pool_set.exclude(ratio=0), "value", output_field=models.FloatField()
-        )
+        pools = query_sum(self.pool_set.exclude(ratio=0), "value", output_field=models.FloatField())
         shares = query_sum(self.share_set, "value", output_field=models.FloatField())
         self.balance = debts + pools - parts - shares
         super().save(*args, **kwargs)
@@ -38,11 +37,11 @@ class User(AbstractUser):
 class Debt(Links, TimeStampedModel):
     """Declare a debt amount."""
 
-    scribe = models.ForeignKey(User, on_delete=models.PROTECT, related_name="+")
-    creditor = models.ForeignKey(User, on_delete=models.PROTECT)
-    value = models.DecimalField(max_digits=8, decimal_places=2)
-    part_value = models.FloatField(default=0)
-    description = models.TextField(blank=True)
+    scribe = models.ForeignKey(User, on_delete=models.PROTECT, related_name="+", verbose_name=_("scribe"))
+    creditor = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name=_("creditor"))
+    value = models.DecimalField(_("value"), max_digits=8, decimal_places=2)
+    part_value = models.FloatField(_("part value"), default=0)
+    description = models.TextField(_("description"), blank=True)
 
     def __str__(self):
         """Show PK."""
@@ -78,10 +77,10 @@ class Debt(Links, TimeStampedModel):
 class Part(models.Model):
     """Part of a Debt."""
 
-    debt = models.ForeignKey(Debt, on_delete=models.PROTECT)
-    debitor = models.ForeignKey(User, on_delete=models.PROTECT)
-    part = models.FloatField(default=1)
-    value = models.FloatField(default=0)
+    debt = models.ForeignKey(Debt, on_delete=models.PROTECT, verbose_name=_("debt"))
+    debitor = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name=_("debitor"))
+    part = models.FloatField(_("part"), default=1)
+    value = models.FloatField(_("value"), default=0)
 
     class Meta:
         """Meta."""
@@ -99,10 +98,10 @@ class Part(models.Model):
 class Pool(Links, TimeStampedModel, NamedModel):
     """Create a crowd funding."""
 
-    organiser = models.ForeignKey(User, on_delete=models.PROTECT)
-    description = models.TextField(blank=True)
-    value = models.DecimalField(max_digits=8, decimal_places=2)
-    ratio = models.FloatField(default=0)
+    organiser = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name=_("organiser"))
+    description = models.TextField(_("description"), blank=True)
+    value = models.DecimalField(_("value"), max_digits=8, decimal_places=2)
+    ratio = models.FloatField(_("ratio"), default=0)
 
     def get_absolute_url(self):
         """Url to detail self."""
@@ -130,10 +129,10 @@ class Pool(Links, TimeStampedModel, NamedModel):
 class Share(models.Model):
     """Share of a crowd funding."""
 
-    pool = models.ForeignKey(Pool, on_delete=models.PROTECT)
-    participant = models.ForeignKey(User, on_delete=models.PROTECT)
-    maxi = models.DecimalField(max_digits=8, decimal_places=2, default=0)
-    value = models.FloatField(default=0)
+    pool = models.ForeignKey(Pool, on_delete=models.PROTECT, verbose_name=_("pool"))
+    participant = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name=_("participant"))
+    maxi = models.DecimalField(_("maxi"), max_digits=8, decimal_places=2, default=0)
+    value = models.FloatField(_("value"), default=0)
 
     class Meta:
         """Meta."""

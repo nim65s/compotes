@@ -2,11 +2,12 @@
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DetailView, ListView, FormView, UpdateView
 from django.views.generic.edit import BaseUpdateView
-from django.shortcuts import get_object_or_404
-from django.db.models import Q
 
 from django_tables2 import SingleTableView  # type: ignore
 from ndh.mixins import NDHFormMixin
@@ -35,7 +36,7 @@ class DebtCreateView(LoginRequiredMixin, NDHFormMixin, CreateView):
 
     model = Debt
     fields = ["creditor", "description", "value"]
-    title = "Add a debt"
+    title = _("Add a Debt")
 
     def form_valid(self, form):
         """Document scribe."""
@@ -84,7 +85,7 @@ class PoolCreateView(LoginRequiredMixin, NDHFormMixin, CreateView):
 
     model = Pool
     fields = ["name", "description", "value"]
-    title = "Add a pool"
+    title = _("Add a Pool")
 
     def form_valid(self, form):
         """Document organiser."""

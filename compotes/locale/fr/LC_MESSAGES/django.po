@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-11 19:38+0000\n"
+"POT-Creation-Date: 2022-03-11 19:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,82 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: compotes/models.py:16
+#, fuzzy
+#| msgid "Balance"
+msgid "balance"
+msgstr "Solde"
+
+#: compotes/models.py:40
+#, fuzzy
+#| msgid "Scribe"
+msgid "scribe"
+msgstr "Secrétaire"
+
+#: compotes/models.py:41
+#, fuzzy
+#| msgid "Creditor"
+msgid "creditor"
+msgstr "Créditeur"
+
+#: compotes/models.py:42 compotes/models.py:83 compotes/models.py:103
+#: compotes/models.py:135
+#, fuzzy
+#| msgid "Value"
+msgid "value"
+msgstr "Valeur"
+
+#: compotes/models.py:43
+#, fuzzy
+#| msgid "Part value"
+msgid "part value"
+msgstr "Valeur d’une Part"
+
+#: compotes/models.py:44 compotes/models.py:102
+msgid "description"
+msgstr "Description"
+
+#: compotes/models.py:80
+msgid "debt"
+msgstr "Dette"
+
+#: compotes/models.py:81
+#, fuzzy
+#| msgid "Debitor"
+msgid "debitor"
+msgstr "Débiteur"
+
+#: compotes/models.py:82
+msgid "part"
+msgstr "Part"
+
+#: compotes/models.py:101
+#, fuzzy
+#| msgid "Organiser"
+msgid "organiser"
+msgstr "Organisateur"
+
+#: compotes/models.py:104
+#, fuzzy
+#| msgid "Ratio"
+msgid "ratio"
+msgstr "Ratio"
+
+#: compotes/models.py:132
+msgid "pool"
+msgstr "Cagnotte"
+
+#: compotes/models.py:133
+#, fuzzy
+#| msgid "Participant"
+msgid "participant"
+msgstr "Participant"
+
+#: compotes/models.py:134
+msgid "maxi"
+msgstr "maxip"
+
 #: compotes/templates/compotes/_debt_detail.html:4
 msgid "Scribe"
 msgstr "Secrétaire"
@@ -66,7 +142,7 @@ msgstr "Parts"
 #: compotes/templates/compotes/debt_detail.html:41
 #: compotes/templates/compotes/user_list.html:33
 msgid "List Debts"
-msgstr "Liste des Dettes"
+msgstr "Historique des Dettes"
 
 #: compotes/templates/compotes/debt_detail.html:42
 #: compotes/templates/compotes/debt_list.html:15
@@ -80,7 +156,7 @@ msgid "Debts"
 msgstr "Dettes"
 
 #: compotes/templates/compotes/debt_list.html:9
-#: compotes/templates/compotes/user_list.html:7
+#: compotes/templates/compotes/user_list.html:7 compotes/views.py:39
 msgid "Add a Debt"
 msgstr "Ajouter une Dette"
 
@@ -111,14 +187,14 @@ msgstr "Participation"
 #: compotes/templates/compotes/pool_detail.html:40
 #: compotes/templates/compotes/user_list.html:34
 msgid "List Pools"
-msgstr "Liste des Cagnottes"
+msgstr "Historique des Cagnottes"
 
 #: compotes/templates/compotes/pool_list.html:6
 msgid "Pools"
 msgstr "Cagnottes"
 
 #: compotes/templates/compotes/pool_list.html:9
-#: compotes/templates/compotes/user_list.html:8
+#: compotes/templates/compotes/user_list.html:8 compotes/views.py:88
 msgid "Add a Pool"
 msgstr "Ajouter une Cagnotte"
 
@@ -130,12 +206,12 @@ msgstr "Solde"
 msgid "User"
 msgstr "Utilisateur"
 
-#: compotes/views.py:56
+#: compotes/views.py:57
 #, python-brace-format
 msgid "Only {form.instance.scribe} can edit this."
 msgstr "Il n’y a que {form.instance.scribe} qui peut éditer ceci."
 
-#: compotes/views.py:111
+#: compotes/views.py:112
 #, python-brace-format
 msgid "Only {form.instance.organiser} can edit this."
 msgstr "Il n’y a que {form.instance.organiser} qui peut éditer ceci."
