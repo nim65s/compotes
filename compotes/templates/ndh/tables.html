@@ -1,8 +1,0 @@
-{% extends 'django_tables2/bootstrap4.html' %}
-{% load django_bootstrap5 %}
-
-{% block pagination %}
-<div class="d-flex justify-content-center">
-{% bootstrap_pagination table.page extra=request.GET.urlencode size="lg" %}
-</div>
-{% endblock %}
