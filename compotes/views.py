@@ -53,7 +53,7 @@ class DebtUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
     def form_valid(self, form):
         """Ensure someone is not messing with someone else's debt."""
         if form.instance.scribe != self.request.user:
-            raise PermissionDenied(f"Only {form.instance.scribe} can edit this.")
+            raise PermissionDenied(_(f"Only {form.instance.scribe} can edit this."))
         return super().form_valid(form)
 
 
@@ -108,7 +108,7 @@ class PoolUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
     def form_valid(self, form):
         """Ensure someone is not messing with someone else's debt."""
         if form.instance.organiser != self.request.user:
-            raise PermissionDenied(f"Only {form.instance.organiser} can edit this.")
+            raise PermissionDenied(_(f"Only {form.instance.organiser} can edit this."))
         return super().form_valid(form)
 
 

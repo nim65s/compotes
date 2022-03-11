@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% load django_bootstrap5 %}
+{% load django_bootstrap5 i18n %}
 
 {% block content %}
-<h1>Debt</h1>
+<h1>{% translate "Debt" %}</h1>
 
 {% if debt.scribe == request.user %}
   <div class="d-flex align-items-center my-3">
-    {% bootstrap_button "Edit Debt" href=debt.get_edit_url extra_classes="w-50 mx-auto py-3"%}
+    {% bootstrap_button _("Edit Debt") href=debt.get_edit_url extra_classes="w-50 mx-auto py-3"%}
   </div>
 {% endif %}
 
@@ -14,16 +14,16 @@
 
 {% if debt.scribe == request.user %}
   <div class="d-flex align-items-center my-3">
-    {% bootstrap_button "Edit Parts" href=debt.get_parts_url extra_classes="w-50 mx-auto py-3"%}
+    {% bootstrap_button _("Edit Parts") href=debt.get_parts_url extra_classes="w-50 mx-auto py-3"%}
   </div>
 {% endif %}
 
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Debitor</th>
-      <th scope="col" class="text-center">Parts</th>
-      <th scope="col" class="text-end">Debt</th>
+      <th scope="col">{% translate "Debitor" %}</th>
+      <th scope="col" class="text-center">{% translate "Parts" %}</th>
+      <th scope="col" class="text-end">{% translate "Debt" %}</th>
     </tr>
   </thead>
   <tbody>
@@ -38,7 +38,7 @@
 </table>
 
 <div class="d-flex align-items-center my-3">
-  {% bootstrap_button "List Debts" href="/debts" button_class="btn-secondary" extra_classes="w-25 mx-auto py-3" %}
-  {% bootstrap_button "Back" href="/" button_class="btn-secondary" extra_classes="w-25 mx-auto py-3" %}
+  {% bootstrap_button _("List Debts") href="/debts" button_class="btn-secondary" extra_classes="w-25 mx-auto py-3" %}
+  {% bootstrap_button _("Back") href="/" button_class="btn-secondary" extra_classes="w-25 mx-auto py-3" %}
 </div>
 {% endblock %}

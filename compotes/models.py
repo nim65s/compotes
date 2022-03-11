@@ -21,7 +21,11 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         """Update the balance."""
-        debts = query_sum(self.debt_set.exclude(part_value=0), "value", output_field=models.FloatField())
+        debts = query_sum(
+            self.debt_set.exclude(part_value=0),
+            "value",
+            output_field=models.FloatField(),
+        )
         parts = query_sum(self.part_set, "value", output_field=models.FloatField())
         pools = query_sum(
             self.pool_set.exclude(ratio=0), "value", output_field=models.FloatField()
