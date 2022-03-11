@@ -1,0 +1,141 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-11 19:38+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+#: compotes/templates/compotes/_debt_detail.html:4
+msgid "Scribe"
+msgstr ""
+
+#: compotes/templates/compotes/_debt_detail.html:5
+msgid "Creditor"
+msgstr ""
+
+#: compotes/templates/compotes/_debt_detail.html:6
+#: compotes/templates/compotes/_pool_detail.html:5
+msgid "Value"
+msgstr ""
+
+#: compotes/templates/compotes/_debt_detail.html:7
+msgid "Part value"
+msgstr ""
+
+#: compotes/templates/compotes/_pool_detail.html:4
+msgid "Organiser"
+msgstr ""
+
+#: compotes/templates/compotes/_pool_detail.html:6
+msgid "Ratio"
+msgstr ""
+
+#: compotes/templates/compotes/debt_detail.html:5
+#: compotes/templates/compotes/debt_detail.html:26
+msgid "Debt"
+msgstr ""
+
+#: compotes/templates/compotes/debt_detail.html:9
+msgid "Edit Debt"
+msgstr ""
+
+#: compotes/templates/compotes/debt_detail.html:17
+msgid "Edit Parts"
+msgstr ""
+
+#: compotes/templates/compotes/debt_detail.html:24
+msgid "Debitor"
+msgstr ""
+
+#: compotes/templates/compotes/debt_detail.html:25
+msgid "Parts"
+msgstr ""
+
+#: compotes/templates/compotes/debt_detail.html:41
+#: compotes/templates/compotes/user_list.html:33
+msgid "List Debts"
+msgstr ""
+
+#: compotes/templates/compotes/debt_detail.html:42
+#: compotes/templates/compotes/debt_list.html:15
+#: compotes/templates/compotes/pool_detail.html:39
+#: compotes/templates/compotes/pool_list.html:15
+msgid "Back"
+msgstr ""
+
+#: compotes/templates/compotes/debt_list.html:6
+msgid "Debts"
+msgstr ""
+
+#: compotes/templates/compotes/debt_list.html:9
+#: compotes/templates/compotes/user_list.html:7
+msgid "Add a Debt"
+msgstr ""
+
+#: compotes/templates/compotes/pool_detail.html:5
+msgid "Pool"
+msgstr ""
+
+#: compotes/templates/compotes/pool_detail.html:9
+msgid "Edit Pool"
+msgstr ""
+
+#: compotes/templates/compotes/pool_detail.html:16
+msgid "Edit my share"
+msgstr ""
+
+#: compotes/templates/compotes/pool_detail.html:22
+msgid "Participant"
+msgstr ""
+
+#: compotes/templates/compotes/pool_detail.html:23
+msgid "Maxi"
+msgstr ""
+
+#: compotes/templates/compotes/pool_detail.html:24
+msgid "Share"
+msgstr ""
+
+#: compotes/templates/compotes/pool_detail.html:40
+#: compotes/templates/compotes/user_list.html:34
+msgid "List Pools"
+msgstr ""
+
+#: compotes/templates/compotes/pool_list.html:6
+msgid "Pools"
+msgstr ""
+
+#: compotes/templates/compotes/pool_list.html:9
+#: compotes/templates/compotes/user_list.html:8
+msgid "Add a Pool"
+msgstr ""
+
+#: compotes/templates/compotes/user_list.html:16
+msgid "Balance"
+msgstr ""
+
+#: compotes/templates/compotes/user_list.html:17
+msgid "User"
+msgstr ""
+
+#: compotes/views.py:56
+#, python-brace-format
+msgid "Only {form.instance.scribe} can edit this."
+msgstr ""
+
+#: compotes/views.py:111
+#, python-brace-format
+msgid "Only {form.instance.organiser} can edit this."
+msgstr ""
