@@ -19,16 +19,16 @@ class User(AbstractUser):
 
         ordering = ["username"]
 
-    def update(self):
+    def save(self, *args, **kwargs):
         """Update the balance."""
-        debts = query_sum(self.debt_set, "value", output_field=models.FloatField())
+        debts = query_sum(self.debt_set.exclude(part_value=0), "value", output_field=models.FloatField())
         parts = query_sum(self.part_set, "value", output_field=models.FloatField())
         pools = query_sum(
             self.pool_set.exclude(ratio=0), "value", output_field=models.FloatField()
         )
         shares = query_sum(self.share_set, "value", output_field=models.FloatField())
         self.balance = debts + pools - parts - shares
-        self.save()
+        super().save(*args, **kwargs)
 
 
 class Debt(Links, TimeStampedModel):
@@ -56,15 +56,15 @@ class Debt(Links, TimeStampedModel):
         """Url to update self parts."""
         return reverse("parts_update", kwargs={"pk": self.pk})
 
-    def update(self):
+    def save(self, *args, **kwargs):
         """Update part_value, parts, and balances."""
         parts = query_sum(self.part_set, "part", output_field=models.FloatField())
         self.part_value = 0 if parts == 0 else float(self.value) / parts
-        self.save()
+        super().save(*args, **kwargs)
         for part in self.part_set.all():
-            part.update()
+            part.save(allow_rec=False)
         for user in User.objects.filter(Q(part__debt=self) | Q(debt=self)):
-            user.update()
+            user.save()
 
     def get_debitors(self):
         """Get number of parts."""
@@ -84,10 +84,12 @@ class Part(models.Model):
 
         unique_together = ["debt", "debitor"]
 
-    def update(self):
+    def save(self, *args, allow_rec=True, **kwargs):
         """Update value."""
         self.value = self.part * self.debt.part_value
-        self.save()
+        super().save(*args, **kwargs)
+        if allow_rec:
+            self.debt.save()
 
 
 class Pool(Links, TimeStampedModel, NamedModel):
@@ -110,16 +112,15 @@ class Pool(Links, TimeStampedModel, NamedModel):
         """Url to edit ones Share."""
         return reverse("share_update", kwargs={"slug": self.slug})
 
-    def update(self):
+    def save(self, *args, **kwargs):
         """Update ratio, value, shares, and balances."""
         available = query_sum(self.share_set, "maxi", output_field=models.FloatField())
-        if available >= self.value:
-            self.ratio = float(self.value) / available
-            self.save()
-            for share in self.share_set.all():
-                share.update()
-            for user in User.objects.filter(Q(share__pool=self) | Q(pool=self)):
-                user.update()
+        self.ratio = float(self.value) / available if available >= self.value else 0
+        super().save(*args, **kwargs)
+        for share in self.share_set.all():
+            share.save(allow_rec=False)
+        for user in User.objects.filter(Q(share__pool=self) | Q(pool=self)):
+            user.save()
 
 
 class Share(models.Model):
@@ -135,10 +136,12 @@ class Share(models.Model):
 
         unique_together = ["pool", "participant"]
 
-    def update(self):
-        """Update value."""
+    def save(self, *args, allow_rec=True, **kwargs):
+        """Update value, and trigger pool update."""
         self.value = float(self.maxi) * self.pool.ratio
-        self.save()
+        super().save(*args, **kwargs)
+        if allow_rec:
+            self.pool.save()
 
     def get_absolute_url(self):
         """Return to Pool."""

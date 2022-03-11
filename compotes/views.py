@@ -76,7 +76,6 @@ class PartsUpdateView(LoginRequiredMixin, BaseUpdateView, FormView):
     def form_valid(self, form):
         """Save the form without overriding self.object and conclude."""
         form.save()
-        self.object.update()
         return HttpResponseRedirect(self.object.get_absolute_url())
 
 
@@ -110,9 +109,7 @@ class PoolUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
         """Ensure someone is not messing with someone else's debt."""
         if form.instance.organiser != self.request.user:
             raise PermissionDenied(f"Only {form.instance.organiser} can edit this.")
-        ret = super().form_valid(form)
-        self.object.update()
-        return ret
+        return super().form_valid(form)
 
 
 class ShareUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
@@ -126,12 +123,6 @@ class ShareUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
         """Instanciate the Debt/Parts formset."""
         pool = get_object_or_404(Pool, slug=self.kwargs.get(self.slug_url_kwarg))
         return Share.objects.get_or_create(pool=pool, participant=self.request.user)[0]
-
-    def form_valid(self, form):
-        """Save the form without overriding self.object and conclude."""
-        ret = super().form_valid(form)
-        self.object.pool.update()
-        return ret
 
 
 class PoolListView(LoginRequiredMixin, SingleTableView):
