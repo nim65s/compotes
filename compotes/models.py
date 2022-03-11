@@ -19,6 +19,7 @@ class User(AbstractUser):
         """Meta."""
 
         ordering = ["username"]
+        verbose_name = _("User")
 
     def save(self, *args, **kwargs):
         """Update the balance."""
@@ -42,6 +43,11 @@ class Debt(Links, TimeStampedModel):
     value = models.DecimalField(_("value"), max_digits=8, decimal_places=2)
     part_value = models.FloatField(_("part value"), default=0)
     description = models.TextField(_("description"), blank=True)
+
+    class Meta:
+        """Meta."""
+
+        verbose_name = _("Debt")
 
     def __str__(self):
         """Show PK."""
@@ -86,6 +92,7 @@ class Part(models.Model):
         """Meta."""
 
         unique_together = ["debt", "debitor"]
+        verbose_name = _("Part")
 
     def save(self, *args, allow_rec=True, **kwargs):
         """Update value."""
@@ -102,6 +109,11 @@ class Pool(Links, TimeStampedModel, NamedModel):
     description = models.TextField(_("description"), blank=True)
     value = models.DecimalField(_("value"), max_digits=8, decimal_places=2)
     ratio = models.FloatField(_("ratio"), default=0)
+
+    class Meta:
+        """Meta."""
+
+        verbose_name = _("Pool")
 
     def get_absolute_url(self):
         """Url to detail self."""
@@ -138,6 +150,7 @@ class Share(models.Model):
         """Meta."""
 
         unique_together = ["pool", "participant"]
+        verbose_name = _("Share")
 
     def save(self, *args, allow_rec=True, **kwargs):
         """Update value, and trigger pool update."""
