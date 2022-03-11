@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-11 21:12+0000\n"
+"POT-Creation-Date: 2022-03-11 21:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,102 +17,81 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-#: compotes/models.py:16
-#, fuzzy
-#| msgid "Balance"
+#: compotes/models.py:17
 msgid "balance"
 msgstr "Solde"
 
-#: compotes/models.py:22 compotes/templates/compotes/user_list.html:17
+#: compotes/models.py:24 compotes/templates/compotes/user_list.html:17
 msgid "User"
 msgstr "Utilisateur"
 
-#: compotes/models.py:41
-#, fuzzy
-#| msgid "Scribe"
+#: compotes/models.py:46
 msgid "scribe"
 msgstr "Secrétaire"
 
-#: compotes/models.py:42
-#, fuzzy
-#| msgid "Creditor"
+#: compotes/models.py:49
 msgid "creditor"
 msgstr "Créditeur"
 
-#: compotes/models.py:43 compotes/models.py:89 compotes/models.py:110
-#: compotes/models.py:147
-#, fuzzy
-#| msgid "Value"
+#: compotes/models.py:51 compotes/models.py:99 compotes/models.py:122
+#: compotes/models.py:161
 msgid "value"
 msgstr "Valeur"
 
-#: compotes/models.py:44
-#, fuzzy
-#| msgid "Part value"
+#: compotes/models.py:52
 msgid "part value"
 msgstr "Valeur d’une Part"
 
-#: compotes/models.py:45 compotes/models.py:109
+#: compotes/models.py:53 compotes/models.py:121
 msgid "description"
 msgstr "Description"
 
-#: compotes/models.py:50 compotes/templates/compotes/debt_detail.html:5
+#: compotes/models.py:58 compotes/templates/compotes/debt_detail.html:5
 #: compotes/templates/compotes/debt_detail.html:26
 msgid "Debt"
 msgstr "Dette"
 
-#: compotes/models.py:86
+#: compotes/models.py:94
 msgid "debt"
 msgstr "Dette"
 
-#: compotes/models.py:87
-#, fuzzy
-#| msgid "Debitor"
+#: compotes/models.py:96
 msgid "debitor"
 msgstr "Débiteur"
 
-#: compotes/models.py:88
+#: compotes/models.py:98
 msgid "part"
 msgstr "Part"
 
-#: compotes/models.py:95
-#, fuzzy
-#| msgid "Parts"
+#: compotes/models.py:105
 msgid "Part"
 msgstr "Parts"
 
-#: compotes/models.py:108
-#, fuzzy
-#| msgid "Organiser"
+#: compotes/models.py:119
 msgid "organiser"
 msgstr "Organisateur"
 
-#: compotes/models.py:111
-#, fuzzy
-#| msgid "Ratio"
+#: compotes/models.py:123
 msgid "ratio"
 msgstr "Ratio"
 
-#: compotes/models.py:116 compotes/templates/compotes/pool_detail.html:5
+#: compotes/models.py:128 compotes/templates/compotes/pool_detail.html:5
 msgid "Pool"
 msgstr "Cagnotte"
 
-#: compotes/models.py:144
+#: compotes/models.py:156
 msgid "pool"
 msgstr "Cagnotte"
 
-#: compotes/models.py:145
-#, fuzzy
-#| msgid "Participant"
+#: compotes/models.py:158
 msgid "participant"
 msgstr "Participant"
 
-#: compotes/models.py:146
+#: compotes/models.py:160
 msgid "maxi"
 msgstr "maxi"
 
-#: compotes/models.py:153 compotes/templates/compotes/pool_detail.html:24
+#: compotes/models.py:167 compotes/templates/compotes/pool_detail.html:24
 msgid "Share"
 msgstr "Participation"
 
