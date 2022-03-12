@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-11 21:31+0000\n"
+"POT-Creation-Date: 2022-03-12 04:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
 #: compotes/models.py:17
 msgid "balance"
 msgstr "Solde"
@@ -94,6 +95,16 @@ msgstr "maxi"
 #: compotes/models.py:167 compotes/templates/compotes/pool_detail.html:24
 msgid "Share"
 msgstr "Participation"
+
+#: compotes/tables.py:17
+#, fuzzy
+#| msgid "debitor"
+msgid "debitors"
+msgstr "Débiteur"
+
+#: compotes/tables.py:20 compotes/tables.py:49
+msgid "link"
+msgstr "lien"
 
 #: compotes/templates/compotes/_debt_detail.html:4
 msgid "Scribe"

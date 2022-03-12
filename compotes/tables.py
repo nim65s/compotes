@@ -1,6 +1,7 @@
 """Compotes Tables."""
 
 import django_tables2 as tables  # type: ignore
+from django.utils.translation import gettext_lazy as _
 
 from .models import Debt, Pool
 
@@ -13,10 +14,14 @@ END, NBR, EUR = (
 class DebtTable(tables.Table):
     """List Debts."""
 
-    debitors = tables.Column(accessor="get_debitors", orderable=False)
+    debitors = tables.Column(
+        accessor="get_debitors", orderable=False, verbose_name=_("debitors")
+    )
     value = tables.Column(attrs=EUR)
     part_value = tables.Column(attrs=EUR)
-    link = tables.Column(accessor="get_link", orderable=False, attrs=END)
+    link = tables.Column(
+        accessor="get_link", orderable=False, attrs=END, verbose_name=_("link")
+    )
 
     class Meta:
         """Meta."""
@@ -45,7 +50,9 @@ class PoolTable(tables.Table):
 
     value = tables.Column(attrs=EUR)
     ratio = tables.Column(attrs=NBR)
-    link = tables.Column(accessor="get_link", orderable=False, attrs=END)
+    link = tables.Column(
+        accessor="get_link", orderable=False, attrs=END, verbose_name=_("link")
+    )
 
     class Meta:
         """Meta."""
