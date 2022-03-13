@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-12 04:58+0000\n"
+"POT-Creation-Date: 2022-03-13 09:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
 #: compotes/models.py:17
 msgid "balance"
 msgstr "Solde"
@@ -43,12 +42,12 @@ msgstr "Valeur"
 msgid "part value"
 msgstr "Valeur d’une Part"
 
-#: compotes/models.py:53 compotes/models.py:121
+#: compotes/models.py:53 compotes/models.py:100 compotes/models.py:121
 msgid "description"
 msgstr "Description"
 
 #: compotes/models.py:58 compotes/templates/compotes/debt_detail.html:5
-#: compotes/templates/compotes/debt_detail.html:26
+#: compotes/templates/compotes/debt_detail.html:27
 msgid "Debt"
 msgstr "Dette"
 
@@ -96,13 +95,11 @@ msgstr "maxi"
 msgid "Share"
 msgstr "Participation"
 
-#: compotes/tables.py:17
-#, fuzzy
-#| msgid "debitor"
+#: compotes/tables.py:18
 msgid "debitors"
-msgstr "Débiteur"
+msgstr "Débiteurs"
 
-#: compotes/tables.py:20 compotes/tables.py:49
+#: compotes/tables.py:23 compotes/tables.py:54
 msgid "link"
 msgstr "lien"
 
@@ -144,15 +141,19 @@ msgid "Debitor"
 msgstr "Débiteur"
 
 #: compotes/templates/compotes/debt_detail.html:25
+msgid "Description"
+msgstr "Description"
+
+#: compotes/templates/compotes/debt_detail.html:26
 msgid "Parts"
 msgstr "Parts"
 
-#: compotes/templates/compotes/debt_detail.html:41
+#: compotes/templates/compotes/debt_detail.html:43
 #: compotes/templates/compotes/user_list.html:33
 msgid "List Debts"
 msgstr "Historique des Dettes"
 
-#: compotes/templates/compotes/debt_detail.html:42
+#: compotes/templates/compotes/debt_detail.html:44
 #: compotes/templates/compotes/debt_list.html:15
 #: compotes/templates/compotes/pool_detail.html:39
 #: compotes/templates/compotes/pool_list.html:15
