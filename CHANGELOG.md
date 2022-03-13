@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ndh 5.5 (ndh templates moved there)
 - translations
 - possible multiple parts per user for a debt
+- type annotations
 
 ## [v0.3.0] - 2022-02-03
 
