@@ -101,7 +101,6 @@ class Part(models.Model):
     class Meta:
         """Meta."""
 
-        unique_together = ["debt", "debitor"]
         verbose_name = _("Part")
 
     def save(self, *args, allow_rec=True, **kwargs):
