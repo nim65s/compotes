@@ -84,8 +84,8 @@ class Debt(Links, TimeStampedModel):
             user.save()
 
     def get_debitors(self) -> int:
-        """Get number of parts."""
-        return self.part_set.count()
+        """Get number of debitors."""
+        return User.objects.filter(part__debt=self).distinct().count()
 
 
 class Part(models.Model):
