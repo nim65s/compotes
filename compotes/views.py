@@ -2,8 +2,8 @@
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.db.models import Q, QuerySet
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DetailView, ListView, FormView, UpdateView
@@ -38,7 +38,7 @@ class DebtCreateView(LoginRequiredMixin, NDHFormMixin, CreateView):
     fields = ["creditor", "description", "value"]
     title = _("Add a Debt")
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         """Document scribe."""
         form.instance.scribe = self.request.user
         return super().form_valid(form)
@@ -51,7 +51,7 @@ class DebtUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
     fields = ["creditor", "description", "value"]
     title = "Update a debt"
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         """Ensure someone is not messing with someone else's debt."""
         if form.instance.scribe != self.request.user:
             raise PermissionDenied(_(f"Only {form.instance.scribe} can edit this."))
@@ -87,7 +87,7 @@ class PoolCreateView(LoginRequiredMixin, NDHFormMixin, CreateView):
     fields = ["name", "description", "value"]
     title = _("Add a Pool")
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         """Document organiser."""
         form.instance.organiser = self.request.user
         return super().form_valid(form)
@@ -106,7 +106,7 @@ class PoolUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
     fields = ["name", "description", "value"]
     title = "Update a pool"
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         """Ensure someone is not messing with someone else's debt."""
         if form.instance.organiser != self.request.user:
             raise PermissionDenied(_(f"Only {form.instance.organiser} can edit this."))
@@ -120,7 +120,7 @@ class ShareUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
     fields = ["maxi"]
     title = "Update my share"
 
-    def get_object(self, queryset=None):
+    def get_object(self, queryset=None) -> Share:
         """Instanciate the Debt/Parts formset."""
         pool = get_object_or_404(Pool, slug=self.kwargs.get(self.slug_url_kwarg))
         return Share.objects.get_or_create(pool=pool, participant=self.request.user)[0]
@@ -132,7 +132,7 @@ class PoolListView(LoginRequiredMixin, SingleTableView):
     model = Pool
     table_class = PoolTable
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
         """Show only those the user knows."""
         return self.model.objects.filter(
             Q(organiser=self.request.user) | Q(share__participant=self.request.user)

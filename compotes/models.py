@@ -57,19 +57,19 @@ class Debt(Links, TimeStampedModel):
 
         verbose_name = _("Debt")
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Show PK."""
         return f"debt {self.pk}"
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         """Url to detail self."""
         return reverse("debt_detail", kwargs={"pk": self.pk})
 
-    def get_edit_url(self):
+    def get_edit_url(self) -> str:
         """Url to edit self."""
         return reverse("debt_update", kwargs={"pk": self.pk})
 
-    def get_parts_url(self):
+    def get_parts_url(self) -> str:
         """Url to update self parts."""
         return reverse("parts_update", kwargs={"pk": self.pk})
 
@@ -83,7 +83,7 @@ class Debt(Links, TimeStampedModel):
         for user in User.objects.filter(Q(part__debt=self) | Q(debt=self)):
             user.save()
 
-    def get_debitors(self):
+    def get_debitors(self) -> int:
         """Get number of parts."""
         return self.part_set.count()
 
@@ -127,15 +127,15 @@ class Pool(Links, TimeStampedModel, NamedModel):
 
         verbose_name = _("Pool")
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         """Url to detail self."""
         return reverse("pool_detail", kwargs={"slug": self.slug})
 
-    def get_edit_url(self):
+    def get_edit_url(self) -> str:
         """Url to edit self."""
         return reverse("pool_update", kwargs={"slug": self.slug})
 
-    def get_share_url(self):
+    def get_share_url(self) -> str:
         """Url to edit ones Share."""
         return reverse("share_update", kwargs={"slug": self.slug})
 
@@ -173,6 +173,6 @@ class Share(models.Model):
         if allow_rec:
             self.pool.save()
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         """Return to Pool."""
         return self.pool.get_absolute_url()

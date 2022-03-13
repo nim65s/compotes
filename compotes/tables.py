@@ -40,7 +40,7 @@ class DebtTable(tables.Table):
         template_name = "ndh/tables.html"
         ordering = "updated"
 
-    def render_part_value(self, value):
+    def render_part_value(self, value) -> str:
         """Format .2f."""
         return f"{value:.2f}"
 
@@ -63,6 +63,6 @@ class PoolTable(tables.Table):
         template_name = "ndh/tables.html"
         order_by = "updated"
 
-    def render_ratio(self, value):
+    def render_ratio(self, value) -> str:
         """Format .3f."""
         return f"{value:.3f}"
