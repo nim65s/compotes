@@ -22,6 +22,7 @@
   <thead>
     <tr>
       <th scope="col">{% translate "Debitor" %}</th>
+      <th scope="col">{% translate "Description" %}</th>
       <th scope="col" class="text-center">{% translate "Parts" %}</th>
       <th scope="col" class="text-end">{% translate "Debt" %}</th>
     </tr>
@@ -30,6 +31,7 @@
     {% for part in debt.part_set.all %}
     <tr>
       <td>{{ part.debitor }}</td>
+      <td>{{ part.description }}</td>
       <td class="nombre text-center">{{ part.part }}</td>
       <td class="euro">{{ part.value|floatformat:2 }}</td>
     </tr>
