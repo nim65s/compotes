@@ -19,7 +19,7 @@ DOMAIN_NAME = os.environ.get("DOMAIN_NAME", "localhost")
 HOSTNAME = os.environ.get("ALLOWED_HOST", f"{PROJECT}.{DOMAIN_NAME}")
 ALLOWED_HOSTS = [HOSTNAME, f"{HOSTNAME}:8000"]
 CSRF_TRUSTED_ORIGINS = [
-    "http://" if DEBUG else "https://" + host for host in ALLOWED_HOSTS
+    ("http://" if DEBUG else "https://") + host for host in ALLOWED_HOSTS
 ]
 
 # Application definition
