@@ -17,6 +17,9 @@ class DebtTable(tables.Table):
     debitors = tables.Column(
         accessor="get_debitors", orderable=False, verbose_name=_("debitors")
     )
+    parts = tables.Column(
+        accessor="get_parts", orderable=False, verbose_name=_("parts")
+    )
     value = tables.Column(attrs=EUR)
     part_value = tables.Column(attrs=EUR)
     link = tables.Column(
@@ -33,6 +36,7 @@ class DebtTable(tables.Table):
             "scribe",
             "creditor",
             "debitors",
+            "parts",
             "value",
             "part_value",
             "link",
