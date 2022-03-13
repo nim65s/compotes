@@ -66,7 +66,7 @@ msgstr "Part"
 
 #: compotes/models.py:105
 msgid "Part"
-msgstr "Parts"
+msgstr "Part"
 
 #: compotes/models.py:119
 msgid "organiser"
