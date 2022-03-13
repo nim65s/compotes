@@ -15,15 +15,15 @@ class DebtTable(tables.Table):
     """List Debts."""
 
     debitors = tables.Column(
-        accessor="get_debitors", orderable=False, verbose_name=_("debitors")
+        accessor="get_debitors", orderable=False, verbose_name=_("Debitors")
     )
     parts = tables.Column(
-        accessor="get_parts", orderable=False, verbose_name=_("parts")
+        accessor="get_parts", orderable=False, verbose_name=_("Parts")
     )
     value = tables.Column(attrs=EUR)
     part_value = tables.Column(attrs=EUR)
     link = tables.Column(
-        accessor="get_link", orderable=False, attrs=END, verbose_name=_("link")
+        accessor="get_link", orderable=False, attrs=END, verbose_name=_("Link")
     )
 
     class Meta:
@@ -55,7 +55,7 @@ class PoolTable(tables.Table):
     value = tables.Column(attrs=EUR)
     ratio = tables.Column(attrs=NBR)
     link = tables.Column(
-        accessor="get_link", orderable=False, attrs=END, verbose_name=_("link")
+        accessor="get_link", orderable=False, attrs=END, verbose_name=_("Link")
     )
 
     class Meta:

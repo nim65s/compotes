@@ -14,7 +14,7 @@ class User(AbstractUser):
     """Placeholder."""
 
     balance = models.DecimalField(
-        _("balance"), max_digits=8, decimal_places=2, default=0
+        _("Balance"), max_digits=8, decimal_places=2, default=0
     )
 
     class Meta:
@@ -43,14 +43,14 @@ class Debt(Links, TimeStampedModel):
     """Declare a debt amount."""
 
     scribe = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name="+", verbose_name=_("scribe")
+        User, on_delete=models.PROTECT, related_name="+", verbose_name=_("Scribe")
     )
     creditor = models.ForeignKey(
-        User, on_delete=models.PROTECT, verbose_name=_("creditor")
+        User, on_delete=models.PROTECT, verbose_name=_("Creditor")
     )
-    value = models.DecimalField(_("value"), max_digits=8, decimal_places=2)
-    part_value = models.FloatField(_("part value"), default=0)
-    description = models.TextField(_("description"), blank=True)
+    value = models.DecimalField(_("Value"), max_digits=8, decimal_places=2)
+    part_value = models.FloatField(_("Part value"), default=0)
+    description = models.TextField(_("Description"), blank=True)
 
     class Meta:
         """Meta."""
@@ -95,13 +95,13 @@ class Debt(Links, TimeStampedModel):
 class Part(models.Model):
     """Part of a Debt."""
 
-    debt = models.ForeignKey(Debt, on_delete=models.PROTECT, verbose_name=_("debt"))
+    debt = models.ForeignKey(Debt, on_delete=models.PROTECT, verbose_name=_("Debt"))
     debitor = models.ForeignKey(
-        User, on_delete=models.PROTECT, verbose_name=_("debitor")
+        User, on_delete=models.PROTECT, verbose_name=_("Debitor")
     )
-    part = models.FloatField(_("part"), default=1)
-    value = models.FloatField(_("value"), default=0)
-    description = models.CharField(_("description"), max_length=1000, blank=True)
+    part = models.FloatField(_("Part"), default=1)
+    value = models.FloatField(_("Value"), default=0)
+    description = models.CharField(_("Description"), max_length=1000, blank=True)
 
     class Meta:
         """Meta."""
@@ -120,11 +120,11 @@ class Pool(Links, TimeStampedModel, NamedModel):
     """Create a crowd funding."""
 
     organiser = models.ForeignKey(
-        User, on_delete=models.PROTECT, verbose_name=_("organiser")
+        User, on_delete=models.PROTECT, verbose_name=_("Organiser")
     )
-    description = models.TextField(_("description"), blank=True)
-    value = models.DecimalField(_("value"), max_digits=8, decimal_places=2)
-    ratio = models.FloatField(_("ratio"), default=0)
+    description = models.TextField(_("Description"), blank=True)
+    value = models.DecimalField(_("Value"), max_digits=8, decimal_places=2)
+    ratio = models.FloatField(_("Ratio"), default=0)
 
     class Meta:
         """Meta."""
@@ -157,12 +157,12 @@ class Pool(Links, TimeStampedModel, NamedModel):
 class Share(models.Model):
     """Share of a crowd funding."""
 
-    pool = models.ForeignKey(Pool, on_delete=models.PROTECT, verbose_name=_("pool"))
+    pool = models.ForeignKey(Pool, on_delete=models.PROTECT, verbose_name=_("Pool"))
     participant = models.ForeignKey(
-        User, on_delete=models.PROTECT, verbose_name=_("participant")
+        User, on_delete=models.PROTECT, verbose_name=_("Participant")
     )
-    maxi = models.DecimalField(_("maxi"), max_digits=8, decimal_places=2, default=0)
-    value = models.FloatField(_("value"), default=0)
+    maxi = models.DecimalField(_("Maxi"), max_digits=8, decimal_places=2, default=0)
+    value = models.FloatField(_("Value"), default=0)
 
     class Meta:
         """Meta."""
