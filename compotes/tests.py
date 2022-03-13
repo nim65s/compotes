@@ -34,6 +34,11 @@ class CompotesTests(TestCase):
         )
         self.assertLess(total, Decimal("0.02"))
         self.assertGreater(total, Decimal("-0.02"))
+        self.assertEqual(str(debt), "debt 1")
+        self.assertEqual(debt.get_absolute_url(), "/debt/1")
+        self.assertEqual(debt.get_edit_url(), "/debt/1/update")
+        self.assertEqual(debt.get_parts_url(), "/debt/1/parts")
+        self.assertEqual(debt.get_debitors(), 4)
 
     def test_models_pool(self):
         """Test 100€ pool for 4 users ready to give 30€ each, CLI only."""
@@ -53,6 +58,21 @@ class CompotesTests(TestCase):
             ),
             0,
         )
+        self.assertEqual(pool.get_absolute_url(), "/pool/smth")
+        self.assertEqual(pool.get_edit_url(), "/pool/smth/update")
+        self.assertEqual(pool.get_share_url(), "/pool/smth/share")
+        self.assertEqual(
+            pool.share_set.first().get_absolute_url(), pool.get_absolute_url()
+        )
+
+    def test_multiple_parts_per_user(self):
+        """Test 109€ debt for 20x4 users, with one of those users having another 29."""
+        creditor = User.objects.first()
+        debt = Debt.objects.create(scribe=creditor, creditor=creditor, value=109)
+        for user in User.objects.all():
+            Part.objects.create(debt=debt, debitor=user, part=20, description="first")
+        Part.objects.create(debt=debt, debitor=user, part=29, description="second")
+        self.assertEqual(debt.part_value, 1)
 
     def test_rand(self):
         """Generate random data, check balances."""

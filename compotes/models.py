@@ -97,6 +97,7 @@ class Part(models.Model):
     )
     part = models.FloatField(_("part"), default=1)
     value = models.FloatField(_("value"), default=0)
+    description = models.CharField(_("description"), max_length=1000, blank=True)
 
     class Meta:
         """Meta."""
