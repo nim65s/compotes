@@ -25,17 +25,22 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         """Update the balance."""
-        debts = query_sum(
-            self.debt_set.exclude(part_value=0),
-            "value",
-            output_field=models.FloatField(),
-        )
-        parts = query_sum(self.part_set, "value", output_field=models.FloatField())
-        pools = query_sum(
-            self.pool_set.exclude(ratio=0), "value", output_field=models.FloatField()
-        )
-        shares = query_sum(self.share_set, "value", output_field=models.FloatField())
-        self.balance = debts + pools - parts - shares
+        if self.pk:
+            debts = query_sum(
+                self.debt_set.exclude(part_value=0),
+                "value",
+                output_field=models.FloatField(),
+            )
+            parts = query_sum(self.part_set, "value", output_field=models.FloatField())
+            pools = query_sum(
+                self.pool_set.exclude(ratio=0),
+                "value",
+                output_field=models.FloatField(),
+            )
+            shares = query_sum(
+                self.share_set, "value", output_field=models.FloatField()
+            )
+            self.balance = debts + pools - parts - shares
         super().save(*args, **kwargs)
 
 
@@ -75,8 +80,9 @@ class Debt(Links, TimeStampedModel):
 
     def save(self, *args, **kwargs):
         """Update part_value, parts, and balances."""
-        parts = query_sum(self.part_set, "part", output_field=models.FloatField())
-        self.part_value = 0 if parts == 0 else float(self.value) / parts
+        if self.pk:
+            parts = query_sum(self.part_set, "part", output_field=models.FloatField())
+            self.part_value = 0 if parts == 0 else float(self.value) / parts
         super().save(*args, **kwargs)
         for part in self.part_set.all():
             part.save(allow_rec=False)
@@ -145,8 +151,11 @@ class Pool(Links, TimeStampedModel, NamedModel):
 
     def save(self, *args, **kwargs):
         """Update ratio, value, shares, and balances."""
-        available = query_sum(self.share_set, "maxi", output_field=models.FloatField())
-        self.ratio = float(self.value) / available if available >= self.value else 0
+        if self.pk:
+            available = query_sum(
+                self.share_set, "maxi", output_field=models.FloatField()
+            )
+            self.ratio = float(self.value) / available if available >= self.value else 0
         super().save(*args, **kwargs)
         for share in self.share_set.all():
             share.save(allow_rec=False)
