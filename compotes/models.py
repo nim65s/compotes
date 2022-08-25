@@ -1,11 +1,16 @@
 """Compotes models."""
 
+from smtplib import SMTPException
+
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
+from django.core.mail import mail_admins
 from django.db import models
 from django.db.models import Q
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+from dmdm import send_mail
 from ndh.models import Links, TimeStampedModel, NamedModel
 from ndh.utils import query_sum
 
@@ -23,9 +28,11 @@ class User(AbstractUser):
         ordering = ["username"]
         verbose_name = _("User")
 
-    def save(self, *args, **kwargs):
+    def save(self, updated=None, *args, **kwargs):
         """Update the balance."""
+        old = 0
         if self.pk:
+            old = self.balance
             debts = query_sum(
                 self.debt_set.exclude(part_value=0),
                 "value",
@@ -42,6 +49,19 @@ class User(AbstractUser):
             )
             self.balance = debts + pools - parts - shares
         super().save(*args, **kwargs)
+        if updated and old != self.balance:
+            message = f"{updated.get_full_md_link()} was updated.\n"
+            message += f"Your balance was updated from {old} to {self.balance}"
+            try:
+                send_mail(
+                    "Updated balance",
+                    message,
+                    settings.DEFAULT_FROM_EMAIL,
+                    [self.email],
+                    reply_to=[settings.ADMINS[0][1]],
+                )
+            except SMTPException:
+                mail_admins("SMTP Exception", message)
 
 
 class Debt(Links, TimeStampedModel):
@@ -87,7 +107,7 @@ class Debt(Links, TimeStampedModel):
         for part in self.part_set.all():
             part.save(allow_rec=False)
         for user in User.objects.filter(Q(part__debt=self) | Q(debt=self)):
-            user.save()
+            user.save(updated=self)
 
     def get_debitors(self) -> int:
         """Get number of debitors."""
@@ -160,7 +180,7 @@ class Pool(Links, TimeStampedModel, NamedModel):
         for share in self.share_set.all():
             share.save(allow_rec=False)
         for user in User.objects.filter(Q(share__pool=self) | Q(pool=self)):
-            user.save()
+            user.save(updated=self)
 
 
 class Share(models.Model):
