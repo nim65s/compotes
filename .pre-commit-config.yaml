@@ -26,17 +26,17 @@ repos:
     rev: v1.0.0
     hooks:
     -   id: check-gitlab-ci
--   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.971
-    hooks:
-    -   id: mypy
-        additional_dependencies:
-        -   django-autoslug
-        -   django-bootstrap5
-        -   django-stubs
-        -   django-tables2
-        -   types-setuptools
-        -   ndh
+#-   repo: https://github.com/pre-commit/mirrors-mypy
+    #rev: v0.971
+    #hooks:
+    #-   id: mypy
+        #additional_dependencies:
+        #-   django-autoslug
+        #-   django-bootstrap5
+        #-   django-stubs
+        #-   django-tables2
+        #-   types-setuptools
+        #-   ndh
 -   repo: https://github.com/psf/black
     rev: 22.6.0
     hooks:
