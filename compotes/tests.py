@@ -187,3 +187,67 @@ class CompotesTests(TestCase):
         self.assertIn("from 0.00 € to -20.0 €", mail.outbox[1].body)
         self.assertIn("Hi c", mail.outbox[2].body)
         self.assertIn("from 0.00 € to -30.0 €", mail.outbox[2].body)
+
+    def test_views(self):
+        """Check missing views."""
+        # Check an user can't update another's debt
+        debt = {"creditor": 1, "description": "test", "value": 30}
+        self.client.login(username="a", password="a")  # they can
+        self.client.post(reverse("debt_create"), debt)
+        self.assertEqual(Debt.objects.first().value, 30)
+        debt["value"] = 50
+        r = self.client.post(reverse("debt_update", kwargs={"pk": 1}), debt)
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(r.url, "/debt/1")
+        self.assertEqual(Debt.objects.first().value, 50)
+        self.client.login(username="b", password="b")  # they can't
+        debt["value"] = 40
+        r = self.client.post(reverse("debt_update", kwargs={"pk": 1}), debt)
+        self.assertEqual(r.status_code, 403)
+        self.assertEqual(Debt.objects.first().value, 50)
+
+        # Check an user can't update another's pool
+        pool = {"name": "z", "description": "test", "value": 30}
+        self.client.login(username="a", password="a")  # they can
+        self.client.post(reverse("pool_create"), pool)
+        self.assertEqual(Pool.objects.first().value, 30)
+        pool["value"] = 50
+        r = self.client.post(reverse("pool_update", kwargs={"slug": "z"}), pool)
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(r.url, "/pool/z")
+        self.assertEqual(Pool.objects.first().value, 50)
+        self.client.login(username="b", password="b")  # they can't
+        pool["value"] = 40
+        r = self.client.post(reverse("pool_update", kwargs={"slug": "z"}), pool)
+        self.assertEqual(r.status_code, 403)
+        self.assertEqual(Pool.objects.first().value, 50)
+
+        # Check debt table
+        r = self.client.get(reverse("debt_list"))
+
+    def test_pool_list(self):
+        """Check an user can see the Pool they create, share, but nothing more."""
+        a, b, c, d = User.objects.all()
+        z = Pool.objects.create(name="z", organiser=a, description="z", value=100)
+        y = Pool.objects.create(name="y", organiser=b, description="y", value=100)
+        Share.objects.create(pool=z, participant=a, maxi=50)
+        Share.objects.create(pool=z, participant=b, maxi=50)
+        Share.objects.create(pool=z, participant=c, maxi=50)
+        Share.objects.create(pool=y, participant=a, maxi=50)
+        Share.objects.create(pool=y, participant=d, maxi=50)
+        self.client.login(username="a", password="a")
+        page = self.client.get(reverse("pool_list")).content.decode()
+        self.assertIn("pool/z", page)
+        self.assertIn("pool/y", page)
+        self.client.login(username="b", password="b")
+        page = self.client.get(reverse("pool_list")).content.decode()
+        self.assertIn("pool/z", page)
+        self.assertIn("pool/y", page)
+        self.client.login(username="c", password="c")
+        page = self.client.get(reverse("pool_list")).content.decode()
+        self.assertIn("pool/z", page)
+        self.assertNotIn("pool/y", page)
+        self.client.login(username="d", password="d")
+        page = self.client.get(reverse("pool_list")).content.decode()
+        self.assertNotIn("pool/z", page)
+        self.assertIn("pool/y", page)

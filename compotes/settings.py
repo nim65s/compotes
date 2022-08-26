@@ -12,7 +12,7 @@ PROJECT_VERBOSE = PROJECT.capitalize()
 DEBUG = os.environ.get("DEBUG", "True").lower() == "true"
 if DEBUG:
     SECRET_KEY = "django-insecure-un&^-yd2(xdo#_@or@obzh)trtweg))^oegpor8@=$srjplaz1"
-else:
+else:  # pragma: no cover
     SECRET_KEY = os.environ["SECRET_KEY"]
 
 DOMAIN_NAME = os.environ.get("DOMAIN_NAME", "localhost")
@@ -80,7 +80,7 @@ DATABASES = {
         "NAME": BASE_DIR / DB,
     }
 }
-if DB == "postgres":
+if DB == "postgres":  # pragma: no cover
     DATABASES["default"].update(
         ENGINE="django.db.backends.postgresql",
         NAME=os.environ.get("POSTGRES_DB", DB),
