@@ -77,7 +77,7 @@ class CompotesTests(TestCase):
         Part.objects.create(debt=debt, debitor=user, part=29, description="second")
         self.assertEqual(debt.part_value, 1)
         self.assertEqual(debt.get_debitors(), 4)
-        self.assertEqual(debt.get_parts(), 5)
+        self.assertEqual(debt.get_parts(), 109)
 
     def test_rand(self):
         """Generate random data, check balances."""

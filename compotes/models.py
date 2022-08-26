@@ -134,7 +134,7 @@ class Debt(Links, TimeStampedModel):
 
     def get_parts(self) -> int:
         """Get number of parts."""
-        return self.part_set.count()
+        return query_sum(self.part_set, "part", output_field=models.FloatField())
 
 
 class Part(models.Model):
