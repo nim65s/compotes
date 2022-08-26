@@ -16,7 +16,7 @@ jobs:
           poetry install --no-interaction --no-ansi
       - run: flake8 .
       - run: black .
-      - run: mypy .
+      #- run: mypy .
       - run: pydocstyle
       - run: safety check
       - run: poetry check
