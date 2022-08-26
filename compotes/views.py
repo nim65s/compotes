@@ -49,7 +49,7 @@ class DebtUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
 
     model = Debt
     fields = ["creditor", "description", "value"]
-    title = "Update a debt"
+    title = _("Edit a debt")
 
     def form_valid(self, form) -> HttpResponse:
         """Ensure someone is not messing with someone else's debt."""
@@ -105,7 +105,7 @@ class PoolUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
 
     model = Pool
     fields = ["name", "description", "value"]
-    title = "Update a pool"
+    title = _("Edit a pool")
 
     def form_valid(self, form) -> HttpResponse:
         """Ensure someone is not messing with someone else's debt."""
@@ -119,7 +119,7 @@ class ShareUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
 
     model = Share
     fields = ["maxi"]
-    title = "Update my share"
+    title = _("Edit my share")
 
     def get_object(self, queryset=None) -> Share:
         """Instanciate the Debt/Parts formset."""
