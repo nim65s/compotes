@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.0.0] - 2022-08-26
+
 - update → save
 - ndh 5.5 (ndh templates moved there)
 - translations
@@ -32,7 +34,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial version
 
 
-[Unreleased]: https://github.com/nim65s/comptes/compare/v0.3.0...main
+[Unreleased]: https://github.com/nim65s/comptes/compare/v1.0.0...main
+[v1.0.0]: https://github.com/nim65s/dmdm/compare/v0.3.0...v1.0.0
 [v0.3.0]: https://github.com/nim65s/dmdm/compare/v0.2.2...v0.3.0
 [v0.2.2]: https://github.com/nim65s/dmdm/compare/v0.2.1...v0.2.2
 [v0.2.1]: https://github.com/nim65s/dmdm/compare/v0.2.0...v0.2.1
