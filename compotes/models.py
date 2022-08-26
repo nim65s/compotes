@@ -50,8 +50,9 @@ class User(AbstractUser):
             self.balance = debts + pools - parts - shares
         super().save(*args, **kwargs)
         if updated and old != self.balance:
-            message = f"{updated.get_full_md_link()} was updated.\n"
-            message += f"Your balance was updated from {old} to {self.balance}"
+            message = f"Hi {self},\n\n"
+            message += f"{updated.get_full_md_link()} was updated.\n"
+            message += f"Your balance was updated from {old} € to {self.balance} €"
             try:
                 send_mail(
                     "Updated balance",
@@ -60,7 +61,7 @@ class User(AbstractUser):
                     [self.email],
                     reply_to=[settings.ADMINS[0][1]],
                 )
-            except SMTPException:
+            except SMTPException:  # pragma: no cover
                 mail_admins("SMTP Exception", message)
 
 

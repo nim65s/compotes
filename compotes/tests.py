@@ -3,8 +3,10 @@
 from decimal import Decimal
 from random import randint
 
+from django.core import mail
 from django.db import models
 from django.test import TestCase
+from django.urls import reverse
 
 from ndh.utils import query_sum
 
@@ -96,3 +98,92 @@ class CompotesTests(TestCase):
         )
         self.assertLess(total, Decimal("0.02"))
         self.assertGreater(total, Decimal("-0.02"))
+
+    def test_debt_views_mails(self):
+        """Check debt views and sent mails."""
+        self.assertEqual(len(mail.outbox), 0)
+
+        # Client not logged in
+        r = self.client.get(reverse("debt_create"))
+        self.assertEqual(r.status_code, 302)
+        self.assertIn("accounts/login", r.url)
+
+        # Create Debt
+        self.client.login(username="a", password="a")
+        r = self.client.get(reverse("debt_create"))
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(Debt.objects.count(), 0)
+        debt = {"creditor": 1, "description": "test", "value": 30}
+        r = self.client.post(reverse("debt_create"), debt)
+        self.assertEqual(Debt.objects.count(), 1)
+
+        # No balance change → no mails
+        self.assertEqual(len(mail.outbox), 0)
+
+        # Add parts
+        parts = {
+            "part_set-TOTAL_FORMS": 2,
+            "part_set-INITIAL_FORMS": 0,
+            "part_set-MIN_NUM_FORMS": 0,
+            "part_set-MAX_NUM_FORMS": 1000,
+            "part_set-0-debitor": 1,
+            "part_set-0-part": 1,
+            "part_set-0-description": "aha",
+            "part_set-0-id": "",
+            "part_set-0-debt": 1,
+            "part_set-1-debitor": 2,
+            "part_set-1-part": 2,
+            "part_set-1-description": "bhb",
+            "part_set-1-id": "",
+            "part_set-1-debt": 1,
+        }
+        self.assertEqual(Part.objects.count(), 0)
+        r = self.client.post(reverse("parts_update", kwargs={"pk": 1}), parts)
+        self.assertEqual(Part.objects.count(), 2)
+
+        # balance change for 2 users
+        self.assertEqual(len(mail.outbox), 2)
+        self.assertIn("Hi a", mail.outbox[0].body)
+        self.assertIn("from 0.00 € to 20.0 €", mail.outbox[0].body)
+        self.assertIn("Hi b", mail.outbox[1].body)
+        self.assertIn("from 0.00 € to -20.0 €", mail.outbox[1].body)
+
+    def test_pool_views_mails(self):
+        """Check pool views and sent mails."""
+        self.assertEqual(len(mail.outbox), 0)
+
+        # Client not logged in
+        r = self.client.get(reverse("pool_create"))
+        self.assertEqual(r.status_code, 302)
+        self.assertIn("accounts/login", r.url)
+
+        # Create Pool
+        self.client.login(username="a", password="a")
+        r = self.client.get(reverse("pool_create"))
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(Pool.objects.count(), 0)
+        pool = {"name": "z", "description": "test", "value": 60}
+        r = self.client.post(reverse("pool_create"), pool)
+        self.assertEqual(Pool.objects.count(), 1)
+
+        # No balance change → no mails
+        self.assertEqual(len(mail.outbox), 0)
+
+        # Add shares
+        self.assertEqual(Share.objects.count(), 0)
+        url = reverse("share_update", kwargs={"slug": "z"})
+        r = self.client.post(url, {"maxi": 10})
+        self.client.login(username="b", password="b")
+        r = self.client.post(url, {"maxi": 20})
+        self.client.login(username="c", password="c")
+        r = self.client.post(url, {"maxi": 30})
+        self.assertEqual(Share.objects.count(), 3)
+
+        # balance change for 3 users
+        self.assertEqual(len(mail.outbox), 3)
+        self.assertIn("Hi a", mail.outbox[0].body)
+        self.assertIn("from 0.00 € to 50.0 €", mail.outbox[0].body)
+        self.assertIn("Hi b", mail.outbox[1].body)
+        self.assertIn("from 0.00 € to -20.0 €", mail.outbox[1].body)
+        self.assertIn("Hi c", mail.outbox[2].body)
+        self.assertIn("from 0.00 € to -30.0 €", mail.outbox[2].body)
