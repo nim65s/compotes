@@ -179,7 +179,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "distlib"
-version = "0.3.5"
+version = "0.3.6"
 description = "Distribution utilities"
 category = "dev"
 optional = false
@@ -483,7 +483,7 @@ python-versions = "*"
 
 [[package]]
 name = "ndh"
-version = "5.6.0"
+version = "5.7.1"
 description = "Nim's Django Helpers"
 category = "main"
 optional = false
@@ -875,7 +875,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "9267b767ffd0452c3b72a0970c827d542aaaf50634f5f966f51cc1e64c1a5a0f"
+content-hash = "01644801de3004ebccd37051e0445207527617977a2510487e8c7ffa4d56d3dc"
 
 [metadata.files]
 appnope = [
@@ -1018,8 +1018,8 @@ decorator = [
     {file = "decorator-5.1.1.tar.gz", hash = "sha256:637996211036b6385ef91435e4fae22989472f9d571faba8927ba8253acbc330"},
 ]
 distlib = [
-    {file = "distlib-0.3.5-py2.py3-none-any.whl", hash = "sha256:b710088c59f06338ca514800ad795a132da19fda270e3ce4affc74abf955a26c"},
-    {file = "distlib-0.3.5.tar.gz", hash = "sha256:a7f75737c70be3b25e2bee06288cec4e4c221de18455b2dd037fe2a795cab2fe"},
+    {file = "distlib-0.3.6-py2.py3-none-any.whl", hash = "sha256:f35c4b692542ca110de7ef0bea44d73981caeb34ca0b9b6b2e6d7790dda8f80e"},
+    {file = "distlib-0.3.6.tar.gz", hash = "sha256:14bad2d9b04d3a36127ac97f30b12a19268f211063d8f8ee4f47108896e11b46"},
 ]
 django = [
     {file = "Django-4.1-py3-none-any.whl", hash = "sha256:031ccb717782f6af83a0063a1957686e87cb4581ea61b47b3e9addf60687989a"},
@@ -1177,8 +1177,8 @@ mypy-extensions = [
     {file = "mypy_extensions-0.4.3.tar.gz", hash = "sha256:2d82818f5bb3e369420cb3c4060a7970edba416647068eb4c5343488a6c604a8"},
 ]
 ndh = [
-    {file = "ndh-5.6.0-py3-none-any.whl", hash = "sha256:dea08f2ba7bf172fdfacc1d78bb8fcb4b5aa30d922a08787a4600539f6daea36"},
-    {file = "ndh-5.6.0.tar.gz", hash = "sha256:edd010afc4fb6859a802e5e080114718cb13094555d24dfb3338324f54315d18"},
+    {file = "ndh-5.7.1-py3-none-any.whl", hash = "sha256:042a46f8133cad8b63e7b08e0d1a52cdad63ac4f2cafeef2072c3b89c1ec6dcd"},
+    {file = "ndh-5.7.1.tar.gz", hash = "sha256:7d7c5cf6b0e12bdfad40e0e762c0f851fa78f9769578a2e16d1a7b005899eee2"},
 ]
 nodeenv = [
     {file = "nodeenv-1.7.0-py2.py3-none-any.whl", hash = "sha256:27083a7b96a25f2f5e1d8cb4b6317ee8aeda3bdd121394e5ac54e498028a042e"},

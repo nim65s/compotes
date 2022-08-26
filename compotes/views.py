@@ -64,11 +64,12 @@ class DebtDetailView(LoginRequiredMixin, DetailView):
     model = Debt
 
 
-class PartsUpdateView(LoginRequiredMixin, BaseUpdateView, FormView):
+class PartsUpdateView(LoginRequiredMixin, NDHFormMixin, BaseUpdateView, FormView):
     """Update a debt parts."""
 
     model = Debt
     template_name = "compotes/parts_form.html"
+    continue_edit = True
 
     def get_form(self, form_class=None):
         """Instanciate the Debt/Parts formset."""
