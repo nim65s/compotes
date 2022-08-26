@@ -78,7 +78,7 @@ class PartsUpdateView(LoginRequiredMixin, NDHFormMixin, BaseUpdateView, FormView
     def form_valid(self, form):
         """Save the form without overriding self.object and conclude."""
         form.save()
-        return HttpResponseRedirect(self.object.get_absolute_url())
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class PoolCreateView(LoginRequiredMixin, NDHFormMixin, CreateView):
