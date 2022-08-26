@@ -4,6 +4,7 @@ from decimal import Decimal
 from random import randint
 
 from django.core import mail
+from django.core.management import call_command
 from django.db import models
 from django.test import TestCase
 from django.urls import reverse
@@ -251,3 +252,43 @@ class CompotesTests(TestCase):
         page = self.client.get(reverse("pool_list")).content.decode()
         self.assertNotIn("pool/z", page)
         self.assertIn("pool/y", page)
+
+    def test_reminder(self):
+        """Run the "reminder" management command."""
+        # Get some data
+        a, b, c, d = User.objects.all()
+        z = Pool.objects.create(name="z", organiser=a, description="z", value=100)
+        y = Pool.objects.create(name="y", organiser=b, description="y", value=100)
+        Share.objects.create(pool=z, participant=a, maxi=50)
+        Share.objects.create(pool=z, participant=b, maxi=50)
+        Share.objects.create(pool=z, participant=c, maxi=50)
+        Share.objects.create(pool=y, participant=a, maxi=50)
+        Share.objects.create(pool=y, participant=d, maxi=50)
+
+        # Call the command
+        mail.outbox = []
+        call_command("reminder")
+        self.assertEqual(len(mail.outbox), 4)
+        self.assertIn("Hi a", mail.outbox[0].body)
+        self.assertIn("is 16.67 €", mail.outbox[0].body)
+        self.assertIn("Hi b", mail.outbox[1].body)
+        self.assertIn("is 66.67 €", mail.outbox[1].body)
+        self.assertIn("Hi c", mail.outbox[2].body)
+        self.assertIn("is -33.33 €", mail.outbox[2].body)
+        self.assertIn("Hi d", mail.outbox[3].body)
+        self.assertIn("is -50.00 €", mail.outbox[3].body)
+
+        # d gives 50 € to b
+        debt = Debt.objects.create(scribe=a, creditor=d, value=50)
+        Part.objects.create(debt=debt, debitor=b, part=1)
+
+        # Call the command
+        mail.outbox = []
+        call_command("reminder")
+        self.assertEqual(len(mail.outbox), 3)
+        self.assertIn("Hi a", mail.outbox[0].body)
+        self.assertIn("is 16.67 €", mail.outbox[0].body)
+        self.assertIn("Hi b", mail.outbox[1].body)
+        self.assertIn("is 16.67 €", mail.outbox[1].body)
+        self.assertIn("Hi c", mail.outbox[2].body)
+        self.assertIn("is -33.33 €", mail.outbox[2].body)

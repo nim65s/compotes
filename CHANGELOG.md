@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - mails
 - coverage
 - fix detail views on small screens
+- add reminder
 
 ## [v0.3.0] - 2022-02-03
 

@@ -50,19 +50,37 @@ class User(AbstractUser):
             self.balance = debts + pools - parts - shares
         super().save(*args, **kwargs)
         if updated and old != self.balance:
-            message = f"Hi {self},\n\n"
-            message += f"{updated.get_full_md_link()} was updated.\n"
-            message += f"Your balance was updated from {old} € to {self.balance} €"
-            try:
-                send_mail(
-                    "Updated balance",
-                    message,
-                    settings.DEFAULT_FROM_EMAIL,
-                    [self.email],
-                    reply_to=[settings.ADMINS[0][1]],
-                )
-            except SMTPException:  # pragma: no cover
-                mail_admins("SMTP Exception", message)
+            self.send_mail(
+                "Updated balance",
+                f"Hi {self},\n\n"
+                f"{updated.get_full_md_link()} was updated.\n"
+                f"Your balance was updated from {old} € to {self.balance} €",
+            )
+
+    def send_mail(self, subject, message):
+        """Send a mail to this user."""
+        try:
+            send_mail(
+                subject,
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                [self.email],
+                reply_to=[settings.ADMINS[0][1]],
+            )
+        except SMTPException:  # pragma: no cover
+            mail_admins(
+                f"SMTP Exception for {self} <{self.email}>", f"{subject=}\n{message=}"
+            )
+
+    def reminder(self):
+        """Remind users of their balance."""
+        if self.balance == 0:
+            return
+        self.send_mail(
+            "Balance Reminder",
+            f"Hi {self},\n\n"
+            f"This is a weekly reminder: your balance is {self.balance} €",
+        )
 
 
 class Debt(Links, TimeStampedModel):
