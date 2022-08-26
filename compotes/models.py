@@ -54,7 +54,7 @@ class User(AbstractUser):
                 "Updated balance",
                 f"Hi {self},\n\n"
                 f"{updated.get_full_md_link()} was updated.\n"
-                f"Your balance was updated from {old} € to {self.balance} €",
+                f"Your balance was updated from {old:.2f} € to {self.balance:.2f} €",
             )
 
     def send_mail(self, subject, message):
@@ -79,7 +79,7 @@ class User(AbstractUser):
         self.send_mail(
             "Balance Reminder",
             f"Hi {self},\n\n"
-            f"This is a weekly reminder: your balance is {self.balance} €",
+            f"This is a weekly reminder: your balance is {self.balance:.2f} €",
         )
 
 

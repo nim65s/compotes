@@ -145,9 +145,9 @@ class CompotesTests(TestCase):
         # balance change for 2 users
         self.assertEqual(len(mail.outbox), 2)
         self.assertIn("Hi a", mail.outbox[0].body)
-        self.assertIn("from 0.00 € to 20.0 €", mail.outbox[0].body)
+        self.assertIn("from 0.00 € to 20.00 €", mail.outbox[0].body)
         self.assertIn("Hi b", mail.outbox[1].body)
-        self.assertIn("from 0.00 € to -20.0 €", mail.outbox[1].body)
+        self.assertIn("from 0.00 € to -20.00 €", mail.outbox[1].body)
 
     def test_pool_views_mails(self):
         """Check pool views and sent mails."""
@@ -183,11 +183,11 @@ class CompotesTests(TestCase):
         # balance change for 3 users
         self.assertEqual(len(mail.outbox), 3)
         self.assertIn("Hi a", mail.outbox[0].body)
-        self.assertIn("from 0.00 € to 50.0 €", mail.outbox[0].body)
+        self.assertIn("from 0.00 € to 50.00 €", mail.outbox[0].body)
         self.assertIn("Hi b", mail.outbox[1].body)
-        self.assertIn("from 0.00 € to -20.0 €", mail.outbox[1].body)
+        self.assertIn("from 0.00 € to -20.00 €", mail.outbox[1].body)
         self.assertIn("Hi c", mail.outbox[2].body)
-        self.assertIn("from 0.00 € to -30.0 €", mail.outbox[2].body)
+        self.assertIn("from 0.00 € to -30.00 €", mail.outbox[2].body)
 
     def test_views(self):
         """Check missing views."""
