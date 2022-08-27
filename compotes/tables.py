@@ -42,7 +42,7 @@ class DebtTable(tables.Table):
             "link",
         ]
         template_name = "ndh/tables.html"
-        ordering = "updated"
+        ordering = "-updated"
 
     def render_part_value(self, value) -> str:
         """Format .2f."""
