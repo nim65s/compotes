@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- add missing translations
+- fix `get_parts`
+- set `table-warning` on the rows of the Pools that are not successful
+- fix Debt ordering
+
 ## [v1.0.0] - 2022-08-26
 
 - update → save
