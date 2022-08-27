@@ -66,6 +66,9 @@ class PoolTable(tables.Table):
         fields = ["updated", "organiser", "value", "ratio", "link"]
         template_name = "ndh/tables.html"
         order_by = "updated"
+        row_attrs = {
+            "class": lambda record: "table-warning" if record.ratio == 0 else ""
+        }
 
     def render_ratio(self, value) -> str:
         """Format .3f."""

@@ -292,3 +292,23 @@ class CompotesTests(TestCase):
         self.assertIn("is 16.67 €", mail.outbox[1].body)
         self.assertIn("Hi c", mail.outbox[2].body)
         self.assertIn("is -33.33 €", mail.outbox[2].body)
+
+    def test_pool_table(self):
+        """Check Pool table has the right row colors."""
+        a, b, c, d = User.objects.all()
+
+        # z is a successful Pool
+        z = Pool.objects.create(name="z", organiser=a, description="z", value=100)
+        Share.objects.create(pool=z, participant=a, maxi=40)
+        Share.objects.create(pool=z, participant=b, maxi=40)
+        Share.objects.create(pool=z, participant=c, maxi=40)
+        self.client.login(username="a", password="a")
+        data = self.client.get(reverse("pool_list")).content.decode()
+        self.assertNotIn("table-warning", data)
+
+        # y isn't
+        y = Pool.objects.create(name="y", organiser=b, description="y", value=100)
+        Share.objects.create(pool=y, participant=a, maxi=40)
+        Share.objects.create(pool=y, participant=d, maxi=40)
+        data = self.client.get(reverse("pool_list")).content.decode()
+        self.assertIn("table-warning", data)
