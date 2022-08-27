@@ -92,19 +92,19 @@ if DB == "postgres":  # pragma: no cover
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
-VAL = "django.contrib.auth.password_validation"
+_APV = "django.contrib.auth.password_validation"
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": f"{VAL}.UserAttributeSimilarityValidator",
+        "NAME": f"{_APV}.UserAttributeSimilarityValidator",
     },
     {
-        "NAME": f"{VAL}.MinimumLengthValidator",
+        "NAME": f"{_APV}.MinimumLengthValidator",
     },
     {
-        "NAME": f"{VAL}.CommonPasswordValidator",
+        "NAME": f"{_APV}.CommonPasswordValidator",
     },
     {
-        "NAME": f"{VAL}.NumericPasswordValidator",
+        "NAME": f"{_APV}.NumericPasswordValidator",
     },
 ]
 

@@ -3,7 +3,7 @@ name = "compotes"
 version = "1.0.0"
 description = "Track debts & pools"
 authors = ["Guilhem Saurel <guilhem.saurel@laas.fr>"]
-license = "BSD-2-CLause"
+license = "BSD-2-Clause"
 
 [tool.poetry.dependencies]
 python = "^3.9"
