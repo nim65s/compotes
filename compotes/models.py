@@ -49,7 +49,7 @@ class User(AbstractUser):
             )
             self.balance = debts + pools - parts - shares
         super().save(*args, **kwargs)
-        if updated and old != self.balance:
+        if updated and abs(old - self.balance) > 0.01:
             self.send_mail(
                 "Updated balance",
                 f"Hi {self},\n\n"
