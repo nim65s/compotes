@@ -87,6 +87,7 @@ class User(AbstractUser):
 class Debt(Links, TimeStampedModel):
     """Declare a debt amount."""
 
+    name = models.CharField(_("Name"), max_length=200)
     scribe = models.ForeignKey(
         User, on_delete=models.PROTECT, related_name="+", verbose_name=_("Scribe")
     )
@@ -104,7 +105,7 @@ class Debt(Links, TimeStampedModel):
 
     def __str__(self) -> str:
         """Show PK."""
-        return f"debt {self.pk}"
+        return f"{self.name}"
 
     def get_absolute_url(self) -> str:
         """Url to detail self."""
