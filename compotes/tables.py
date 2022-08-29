@@ -22,9 +22,7 @@ class DebtTable(tables.Table):
     )
     value = tables.Column(attrs=EUR)
     part_value = tables.Column(attrs=EUR)
-    link = tables.Column(
-        accessor="get_link", orderable=False, attrs=END, verbose_name=_("Link")
-    )
+    link = tables.Column(accessor="get_link", orderable=False, verbose_name=_("Link"))
 
     class Meta:
         """Meta."""
@@ -32,6 +30,7 @@ class DebtTable(tables.Table):
         model = Debt
         attrs = {"class": "table"}
         fields = [
+            "link",
             "date",
             "updated",
             "scribe",
@@ -40,7 +39,6 @@ class DebtTable(tables.Table):
             "parts",
             "value",
             "part_value",
-            "link",
         ]
         template_name = "ndh/tables.html"
         order_by = "-date"
