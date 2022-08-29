@@ -25,6 +25,11 @@ class UserListView(LoginRequiredMixin, ListView):
     model = User
     ordering = ["balance"]
 
+    def get_queryset(self):
+        """Exclude other users with a balance of 0."""
+        exclude = Q(balance=0) & ~Q(pk=self.request.user.pk)
+        return super().get_queryset().exclude(exclude)
+
 
 class DebtListView(LoginRequiredMixin, SingleTableMixin, FilterView):
     """Debt list view."""
