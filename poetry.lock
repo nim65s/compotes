@@ -494,7 +494,7 @@ python-versions = "*"
 
 [[package]]
 name = "ndh"
-version = "5.7.2"
+version = "5.7.4"
 description = "Nim's Django Helpers"
 category = "main"
 optional = false
@@ -886,7 +886,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "067475d592e3de240059105079b413f500482ccb3d1a7f21f8b70e14639099a8"
+content-hash = "f4c3a163f1c64be5d471ad51c0063520efb6cf4b8354181e3889fe475832b8ab"
 
 [metadata.files]
 appnope = [
@@ -1192,8 +1192,8 @@ mypy-extensions = [
     {file = "mypy_extensions-0.4.3.tar.gz", hash = "sha256:2d82818f5bb3e369420cb3c4060a7970edba416647068eb4c5343488a6c604a8"},
 ]
 ndh = [
-    {file = "ndh-5.7.2-py3-none-any.whl", hash = "sha256:8187b906a38b5938d9266a4e813c724bb7a32b9cac641afcb2487d5872e5d0fe"},
-    {file = "ndh-5.7.2.tar.gz", hash = "sha256:305d3e131ffb241957776293391d4ec5322190a332568c0dbecb716ba2a88ed0"},
+    {file = "ndh-5.7.4-py3-none-any.whl", hash = "sha256:34d7ea62dd65b99f36f3fe5411432d76e9640758260f0f4660e45346222ba302"},
+    {file = "ndh-5.7.4.tar.gz", hash = "sha256:a9cac6ff0bb99f12d98a8a6acd02620b24544fc3bbe535aa1f7bfc21629a726a"},
 ]
 nodeenv = [
     {file = "nodeenv-1.7.0-py2.py3-none-any.whl", hash = "sha256:27083a7b96a25f2f5e1d8cb4b6317ee8aeda3bdd121394e5ac54e498028a042e"},
