@@ -2,7 +2,7 @@
 {% load django_bootstrap5 i18n %}
 
 {% block content %}
-<h1>{% translate "Pool" %}</h1>
+<h1>{% translate "Pool" %}: {{ pool }}</h1>
 
 {% if pool.organiser == request.user %}
   <div class="d-flex align-items-center my-3">
