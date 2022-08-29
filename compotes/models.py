@@ -9,6 +9,7 @@ from django.core.mail import mail_admins
 from django.db import models
 from django.db.models import Q
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from dmdm import send_mail
@@ -88,6 +89,7 @@ class Debt(Links, TimeStampedModel):
     """Declare a debt amount."""
 
     name = models.CharField(_("Name"), max_length=200)
+    date = models.DateTimeField(default=timezone.now)
     scribe = models.ForeignKey(
         User, on_delete=models.PROTECT, related_name="+", verbose_name=_("Scribe")
     )

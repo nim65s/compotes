@@ -14,7 +14,7 @@ from django_filters.views import FilterView
 from ndh.mixins import NDHFormMixin
 
 from .models import Debt, User, Pool, Share
-from .forms import DebtPartsFormset
+from .forms import DebtPartsFormset, DebtForm
 from .tables import DebtTable, PoolTable
 from .filters import DebtFilter
 
@@ -44,7 +44,7 @@ class DebtCreateView(LoginRequiredMixin, NDHFormMixin, CreateView):
     """Debt create view."""
 
     model = Debt
-    fields = ["creditor", "name", "description", "value"]
+    form_class = DebtForm
     title = _("Add a Debt")
 
     def form_valid(self, form) -> HttpResponse:
@@ -57,7 +57,7 @@ class DebtUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
     """Debt update view."""
 
     model = Debt
-    fields = ["creditor", "name", "description", "value"]
+    form_class = DebtForm
     title = _("Edit a debt")
 
     def form_valid(self, form) -> HttpResponse:

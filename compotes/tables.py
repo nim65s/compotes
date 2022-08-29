@@ -32,6 +32,7 @@ class DebtTable(tables.Table):
         model = Debt
         attrs = {"class": "table"}
         fields = [
+            "date",
             "updated",
             "scribe",
             "creditor",
@@ -42,7 +43,7 @@ class DebtTable(tables.Table):
             "link",
         ]
         template_name = "ndh/tables.html"
-        ordering = "-updated"
+        order_by = "-date"
 
     def render_part_value(self, value) -> str:
         """Format .2f."""
