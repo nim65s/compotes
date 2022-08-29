@@ -89,7 +89,7 @@ class Debt(Links, TimeStampedModel):
     """Declare a debt amount."""
 
     name = models.CharField(_("Name"), max_length=200)
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField(_("Date"), default=timezone.now)
     scribe = models.ForeignKey(
         User, on_delete=models.PROTECT, related_name="+", verbose_name=_("Scribe")
     )

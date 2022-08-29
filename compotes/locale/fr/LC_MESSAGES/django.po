@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-29 21:25+0000\n"
+"POT-Creation-Date: 2022-08-29 21:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,25 +33,29 @@ msgstr "Dette"
 msgid "Balance"
 msgstr "Solde"
 
-#: compotes/models.py:91
+#: compotes/models.py:91 compotes/templates/compotes/_debt_detail.html:4
 msgid "Name"
 msgstr "Nom"
 
-#: compotes/models.py:94 compotes/templates/compotes/_debt_detail.html:4
+#: compotes/models.py:92 compotes/templates/compotes/_debt_detail.html:5
+msgid "Date"
+msgstr "Date"
+
+#: compotes/models.py:94 compotes/templates/compotes/_debt_detail.html:6
 msgid "Scribe"
 msgstr "Secrétaire"
 
-#: compotes/models.py:97 compotes/templates/compotes/_debt_detail.html:5
+#: compotes/models.py:97 compotes/templates/compotes/_debt_detail.html:7
 msgid "Creditor"
 msgstr "Créditeur"
 
 #: compotes/models.py:99 compotes/models.py:152 compotes/models.py:175
-#: compotes/models.py:217 compotes/templates/compotes/_debt_detail.html:6
+#: compotes/models.py:217 compotes/templates/compotes/_debt_detail.html:8
 #: compotes/templates/compotes/_pool_detail.html:5
 msgid "Value"
 msgstr "Valeur"
 
-#: compotes/models.py:100 compotes/templates/compotes/_debt_detail.html:7
+#: compotes/models.py:100 compotes/templates/compotes/_debt_detail.html:9
 msgid "Part value"
 msgstr "Valeur d’une Part"
 
