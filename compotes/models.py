@@ -1,5 +1,6 @@
 """Compotes models."""
 
+from decimal import Decimal
 from smtplib import SMTPException
 
 from django.conf import settings
@@ -49,7 +50,7 @@ class User(AbstractUser):
             )
             self.balance = debts + pools - parts - shares
         super().save(*args, **kwargs)
-        if updated and abs(old - self.balance) > 0.01:
+        if updated and abs(Decimal(old) - self.balance) > 0.01:
             self.send_mail(
                 "Updated balance",
                 f"Hi {self},\n\n"
