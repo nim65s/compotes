@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-29 21:38+0000\n"
+"POT-Creation-Date: 2022-08-29 21:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,16 +18,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: compotes/filters.py:14 compotes/models.py:31
+#: compotes/filters.py:15 compotes/models.py:31
 #: compotes/templates/compotes/user_list.html:17
 msgid "User"
 msgstr "Utilisateur"
 
-#: compotes/filters.py:15 compotes/models.py:106 compotes/models.py:147
+#: compotes/filters.py:16
+msgid "Filter by Creditor and/or Debitor"
+msgstr "Filtre par Créditeur et/ou Debiteur"
+
+#: compotes/filters.py:20 compotes/models.py:106 compotes/models.py:147
 #: compotes/templates/compotes/debt_detail.html:5
 #: compotes/templates/compotes/debt_detail.html:27
 msgid "Debt"
 msgstr "Dette"
+
+#: compotes/filters.py:21
+msgid "Search in Debt name and/and description"
+msgstr "Cherche dans les noms et/ou les descriptions des Dettes"
 
 #: compotes/models.py:24 compotes/templates/compotes/user_list.html:16
 msgid "Balance"

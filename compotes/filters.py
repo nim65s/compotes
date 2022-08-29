@@ -11,8 +11,16 @@ from .models import Debt
 class DebtFilter(django_filters.FilterSet):
     """FilterSet for the Debt model."""
 
-    user = django_filters.CharFilter(label=_("User"), method="user_filter")
-    debt = django_filters.CharFilter(label=_("Debt"), method="debt_filter")
+    user = django_filters.CharFilter(
+        label=_("User"),
+        help_text=_("Filter by Creditor and/or Debitor"),
+        method="user_filter",
+    )
+    debt = django_filters.CharFilter(
+        label=_("Debt"),
+        help_text=_("Search in Debt name and/and description"),
+        method="debt_filter",
+    )
 
     class Meta:
         """Meta."""
