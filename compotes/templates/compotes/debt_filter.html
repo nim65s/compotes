@@ -18,7 +18,12 @@
   <div class="input-group my-3">
     <button class="btn btn-dark" type="submit"><i class="bi bi-search"></i> {% translate "Filter" %}</button>
     <label class="visually-hidden" for="id_user">{% translate "User" %}</label>
-    <input id="id_user" name="user" type="text" class="form-control" placeholder="{% translate "User" %}" aria-label="{% translate "User" %}" />
+    <input id="id_user" name="user" list="userlistOptions" class="form-control" placeholder="{% translate "User" %}" aria-label="{% translate "User" %}" />
+    <datalist id="userlistOptions">
+      {% for user in users %}
+      <option value="{{ user.username }}"/>
+      {% endfor %}
+    </datalist>
   </div>
 </form>
 {% endif %}
