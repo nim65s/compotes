@@ -31,7 +31,7 @@ class User(AbstractUser):
 
     def save(self, updated=None, *args, **kwargs):
         """Update the balance."""
-        old = 0
+        old = Decimal(0)
         if self.pk:
             old = self.balance
             debts = query_sum(
@@ -50,7 +50,7 @@ class User(AbstractUser):
             )
             self.balance = debts + pools - parts - shares
         super().save(*args, **kwargs)
-        if updated and abs(Decimal(old) - self.balance) > 0.01:
+        if updated and abs(old - Decimal(self.balance)) > 0.01:
             self.send_mail(
                 "Updated balance",
                 f"Hi {self},\n\n"
