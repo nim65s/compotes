@@ -4,17 +4,30 @@ from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
 import django_filters
+from ndh.forms import DatalistField
 
-from .models import Debt
+from .models import Debt, User
+
+
+def get_users():
+    """Get the dict of all users by username and representation."""
+    return {u.username: repr(u) for u in User.objects.all()}
+
+
+class DatalistFilter(django_filters.Filter):
+    """A Filter with DatalistField."""
+
+    field_class = DatalistField
 
 
 class DebtFilter(django_filters.FilterSet):
     """FilterSet for the Debt model."""
 
-    user = django_filters.CharFilter(
+    user = DatalistFilter(
         label=_("User"),
         help_text=_("Filter by Creditor and/or Debitor"),
         method="user_filter",
+        datalist=get_users,
     )
     debt = django_filters.CharFilter(
         label=_("Debt"),

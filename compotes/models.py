@@ -30,6 +30,18 @@ class User(AbstractUser):
         ordering = ["username"]
         verbose_name = _("User")
 
+    def __repr__(self):
+        """Display users by their name and/or username."""
+        name = f"{self.first_name} {self.last_name}".strip()
+        if (
+            self.username.lower() not in self.first_name.lower()
+            and self.username.lower() not in self.last_name.lower()
+        ):
+            if name:
+                return f"{name} ({self.username})"
+            return self.username
+        return name
+
     def save(self, updated=None, *args, **kwargs):
         """Update the balance."""
         old = Decimal(0)
