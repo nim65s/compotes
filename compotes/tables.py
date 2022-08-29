@@ -53,16 +53,14 @@ class PoolTable(tables.Table):
 
     value = tables.Column(attrs=EUR)
     ratio = tables.Column(attrs=NBR)
-    link = tables.Column(
-        accessor="get_link", orderable=False, attrs=END, verbose_name=_("Link")
-    )
+    link = tables.Column(accessor="get_link", orderable=False, verbose_name=_("Link"))
 
     class Meta:
         """Meta."""
 
         model = Pool
         attrs = {"class": "table"}
-        fields = ["updated", "organiser", "value", "ratio", "link"]
+        fields = ["link", "updated", "organiser", "value", "ratio"]
         template_name = "ndh/tables.html"
         order_by = "updated"
         row_attrs = {
