@@ -6,7 +6,7 @@ import django.utils.timezone
 
 def set_initial_date(apps, schema_editor):
     Debt = apps.get_model("compotes", "Debt")
-    Debt.objects.update(date=F("created"))
+    Debt.objects.update(date=models.F("created"))
 
 
 class Migration(migrations.Migration):
