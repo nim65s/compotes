@@ -217,6 +217,10 @@ class Pool(Links, TimeStampedModel, NamedModel):
         for user in User.objects.filter(Q(share__pool=self) | Q(pool=self)).distinct():
             user.save(updated=self)
 
+    def real_shares(self):
+        """Exclude trivial shares."""
+        return self.share_set.exclude(maxi=0)
+
 
 class Share(models.Model):
     """Share of a crowd funding."""

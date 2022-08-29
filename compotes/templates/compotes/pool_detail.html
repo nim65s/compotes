@@ -25,7 +25,7 @@
     </tr>
   </thead>
   <tbody>
-    {% for share in pool.share_set.all %}
+    {% for share in pool.real_shares %}
     <tr{% if share.participant == request.user %} class="table-primary"{% endif %}>
       <td>{{ share.participant }}</td>
       <td class="euro text-center">{{ share.maxi }}</td>
