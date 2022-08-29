@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 i18n %}
+{% load render_table from django_tables2 %}
+
+{% block style %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+{% endblock %}
+
+{% block content %}
+<h1>{% translate "Debts" %}</h1>
+
+<div class="d-flex align-items-center my-3">
+  {% bootstrap_button _("Add a Debt") href="debt/add" extra_classes="w-50 mx-auto py-3" %}
+</div>
+
+{% if filter %}
+<form action="" method="get" class="form form-horizontal">
+  <div class="input-group my-3">
+    <button class="btn btn-dark" type="submit"><i class="bi bi-search"></i> {% translate "Filter" %}</button>
+    <label class="visually-hidden" for="id_user">{% translate "User" %}</label>
+    <input id="id_user" name="user" type="text" class="form-control" placeholder="{% translate "User" %}" aria-label="{% translate "User" %}" />
+  </div>
+</form>
+{% endif %}
+
+{% render_table table %}
+
+<div class="d-flex align-items-center my-3">
+  {% bootstrap_button _("Back") href="/" button_class="btn-secondary" extra_classes="w-50 mx-auto py-3" %}
+</div>
+{% endblock %}

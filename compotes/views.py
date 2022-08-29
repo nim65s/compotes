@@ -9,12 +9,14 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DetailView, ListView, FormView, UpdateView
 from django.views.generic.edit import BaseUpdateView
 
-from django_tables2 import SingleTableView  # type: ignore
+from django_tables2 import SingleTableMixin, SingleTableView  # type: ignore
+from django_filters.views import FilterView
 from ndh.mixins import NDHFormMixin
 
 from .models import Debt, User, Pool, Share
 from .forms import DebtPartsFormset
 from .tables import DebtTable, PoolTable
+from .filters import DebtFilter
 
 
 class UserListView(LoginRequiredMixin, ListView):
@@ -24,11 +26,12 @@ class UserListView(LoginRequiredMixin, ListView):
     ordering = ["balance"]
 
 
-class DebtListView(LoginRequiredMixin, SingleTableView):
+class DebtListView(LoginRequiredMixin, SingleTableMixin, FilterView):
     """Debt list view."""
 
     model = Debt
     table_class = DebtTable
+    filterset_class = DebtFilter
 
 
 class DebtCreateView(LoginRequiredMixin, NDHFormMixin, CreateView):

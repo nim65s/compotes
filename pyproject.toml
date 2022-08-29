@@ -11,6 +11,7 @@ ndh = "^5.7.2"
 dmdm = "^1.4.5"
 django-tables2 = "^2.4.1"
 django-yeouia = "^2.0.0"
+django-filter = "^22.1"
 
 [tool.poetry.dev-dependencies]
 coverage = "^5.5"

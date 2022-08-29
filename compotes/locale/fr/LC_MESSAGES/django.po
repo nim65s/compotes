@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-26 13:26+0000\n"
+"POT-Creation-Date: 2022-08-29 19:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,73 +18,76 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: compotes/models.py:22 compotes/templates/compotes/user_list.html:16
-msgid "Balance"
-msgstr "Solde"
-
-#: compotes/models.py:29 compotes/templates/compotes/user_list.html:17
+#: compotes/filters.py:14 compotes/models.py:30
+#: compotes/templates/compotes/debt_filter.html:20
+#: compotes/templates/compotes/debt_filter.html:21
+#: compotes/templates/compotes/user_list.html:17
 msgid "User"
 msgstr "Utilisateur"
 
-#: compotes/models.py:90 compotes/templates/compotes/_debt_detail.html:4
+#: compotes/models.py:23 compotes/templates/compotes/user_list.html:16
+msgid "Balance"
+msgstr "Solde"
+
+#: compotes/models.py:91 compotes/templates/compotes/_debt_detail.html:4
 msgid "Scribe"
 msgstr "Secrétaire"
 
-#: compotes/models.py:93 compotes/templates/compotes/_debt_detail.html:5
+#: compotes/models.py:94 compotes/templates/compotes/_debt_detail.html:5
 msgid "Creditor"
 msgstr "Créditeur"
 
-#: compotes/models.py:95 compotes/models.py:148 compotes/models.py:171
-#: compotes/models.py:213 compotes/templates/compotes/_debt_detail.html:6
+#: compotes/models.py:96 compotes/models.py:149 compotes/models.py:172
+#: compotes/models.py:214 compotes/templates/compotes/_debt_detail.html:6
 #: compotes/templates/compotes/_pool_detail.html:5
 msgid "Value"
 msgstr "Valeur"
 
-#: compotes/models.py:96 compotes/templates/compotes/_debt_detail.html:7
+#: compotes/models.py:97 compotes/templates/compotes/_debt_detail.html:7
 msgid "Part value"
 msgstr "Valeur d’une Part"
 
-#: compotes/models.py:97 compotes/models.py:149 compotes/models.py:170
+#: compotes/models.py:98 compotes/models.py:150 compotes/models.py:171
 #: compotes/templates/compotes/debt_detail.html:25
 msgid "Description"
 msgstr "Description"
 
-#: compotes/models.py:102 compotes/models.py:143
+#: compotes/models.py:103 compotes/models.py:144
 #: compotes/templates/compotes/debt_detail.html:5
 #: compotes/templates/compotes/debt_detail.html:27
 msgid "Debt"
 msgstr "Dette"
 
-#: compotes/models.py:145 compotes/templates/compotes/debt_detail.html:24
+#: compotes/models.py:146 compotes/templates/compotes/debt_detail.html:24
 msgid "Debitor"
 msgstr "Débiteur"
 
-#: compotes/models.py:147 compotes/models.py:154
+#: compotes/models.py:148 compotes/models.py:155
 msgid "Part"
 msgstr "Part"
 
-#: compotes/models.py:168 compotes/templates/compotes/_pool_detail.html:4
+#: compotes/models.py:169 compotes/templates/compotes/_pool_detail.html:4
 msgid "Organiser"
 msgstr "Organisateur"
 
-#: compotes/models.py:172 compotes/templates/compotes/_pool_detail.html:6
+#: compotes/models.py:173 compotes/templates/compotes/_pool_detail.html:6
 msgid "Ratio"
 msgstr "Ratio"
 
-#: compotes/models.py:177 compotes/models.py:208
+#: compotes/models.py:178 compotes/models.py:209
 #: compotes/templates/compotes/pool_detail.html:5
 msgid "Pool"
 msgstr "Cagnotte"
 
-#: compotes/models.py:210 compotes/templates/compotes/pool_detail.html:22
+#: compotes/models.py:211 compotes/templates/compotes/pool_detail.html:22
 msgid "Participant"
 msgstr "Participant"
 
-#: compotes/models.py:212 compotes/templates/compotes/pool_detail.html:23
+#: compotes/models.py:213 compotes/templates/compotes/pool_detail.html:23
 msgid "Maxi"
 msgstr "Maxi"
 
-#: compotes/models.py:219 compotes/templates/compotes/pool_detail.html:24
+#: compotes/models.py:220 compotes/templates/compotes/pool_detail.html:24
 msgid "Share"
 msgstr "Participation"
 
@@ -114,26 +117,30 @@ msgid "List Debts"
 msgstr "Historique des Dettes"
 
 #: compotes/templates/compotes/debt_detail.html:44
-#: compotes/templates/compotes/debt_list.html:15
+#: compotes/templates/compotes/debt_filter.html:29
 #: compotes/templates/compotes/pool_detail.html:39
 #: compotes/templates/compotes/pool_list.html:15
 msgid "Back"
 msgstr "Retour"
 
-#: compotes/templates/compotes/debt_list.html:6
+#: compotes/templates/compotes/debt_filter.html:10
 msgid "Debts"
 msgstr "Dettes"
 
-#: compotes/templates/compotes/debt_list.html:9
-#: compotes/templates/compotes/user_list.html:7 compotes/views.py:39
+#: compotes/templates/compotes/debt_filter.html:13
+#: compotes/templates/compotes/user_list.html:7 compotes/views.py:42
 msgid "Add a Debt"
 msgstr "Ajouter une Dette"
+
+#: compotes/templates/compotes/debt_filter.html:19
+msgid "Filter"
+msgstr "Filtrer"
 
 #: compotes/templates/compotes/pool_detail.html:9
 msgid "Edit Pool"
 msgstr "Éditer la Cagnotte"
 
-#: compotes/templates/compotes/pool_detail.html:16 compotes/views.py:122
+#: compotes/templates/compotes/pool_detail.html:16 compotes/views.py:125
 msgid "Edit my share"
 msgstr "Éditer ma Participation"
 
@@ -147,24 +154,24 @@ msgid "Pools"
 msgstr "Cagnottes"
 
 #: compotes/templates/compotes/pool_list.html:9
-#: compotes/templates/compotes/user_list.html:8 compotes/views.py:89
+#: compotes/templates/compotes/user_list.html:8 compotes/views.py:92
 msgid "Add a Pool"
 msgstr "Ajouter une Cagnotte"
 
-#: compotes/views.py:52
+#: compotes/views.py:55
 msgid "Edit a debt"
 msgstr "Éditer une Dette"
 
-#: compotes/views.py:57
+#: compotes/views.py:60
 #, python-brace-format
 msgid "Only {form.instance.scribe} can edit this."
 msgstr "Il n’y a que {form.instance.scribe} qui peut éditer ceci."
 
-#: compotes/views.py:108
+#: compotes/views.py:111
 msgid "Edit a pool"
 msgstr "Éditer une Cagnotte"
 
-#: compotes/views.py:113
+#: compotes/views.py:116
 #, python-brace-format
 msgid "Only {form.instance.organiser} can edit this."
 msgstr "Il n’y a que {form.instance.organiser} qui peut éditer ceci."
