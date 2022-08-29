@@ -25,7 +25,9 @@ class CompotesTests(TestCase):
     def test_models_debt(self):
         """Test 100.3€ debt between 4 users, CLI only."""
         creditor = User.objects.first()
-        debt = Debt.objects.create(scribe=creditor, creditor=creditor, value=100.03)
+        debt = Debt.objects.create(
+            scribe=creditor, creditor=creditor, value=100.03, name="debt 1"
+        )
         for user in User.objects.all():
             Part.objects.create(debt=debt, debitor=user, part=25)
         self.assertEqual(debt.part_value, 1.0003)
@@ -114,7 +116,14 @@ class CompotesTests(TestCase):
         r = self.client.get(reverse("debt_create"))
         self.assertEqual(r.status_code, 200)
         self.assertEqual(Debt.objects.count(), 0)
-        debt = {"creditor": 1, "description": "test", "value": 30}
+        debt = {
+            "name": "test",
+            "creditor": 1,
+            "description": "test",
+            "value": 30,
+            "date_0": "2022-08-29",
+            "date_1": "23:33:30",
+        }
         r = self.client.post(reverse("debt_create"), debt)
         self.assertEqual(Debt.objects.count(), 1)
 
@@ -192,7 +201,14 @@ class CompotesTests(TestCase):
     def test_views(self):
         """Check missing views."""
         # Check an user can't update another's debt
-        debt = {"creditor": 1, "description": "test", "value": 30}
+        debt = {
+            "name": "test",
+            "creditor": 1,
+            "description": "test",
+            "value": 30,
+            "date_0": "2022-08-29",
+            "date_1": "23:33:30",
+        }
         self.client.login(username="a", password="a")  # they can
         self.client.post(reverse("debt_create"), debt)
         self.assertEqual(Debt.objects.first().value, 30)
