@@ -293,6 +293,22 @@ class CompotesTests(TestCase):
         self.assertIn("Hi c", mail.outbox[2].body)
         self.assertIn("is -33.33 €", mail.outbox[2].body)
 
+        # No mail until the Pool is successful
+        mail.outbox = []
+        x = Pool.objects.create(name="x", organiser=a, description="x", value=100)
+        Share.objects.create(pool=x, participant=a, maxi=40)
+        Share.objects.create(pool=x, participant=b, maxi=40)
+        self.assertEqual(len(mail.outbox), 0)
+
+        # Successful → mail for all participants
+        Share.objects.create(pool=x, participant=c, maxi=40)
+        self.assertEqual(len(mail.outbox), 3)
+
+        # Successful update → mail for all participants
+        mail.outbox = []
+        Share.objects.create(pool=x, participant=d, maxi=40)
+        self.assertEqual(len(mail.outbox), 4)
+
     def test_pool_table(self):
         """Check Pool table has the right row colors."""
         a, b, c, d = User.objects.all()

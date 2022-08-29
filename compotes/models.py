@@ -199,7 +199,7 @@ class Pool(Links, TimeStampedModel, NamedModel):
         super().save(*args, **kwargs)
         for share in self.share_set.all():
             share.save(allow_rec=False)
-        for user in User.objects.filter(Q(share__pool=self) | Q(pool=self)):
+        for user in User.objects.filter(Q(share__pool=self) | Q(pool=self)).distinct():
             user.save(updated=self)
 
 
