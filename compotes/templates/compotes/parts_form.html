@@ -2,7 +2,7 @@
 {% load django_bootstrap5 %}
 
 {% block content %}
-<h1>{% translate "Parts update" %}: {{ debt.name }}</h1>
+<h1>{% translate "Parts update" %}: {{ debt.name }}{% endtranslate %}</h1>
 
 {% include "compotes/_debt_detail.html" %}
 
