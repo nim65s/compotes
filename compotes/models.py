@@ -164,6 +164,13 @@ class Part(models.Model):
     value = models.FloatField(_("Value"), default=0)
     description = models.CharField(_("Description"), max_length=1000, blank=True)
 
+    def __str__(self):
+        """Describe this Part."""
+        return (
+            f"Part of {self.value} € from {self.debitor} for {self.debt}: "
+            f"{self.description}"
+        )
+
     class Meta:
         """Meta."""
 
@@ -237,6 +244,13 @@ class Share(models.Model):
     )
     maxi = models.DecimalField(_("Maxi"), max_digits=8, decimal_places=2, default=0)
     value = models.FloatField(_("Value"), default=0)
+
+    def __str__(self):
+        """Describe this Share."""
+        return (
+            f"Share of {self.value} / {self.maxi} "
+            f"from {self.participant} for {self.pool}"
+        )
 
     class Meta:
         """Meta."""
