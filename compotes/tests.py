@@ -242,6 +242,9 @@ class CompotesTests(TestCase):
         # Check debt table
         self.client.get(reverse("debt_list"))
 
+        # Check debt table
+        self.client.get(reverse("debt_detail", kwargs={"pk": 1}))
+
         # Check parts update
         self.client.get(reverse("parts_update", kwargs={"pk": 1}))
 
