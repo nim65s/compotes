@@ -207,9 +207,7 @@ class Pool(Links, TimeStampedModel, NamedModel):
     def save(self, *args, **kwargs):
         """Update ratio, value, shares, and balances."""
         if self.pk:
-            available = query_sum(
-                self.share_set, "maxi", output_field=models.FloatField()
-            )
+            available = float(self.sum_shares())
             self.ratio = float(self.value) / available if available >= self.value else 0
         super().save(*args, **kwargs)
         for share in self.share_set.all():
@@ -220,6 +218,14 @@ class Pool(Links, TimeStampedModel, NamedModel):
     def real_shares(self):
         """Exclude trivial shares."""
         return self.share_set.exclude(maxi=0)
+
+    def sum_shares(self):
+        """Get maxi available amount."""
+        return query_sum(self.share_set, "maxi", output_field=models.DecimalField())
+
+    def missing(self):
+        """Compute what is missing to reach the value."""
+        return self.value - self.sum_shares()
 
 
 class Share(models.Model):
