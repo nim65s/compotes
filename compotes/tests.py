@@ -240,7 +240,10 @@ class CompotesTests(TestCase):
         self.assertEqual(Pool.objects.first().value, 50)
 
         # Check debt table
-        r = self.client.get(reverse("debt_list"))
+        self.client.get(reverse("debt_list"))
+
+        # Check parts update
+        self.client.get(reverse("parts_update", kwargs={"pk": 1}))
 
     def test_pool_list(self):
         """Check an user can see the Pool they create, share, but nothing more."""
