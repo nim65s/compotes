@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-29 23:42+0000\n"
+"POT-Creation-Date: 2022-08-30 08:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,7 +58,7 @@ msgid "Creditor"
 msgstr "Créditeur"
 
 #: compotes/models.py:111 compotes/models.py:164 compotes/models.py:187
-#: compotes/models.py:233 compotes/templates/compotes/_debt_detail.html:9
+#: compotes/models.py:239 compotes/templates/compotes/_debt_detail.html:9
 #: compotes/templates/compotes/_pool_detail.html:5
 msgid "Value"
 msgstr "Valeur"
@@ -84,24 +84,24 @@ msgstr "Part"
 msgid "Organiser"
 msgstr "Organisateur"
 
-#: compotes/models.py:188 compotes/templates/compotes/_pool_detail.html:6
+#: compotes/models.py:188 compotes/templates/compotes/_pool_detail.html:7
 msgid "Ratio"
 msgstr "Ratio"
 
-#: compotes/models.py:193 compotes/models.py:228
+#: compotes/models.py:193 compotes/models.py:234
 #: compotes/templates/compotes/pool_detail.html:5
 msgid "Pool"
 msgstr "Cagnotte"
 
-#: compotes/models.py:230 compotes/templates/compotes/pool_detail.html:22
+#: compotes/models.py:236 compotes/templates/compotes/pool_detail.html:22
 msgid "Participant"
 msgstr "Participant"
 
-#: compotes/models.py:232 compotes/templates/compotes/pool_detail.html:23
+#: compotes/models.py:238 compotes/templates/compotes/pool_detail.html:23
 msgid "Maxi"
 msgstr "Maxi"
 
-#: compotes/models.py:239 compotes/templates/compotes/pool_detail.html:24
+#: compotes/models.py:245 compotes/templates/compotes/pool_detail.html:24
 msgid "Share"
 msgstr "Participation"
 
@@ -113,7 +113,7 @@ msgstr "Débiteurs"
 msgid "Parts"
 msgstr "Parts"
 
-#: compotes/tables.py:26 compotes/tables.py:59
+#: compotes/tables.py:25 compotes/tables.py:56
 msgid "Link"
 msgstr "Lien"
 
@@ -124,6 +124,10 @@ msgstr "Créée"
 #: compotes/templates/compotes/_debt_detail.html:6
 msgid "Last Update"
 msgstr "Dernière modification"
+
+#: compotes/templates/compotes/_pool_detail.html:9
+msgid "Missing"
+msgstr "Manque"
 
 #: compotes/templates/compotes/debt_detail.html:9
 msgid "Edit Debt"
