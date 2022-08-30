@@ -21,7 +21,7 @@
     {% for user in user_list %}
     <tr{% if user == request.user %} class="table-primary"{% endif %}>
       <td class="euro">{{ user.balance }}</td>
-      <td>{{ user }}</td>
+      <td><a href="mailto:{{ user.email}}">{{ user }}</a></td>
     </tr>
     {% endfor %}
   </tbody>
