@@ -2,7 +2,7 @@
 {% load django_bootstrap5 i18n %}
 
 {% block content %}
-<h1>{% translate "Debt" %}: {{ debt.name }}{% endtranslate %}</h1>
+<h1>{% translate "Debt" %}: {{ debt.name }}</h1>
 
 {% if debt.scribe == request.user %}
   <div class="d-flex align-items-center my-3">

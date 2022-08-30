@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% load django_bootstrap5 %}
+{% load django_bootstrap5 i18n %}
 
 {% block content %}
-<h1>{% translate "Parts update" %}: {{ debt.name }}{% endtranslate %}</h1>
+<h1>{% translate "Parts update" %}: {{ debt.name }}</h1>
 
 {% include "compotes/_debt_detail.html" %}
 
