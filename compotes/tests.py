@@ -44,6 +44,9 @@ class CompotesTests(TestCase):
         self.assertEqual(debt.get_edit_url(), "/debt/1/update")
         self.assertEqual(debt.get_parts_url(), "/debt/1/parts")
         self.assertEqual(debt.get_debitors(), 4)
+        self.assertEqual(
+            str(Part.objects.first()), "Part of 25.0075 € from a for debt 1: "
+        )
 
     def test_models_pool(self):
         """Test 100€ pool for 4 users ready to give 30€ each, CLI only."""
@@ -68,6 +71,9 @@ class CompotesTests(TestCase):
         self.assertEqual(pool.get_share_url(), "/pool/smth/share")
         self.assertEqual(
             pool.share_set.first().get_absolute_url(), pool.get_absolute_url()
+        )
+        self.assertEqual(
+            str(Share.objects.first()), "Share of 25.0 / 30.00 from a for smth"
         )
 
     def test_multiple_parts_per_user(self):
