@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 i18n %}
+
+{% block content %}
+<h1>{% translate "User" %}: {{ user }}</h1>
+
+<h2>{% translate "Debts" %}: {% translate "Creditor" %}</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">{% translate "Debt" %}</th>
+      <th scope="col" class="text-end">{% translate "Credit" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for debt in user.get_debts %}
+    <tr>
+      <td>{{ debt.get_link }}</td>
+      <td class="euro">{{ debt.value|floatformat:2 }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>{% translate "Debts" %}: {% translate "Debitor" %}</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">{% translate "Debt" %}</th>
+      <th scope="col" class="text-end">{% translate "Part" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for part in user.part_set.all %}
+    <tr>
+      <td>{{ part.debt.get_link }}</td>
+      <td class="euro">-{{ part.value|floatformat:2 }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>{% translate "Pools" %}</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">{% translate "Pools" %}</th>
+      <th scope="col" class="text-end">{% translate "Balance" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{% translate "Pools" %}</td>
+      <td class="euro">{{ user.get_pool_sum|floatformat:2 }}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+<div class="d-flex align-items-center my-3">
+  {% bootstrap_button _("Back") href="/" button_class="btn-secondary" extra_classes="w-25 mx-auto py-3" %}
+</div>
+{% endblock %}

@@ -54,20 +54,12 @@ class User(Links, AbstractUser):
         if self.pk:
             old = self.balance
             debts = query_sum(
-                self.debt_set.exclude(part_value=0),
+                self.get_debts(),
                 "value",
                 output_field=models.FloatField(),
             )
             parts = query_sum(self.part_set, "value", output_field=models.FloatField())
-            pools = query_sum(
-                self.pool_set.exclude(ratio=0),
-                "value",
-                output_field=models.FloatField(),
-            )
-            shares = query_sum(
-                self.share_set, "value", output_field=models.FloatField()
-            )
-            self.balance = debts + pools - parts - shares
+            self.balance = self.get_pool_sum() + debts - parts
         super().save(*args, **kwargs)
         if updated and abs(old - Decimal(self.balance)) > 0.01 and not settings.DEBUG:
             self.send_mail(
@@ -76,6 +68,20 @@ class User(Links, AbstractUser):
                 f"{updated.get_full_md_link()} was updated.\n"
                 f"Your balance was updated from {old:.2f} € to {self.balance:.2f} €",
             )
+
+    def get_debts(self):
+        """Get debts excluding those without value."""
+        return self.debt_set.exclude(part_value=0)
+
+    def get_pool_sum(self):
+        """Get sum of Pool participations."""
+        pools = query_sum(
+            self.pool_set.exclude(ratio=0),
+            "value",
+            output_field=models.FloatField(),
+        )
+        shares = query_sum(self.share_set, "value", output_field=models.FloatField())
+        return pools - shares
 
     def send_mail(self, subject, message):
         """Send a mail to this user."""

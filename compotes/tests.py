@@ -254,6 +254,9 @@ class CompotesTests(TestCase):
         # Check parts update
         self.client.get(reverse("parts_update", kwargs={"pk": 1}))
 
+        # Check user detail
+        self.client.get(reverse("user_detail", kwargs={"slug": "a"}))
+
     def test_pool_list(self):
         """Check an user can see the Pool they create, share, but nothing more."""
         a, b, c, d = User.objects.all()
