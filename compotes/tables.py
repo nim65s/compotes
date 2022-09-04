@@ -3,12 +3,30 @@
 import django_tables2 as tables  # type: ignore
 from django.utils.translation import gettext_lazy as _
 
-from .models import Debt, Pool
+from .models import Debt, Pool, User
 
 END, NBR, EUR = (
     {"th": {"class": "text-end"}, "td": {"class": cls}}
     for cls in ("text-end", "nombre", "euro")
 )
+
+
+class UserTable(tables.Table):
+    """List Users."""
+
+    balance = tables.Column(attrs=EUR)
+    user = tables.Column(
+        accessor="get_link", order_by="username", verbose_name=_("User")
+    )
+
+    class Meta:
+        """Meta."""
+
+        model = User
+        attrs = {"class": "table"}
+        fields = ["balance", "user"]
+        template_name = "ndh/tables.html"
+        order_by = "balance"
 
 
 class DebtTable(tables.Table):

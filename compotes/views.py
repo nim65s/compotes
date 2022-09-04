@@ -6,7 +6,7 @@ from django.db.models import Q, QuerySet
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DetailView, ListView, FormView, UpdateView
+from django.views.generic import CreateView, DetailView, FormView, UpdateView
 from django.views.generic.edit import BaseUpdateView
 
 from django_tables2 import SingleTableMixin, SingleTableView  # type: ignore
@@ -15,20 +15,36 @@ from ndh.mixins import NDHFormMixin
 
 from .models import Debt, User, Pool, Share
 from .forms import DebtPartsFormset, DebtForm
-from .tables import DebtTable, PoolTable
+from .tables import DebtTable, PoolTable, UserTable
 from .filters import DebtFilter
 
 
-class UserListView(LoginRequiredMixin, ListView):
+class UserListView(LoginRequiredMixin, SingleTableView):
     """Main view."""
 
     model = User
-    ordering = ["balance"]
+    table_class = UserTable
 
     def get_queryset(self):
         """Exclude other users with a balance of 0."""
         exclude = Q(balance=0) & ~Q(pk=self.request.user.pk)
         return super().get_queryset().exclude(exclude)
+
+    def get_table_kwargs(self):
+        """Color current user row."""
+        return {
+            "row_attrs": {
+                "class": lambda record: "table-primary"
+                if record == self.request.user
+                else ""
+            }
+        }
+
+
+class UserDetailView(LoginRequiredMixin, DetailView):
+    """Debt detail view."""
+
+    model = User
 
 
 class DebtListView(LoginRequiredMixin, SingleTableMixin, FilterView):

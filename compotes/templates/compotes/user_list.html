@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 i18n %}
+{% load render_table from django_tables2 %}
 
 {% block content %}
 
@@ -10,22 +11,7 @@
 
 <hr>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col" class="w-50 px-3 text-end">{% translate "Balance" %}</th>
-      <th scope="col" class="w-50 px-3">{% translate "User" %}</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for user in user_list %}
-    <tr{% if user == request.user %} class="table-primary"{% endif %}>
-      <td class="euro">{{ user.balance }}</td>
-      <td><a href="mailto:{{ user.email}}">{{ user }}</a></td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+{% render_table table %}
 
 <hr>
 

@@ -12,14 +12,16 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from autoslug import AutoSlugField  # type: ignore
 from dmdm import send_mail
 from ndh.models import Links, TimeStampedModel, NamedModel
 from ndh.utils import query_sum
 
 
-class User(AbstractUser):
+class User(Links, AbstractUser):
     """Placeholder."""
 
+    slug = AutoSlugField(populate_from="username", unique=True)
     balance = models.DecimalField(
         _("Balance"), max_digits=8, decimal_places=2, default=0
     )
@@ -29,6 +31,10 @@ class User(AbstractUser):
 
         ordering = ["username"]
         verbose_name = _("User")
+
+    def get_absolute_url(self) -> str:
+        """Get url to this User."""
+        return reverse("user_detail", kwargs={"slug": self.slug})
 
     def __repr__(self):
         """Display users by their name and/or username."""
