@@ -206,7 +206,7 @@ class CompotesTests(TestCase):
 
     def test_views(self):
         """Check missing views."""
-        # Check an user can't update another's debt
+        # Check an user can update another's debt
         debt = {
             "name": "test",
             "creditor": 1,
@@ -226,10 +226,10 @@ class CompotesTests(TestCase):
         self.client.login(username="b", password="b")  # they can't
         debt["value"] = 40
         r = self.client.post(reverse("debt_update", kwargs={"pk": 1}), debt)
-        self.assertEqual(r.status_code, 403)
-        self.assertEqual(Debt.objects.first().value, 50)
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(Debt.objects.first().value, 40)
 
-        # Check an user can't update another's pool
+        # Check an user can update another's pool
         pool = {"name": "z", "description": "test", "value": 30}
         self.client.login(username="a", password="a")  # they can
         self.client.post(reverse("pool_create"), pool)
@@ -242,8 +242,8 @@ class CompotesTests(TestCase):
         self.client.login(username="b", password="b")  # they can't
         pool["value"] = 40
         r = self.client.post(reverse("pool_update", kwargs={"slug": "z"}), pool)
-        self.assertEqual(r.status_code, 403)
-        self.assertEqual(Pool.objects.first().value, 50)
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(Pool.objects.first().value, 40)
 
         # Check debt table
         self.client.get(reverse("debt_list"))
