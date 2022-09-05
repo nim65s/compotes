@@ -82,12 +82,6 @@ class DebtUpdateView(LoginRequiredMixin, NDHFormMixin, ActionUpdateMixin, Update
     form_class = DebtForm
     title = _("Edit a debt")
 
-    def form_valid(self, form) -> HttpResponse:
-        """Ensure someone is not messing with someone else's debt."""
-        if form.instance.scribe != self.request.user:
-            raise PermissionDenied(_(f"Only {form.instance.scribe} can edit this."))
-        return super().form_valid(form)
-
 
 class DebtDetailView(LoginRequiredMixin, DetailView):
     """Debt detail view."""
