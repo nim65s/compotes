@@ -11,6 +11,7 @@ from django.urls import reverse
 
 from ndh.utils import query_sum
 
+from actions.models import Action
 from .models import User, Debt, Part, Pool, Share
 
 
@@ -242,6 +243,11 @@ class CompotesTests(TestCase):
         r = self.client.post(reverse("pool_update", kwargs={"slug": "z"}), pool)
         self.assertEqual(r.status_code, 302)
         self.assertEqual(Pool.objects.first().value, 40)
+
+        # Ensure this created the right Actions
+        self.assertEqual(Action.objects.count(), 6)
+        self.assertEqual(str(Action.objects.first()), "a created test")
+        self.assertEqual(str(Action.objects.last()), "b updated z")
 
         # Check debt table
         self.client.get(reverse("debt_list"))
