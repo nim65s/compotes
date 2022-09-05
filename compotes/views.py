@@ -59,9 +59,7 @@ class DebtListView(LoginRequiredMixin, SingleTableMixin, FilterView):
 
     def get_context_data(self, **kwargs):
         """Add list of users to allow simple autocompletion in search field."""
-        context = super().get_context_data(**kwargs)
-        context["users"] = User.objects.all()
-        return context
+        return super().get_context_data(users=User.objects.all(), **kwargs)
 
 
 class DebtCreateView(LoginRequiredMixin, NDHFormMixin, ActionCreateMixin, CreateView):
