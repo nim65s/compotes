@@ -19,7 +19,7 @@ class UserAdmin(BaseUserAdmin):
             path("update-balance", self.admin_site.admin_view(self.update_balance))
         ] + super().get_urls()
 
-    def update_balance(self, request):
+    def update_balance(self, request):  # pragma: no cover
         """View to update balances."""
         for user in models.User.objects.all():
             user.save()

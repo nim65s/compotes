@@ -23,6 +23,19 @@ class CompotesTests(TestCase):
         for guy in "abcd":
             User.objects.create_user(guy, email=f"{guy}@example.org", password=guy)
 
+    def test_models_user(self):
+        """Detail."""
+        user = User.objects.first()
+        self.assertEqual(user.get_absolute_url(), "/user/a")
+        self.assertEqual(repr(user), "a")
+        user.first_name = "Joe"
+        user.last_name = "Dohn"
+        user.save()
+        self.assertEqual(repr(User.objects.first()), "Joe Dohn (a)")
+        user.first_name = "Jane"
+        user.save()
+        self.assertEqual(repr(User.objects.first()), "Jane Dohn")
+
     def test_models_debt(self):
         """Test 100.3€ debt between 4 users, CLI only."""
         creditor = User.objects.first()
@@ -74,6 +87,8 @@ class CompotesTests(TestCase):
         self.assertEqual(
             str(Share.objects.first()), "Share of 25.0 / 30.00 from a for smth"
         )
+        self.assertEqual(pool.real_shares().count(), 4)
+        self.assertEqual(pool.missing(), -20)
 
     def test_multiple_parts_per_user(self):
         """Test 109€ debt for 20x4 users, with one of those users having another 29."""
@@ -249,10 +264,15 @@ class CompotesTests(TestCase):
         self.assertEqual(str(Action.objects.first()), "a created test")
         self.assertEqual(str(Action.objects.last()), "b updated z")
 
-        # Check debt table
-        self.client.get(reverse("debt_list"))
+        # Check user table
+        self.client.get(reverse("home"))
 
         # Check debt table
+        self.client.get(reverse("debt_list"))
+        self.client.get(reverse("debt_list"), data={"user": "a"})
+        self.client.get(reverse("debt_list"), data={"debt": "test"})
+
+        # Check debt detail
         self.client.get(reverse("debt_detail", kwargs={"pk": 1}))
 
         # Check parts update
