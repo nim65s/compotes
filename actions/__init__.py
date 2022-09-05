@@ -1,0 +1,1 @@
+"""Log users CUD actions."""

@@ -13,6 +13,9 @@ from django_tables2 import SingleTableMixin, SingleTableView  # type: ignore
 from django_filters.views import FilterView
 from ndh.mixins import NDHFormMixin
 
+# from actions.models import Action, to_json
+from actions.views import ActionCreateMixin, ActionUpdateMixin
+
 from .models import Debt, User, Pool, Share
 from .forms import DebtPartsFormset, DebtForm
 from .tables import DebtTable, PoolTable, UserTable
@@ -61,7 +64,7 @@ class DebtListView(LoginRequiredMixin, SingleTableMixin, FilterView):
         return context
 
 
-class DebtCreateView(LoginRequiredMixin, NDHFormMixin, CreateView):
+class DebtCreateView(LoginRequiredMixin, NDHFormMixin, ActionCreateMixin, CreateView):
     """Debt create view."""
 
     model = Debt
@@ -74,7 +77,7 @@ class DebtCreateView(LoginRequiredMixin, NDHFormMixin, CreateView):
         return super().form_valid(form)
 
 
-class DebtUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
+class DebtUpdateView(LoginRequiredMixin, NDHFormMixin, ActionUpdateMixin, UpdateView):
     """Debt update view."""
 
     model = Debt
@@ -108,10 +111,14 @@ class PartsUpdateView(LoginRequiredMixin, NDHFormMixin, BaseUpdateView, FormView
     def form_valid(self, form):
         """Save the form without overriding self.object and conclude."""
         form.save()
+        # TODO
+        # Action.objects.create(
+        # user=self.request.user, act="U", json=to_json(form.save())
+        # )
         return HttpResponseRedirect(self.get_success_url())
 
 
-class PoolCreateView(LoginRequiredMixin, NDHFormMixin, CreateView):
+class PoolCreateView(LoginRequiredMixin, NDHFormMixin, ActionCreateMixin, CreateView):
     """Pool create view."""
 
     model = Pool
@@ -130,7 +137,7 @@ class PoolDetailView(LoginRequiredMixin, DetailView):
     model = Pool
 
 
-class PoolUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
+class PoolUpdateView(LoginRequiredMixin, NDHFormMixin, ActionUpdateMixin, UpdateView):
     """Pool update view."""
 
     model = Pool
@@ -144,7 +151,7 @@ class PoolUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
         return super().form_valid(form)
 
 
-class ShareUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
+class ShareUpdateView(LoginRequiredMixin, NDHFormMixin, ActionUpdateMixin, UpdateView):
     """Share update view."""
 
     model = Share
