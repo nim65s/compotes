@@ -51,7 +51,6 @@ class DebtTable(tables.Table):
             "link",
             "date",
             "updated",
-            "scribe",
             "creditor",
             "debitors",
             "parts",

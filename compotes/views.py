@@ -68,11 +68,6 @@ class DebtCreateView(LoginRequiredMixin, NDHFormMixin, ActionCreateMixin, Create
     form_class = DebtForm
     title = _("Add a Debt")
 
-    def form_valid(self, form) -> HttpResponse:
-        """Document scribe."""
-        form.instance.scribe = self.request.user
-        return super().form_valid(form)
-
 
 class DebtUpdateView(LoginRequiredMixin, NDHFormMixin, ActionUpdateMixin, UpdateView):
     """Debt update view."""

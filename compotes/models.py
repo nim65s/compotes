@@ -114,9 +114,6 @@ class Debt(Links, TimeStampedModel):
 
     name = models.CharField(_("Name"), max_length=200)
     date = models.DateTimeField(_("Date"), default=timezone.now)
-    scribe = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name="+", verbose_name=_("Scribe")
-    )
     creditor = models.ForeignKey(
         User, on_delete=models.PROTECT, verbose_name=_("Creditor")
     )

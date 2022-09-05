@@ -25,9 +25,7 @@ class CompotesTests(TestCase):
     def test_models_debt(self):
         """Test 100.3€ debt between 4 users, CLI only."""
         creditor = User.objects.first()
-        debt = Debt.objects.create(
-            scribe=creditor, creditor=creditor, value=100.03, name="debt 1"
-        )
+        debt = Debt.objects.create(creditor=creditor, value=100.03, name="debt 1")
         for user in User.objects.all():
             Part.objects.create(debt=debt, debitor=user, part=25)
         self.assertEqual(debt.part_value, 1.0003)
@@ -79,7 +77,7 @@ class CompotesTests(TestCase):
     def test_multiple_parts_per_user(self):
         """Test 109€ debt for 20x4 users, with one of those users having another 29."""
         creditor = User.objects.first()
-        debt = Debt.objects.create(scribe=creditor, creditor=creditor, value=109)
+        debt = Debt.objects.create(creditor=creditor, value=109)
         for user in User.objects.all():
             Part.objects.create(debt=debt, debitor=user, part=20, description="first")
         Part.objects.create(debt=debt, debitor=user, part=29, description="second")
@@ -92,7 +90,7 @@ class CompotesTests(TestCase):
         user = User.objects.first()
         for _ in range(randint(2, 10)):
             value = randint(2000, 10000) / 100
-            debt = Debt.objects.create(scribe=user, creditor=user, value=value)
+            debt = Debt.objects.create(creditor=user, value=value)
             for user in User.objects.all():
                 Part.objects.create(debt=debt, debitor=user, part=randint(0, 5))
         for i in range(randint(2, 10)):
@@ -310,7 +308,7 @@ class CompotesTests(TestCase):
         self.assertIn("is -50.00 €", mail.outbox[3].body)
 
         # d gives 50 € to b
-        debt = Debt.objects.create(scribe=a, creditor=d, value=50)
+        debt = Debt.objects.create(creditor=d, value=50)
         Part.objects.create(debt=debt, debitor=b, part=1)
 
         # Call the command
