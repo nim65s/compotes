@@ -1,7 +1,6 @@
 """Compotes views."""
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import PermissionDenied
 from django.db.models import Q, QuerySet
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404
@@ -135,12 +134,6 @@ class PoolUpdateView(LoginRequiredMixin, NDHFormMixin, ActionUpdateMixin, Update
     model = Pool
     fields = ["name", "description", "value"]
     title = _("Edit a pool")
-
-    def form_valid(self, form) -> HttpResponse:
-        """Ensure someone is not messing with someone else's debt."""
-        if form.instance.organiser != self.request.user:
-            raise PermissionDenied(_(f"Only {form.instance.organiser} can edit this."))
-        return super().form_valid(form)
 
 
 class ShareUpdateView(LoginRequiredMixin, NDHFormMixin, ActionUpdateMixin, UpdateView):
