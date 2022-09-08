@@ -3,10 +3,13 @@
 import os
 import sys
 
+from ndh.utils import get_env
+
 
 def main():
     """Run administrative tasks."""
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "compotes.settings")
+    get_env()
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
