@@ -123,7 +123,7 @@ class CompotesTests(TestCase):
         self.assertGreater(total, Decimal("-0.02"))
 
     def test_debt_views_mails(self):
-        """Check debt views and sent mails."""
+        """Check debt views."""
         self.assertEqual(len(mail.outbox), 0)
 
         # Client not logged in
@@ -171,15 +171,8 @@ class CompotesTests(TestCase):
         r = self.client.post(reverse("parts_update", kwargs={"pk": 1}), parts)
         self.assertEqual(Part.objects.count(), 2)
 
-        # balance change for 2 users
-        self.assertEqual(len(mail.outbox), 2)
-        self.assertIn("Hi a", mail.outbox[0].body)
-        self.assertIn("from 0.00 € to 20.00 €", mail.outbox[0].body)
-        self.assertIn("Hi b", mail.outbox[1].body)
-        self.assertIn("from 0.00 € to -20.00 €", mail.outbox[1].body)
-
     def test_pool_views_mails(self):
-        """Check pool views and sent mails."""
+        """Check pool views."""
         self.assertEqual(len(mail.outbox), 0)
 
         # Client not logged in
@@ -208,15 +201,6 @@ class CompotesTests(TestCase):
         self.client.login(username="c", password="c")
         r = self.client.post(url, {"maxi": 30})
         self.assertEqual(Share.objects.count(), 3)
-
-        # balance change for 3 users
-        self.assertEqual(len(mail.outbox), 3)
-        self.assertIn("Hi a", mail.outbox[0].body)
-        self.assertIn("from 0.00 € to 50.00 €", mail.outbox[0].body)
-        self.assertIn("Hi b", mail.outbox[1].body)
-        self.assertIn("from 0.00 € to -20.00 €", mail.outbox[1].body)
-        self.assertIn("Hi c", mail.outbox[2].body)
-        self.assertIn("from 0.00 € to -30.00 €", mail.outbox[2].body)
 
     def test_views(self):
         """Check missing views."""
@@ -347,22 +331,6 @@ class CompotesTests(TestCase):
         self.assertIn("is 16.67 €", mail.outbox[1].body)
         self.assertIn("Hi c", mail.outbox[2].body)
         self.assertIn("is -33.33 €", mail.outbox[2].body)
-
-        # No mail until the Pool is successful
-        mail.outbox = []
-        x = Pool.objects.create(name="x", organiser=a, description="x", value=100)
-        Share.objects.create(pool=x, participant=a, maxi=40)
-        Share.objects.create(pool=x, participant=b, maxi=40)
-        self.assertEqual(len(mail.outbox), 0)
-
-        # Successful → mail for all participants
-        Share.objects.create(pool=x, participant=c, maxi=40)
-        self.assertEqual(len(mail.outbox), 3)
-
-        # Successful update → mail for all participants
-        mail.outbox = []
-        Share.objects.create(pool=x, participant=d, maxi=40)
-        self.assertEqual(len(mail.outbox), 4)
 
     def test_pool_table(self):
         """Check Pool table has the right row colors."""
