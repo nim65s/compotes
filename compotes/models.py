@@ -48,11 +48,9 @@ class User(Links, AbstractUser):
             return self.username
         return name
 
-    def save(self, updated=None, *args, **kwargs):
+    def save(self, *args, **kwargs):
         """Update the balance."""
-        old = Decimal(0)
         if self.pk:
-            old = self.balance
             debts = query_sum(
                 self.get_debts(),
                 "value",
@@ -61,13 +59,6 @@ class User(Links, AbstractUser):
             parts = query_sum(self.part_set, "value", output_field=models.FloatField())
             self.balance = self.get_pool_sum() + debts - parts
         super().save(*args, **kwargs)
-        if updated and abs(old - Decimal(self.balance)) > 0.01 and not settings.DEBUG:
-            self.send_mail(
-                "Updated balance",
-                f"Hi {self},\n\n"
-                f"{updated.get_full_md_link()} was updated.\n"
-                f"Your balance was updated from {old:.2f} € to {self.balance:.2f} €",
-            )
 
     def get_debts(self):
         """Get debts excluding those without value."""
@@ -149,9 +140,9 @@ class Debt(Links, TimeStampedModel):
             self.part_value = 0 if parts == 0 else float(self.value) / parts
         super().save(*args, **kwargs)
         for part in self.part_set.all():
-            part.save(allow_rec=False)
+            part.save(allow_recursion=False)
         for user in User.objects.filter(Q(part__debt=self) | Q(debt=self)):
-            user.save(updated=self)
+            user.save()
 
     def get_debitors(self) -> int:
         """Get number of debitors."""
@@ -185,11 +176,11 @@ class Part(models.Model):
 
         verbose_name = _("Part")
 
-    def save(self, *args, allow_rec=True, **kwargs):
+    def save(self, *args, allow_recursion=True, **kwargs):
         """Update value."""
         self.value = self.part * self.debt.part_value
         super().save(*args, **kwargs)
-        if allow_rec:
+        if allow_recursion:
             self.debt.save()
 
 
@@ -227,9 +218,9 @@ class Pool(Links, TimeStampedModel, NamedModel):
             self.ratio = float(self.value) / available if available >= self.value else 0
         super().save(*args, **kwargs)
         for share in self.share_set.all():
-            share.save(allow_rec=False)
+            share.save(allow_recursion=False)
         for user in User.objects.filter(Q(share__pool=self) | Q(pool=self)).distinct():
-            user.save(updated=self)
+            user.save()
 
     def real_shares(self):
         """Exclude trivial shares."""
@@ -267,11 +258,11 @@ class Share(models.Model):
         unique_together = ["pool", "participant"]
         verbose_name = _("Share")
 
-    def save(self, *args, allow_rec=True, **kwargs):
+    def save(self, *args, allow_recursion=True, **kwargs):
         """Update value, and trigger pool update."""
         self.value = float(self.maxi) * self.pool.ratio
         super().save(*args, **kwargs)
-        if allow_rec:
+        if allow_recursion:
             self.pool.save()
 
     def get_absolute_url(self) -> str:
