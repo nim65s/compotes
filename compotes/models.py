@@ -1,6 +1,5 @@
 """Compotes models."""
 
-from decimal import Decimal
 from smtplib import SMTPException
 
 from django.conf import settings
