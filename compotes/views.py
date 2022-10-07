@@ -2,17 +2,10 @@
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q, QuerySet
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import (
-    CreateView,
-    DetailView,
-    FormView,
-    UpdateView,
-    DeleteView,
-)
-from django.views.generic.edit import BaseUpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
 from django_tables2 import SingleTableMixin, SingleTableView  # type: ignore
 from django_filters.views import FilterView
@@ -22,7 +15,7 @@ from ndh.mixins import NDHFormMixin, NDHDeleteMixin
 from actions.views import ActionCreateMixin, ActionUpdateMixin
 
 from .models import Debt, User, Pool, Share, Part
-from .forms import DebtPartsFormset, DebtForm, PartForm
+from .forms import DebtForm, PartForm
 from .tables import DebtTable, PoolTable, UserTable
 from .filters import DebtFilter
 
@@ -122,27 +115,6 @@ class PartDeleteView(LoginRequiredMixin, NDHDeleteMixin, DeleteView):
         return self.object.get_absolute_url()
 
 
-class PartsUpdateView(LoginRequiredMixin, NDHFormMixin, BaseUpdateView, FormView):
-    """Update a debt parts."""
-
-    model = Debt
-    template_name = "compotes/parts_form.html"
-    continue_edit = True
-
-    def get_form(self, form_class=None):
-        """Instanciate the Debt/Parts formset."""
-        return DebtPartsFormset(**self.get_form_kwargs())
-
-    def form_valid(self, form):
-        """Save the form without overriding self.object and conclude."""
-        form.save()
-        # TODO
-        # Action.objects.create(
-        # user=self.request.user, act="U", json=to_json(form.save())
-        # )
-        return HttpResponseRedirect(self.get_success_url())
-
-
 class PoolCreateView(LoginRequiredMixin, NDHFormMixin, ActionCreateMixin, CreateView):
     """Pool create view."""
 
@@ -178,7 +150,7 @@ class ShareUpdateView(LoginRequiredMixin, NDHFormMixin, ActionUpdateMixin, Updat
     title = _("Edit my share")
 
     def get_object(self, queryset=None) -> Share:
-        """Instanciate the Debt/Parts formset."""
+        """Get (and the share object, creating if necessary."""
         pool = get_object_or_404(Pool, slug=self.kwargs.get(self.slug_url_kwarg))
         return Share.objects.get_or_create(pool=pool, participant=self.request.user)[0]
 

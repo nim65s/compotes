@@ -16,7 +16,6 @@ urlpatterns = [
     path("debt/add", views.DebtCreateView.as_view(), name="debt_create"),
     path("debt/<int:pk>", views.DebtDetailView.as_view(), name="debt_detail"),
     path("debt/<int:pk>/update", views.DebtUpdateView.as_view(), name="debt_update"),
-    path("debt/<int:pk>/parts", views.PartsUpdateView.as_view(), name="parts_update"),
     path("debt/<int:pk>/part", views.PartCreateView.as_view(), name="part_create"),
     path("part/<int:pk>", views.PartUpdateView.as_view(), name="part_update"),
     path("part/<int:pk>/delete", views.PartDeleteView.as_view(), name="part_delete"),
