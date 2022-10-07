@@ -5,18 +5,24 @@ from django.db.models import Q, QuerySet
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DetailView, FormView, UpdateView
+from django.views.generic import (
+    CreateView,
+    DetailView,
+    FormView,
+    UpdateView,
+    DeleteView,
+)
 from django.views.generic.edit import BaseUpdateView
 
 from django_tables2 import SingleTableMixin, SingleTableView  # type: ignore
 from django_filters.views import FilterView
-from ndh.mixins import NDHFormMixin
+from ndh.mixins import NDHFormMixin, NDHDeleteMixin
 
 # from actions.models import Action, to_json
 from actions.views import ActionCreateMixin, ActionUpdateMixin
 
-from .models import Debt, User, Pool, Share
-from .forms import DebtPartsFormset, DebtForm
+from .models import Debt, User, Pool, Share, Part
+from .forms import DebtPartsFormset, DebtForm, PartForm
 from .tables import DebtTable, PoolTable, UserTable
 from .filters import DebtFilter
 
@@ -81,6 +87,39 @@ class DebtDetailView(LoginRequiredMixin, DetailView):
     """Debt detail view."""
 
     model = Debt
+
+    def get_context_data(self, **kwargs):
+        """Add a Part form to create one."""
+        return super().get_context_data(form=PartForm(), **kwargs)
+
+
+class PartCreateView(LoginRequiredMixin, CreateView):
+    """Create a Part."""
+
+    model = Part
+    fields = ["debitor", "part", "description"]
+
+    def form_valid(self, form) -> HttpResponse:
+        """Set Debt."""
+        form.instance.debt = get_object_or_404(Debt, pk=self.kwargs["pk"])
+        return super().form_valid(form)
+
+
+class PartUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
+    """Update a Part."""
+
+    model = Part
+    fields = ["debitor", "part", "description"]
+
+
+class PartDeleteView(LoginRequiredMixin, NDHDeleteMixin, DeleteView):
+    """Delete a Part."""
+
+    model = Part
+
+    def get_success_url(self):
+        """Return to Debt."""
+        return self.object.get_absolute_url()
 
 
 class PartsUpdateView(LoginRequiredMixin, NDHFormMixin, BaseUpdateView, FormView):

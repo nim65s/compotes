@@ -10,8 +10,10 @@
 
 {% include "compotes/_debt_detail.html" %}
 
-<div class="d-flex align-items-center my-3">
-  {% bootstrap_button _("Edit Parts") href=debt.get_parts_url extra_classes="w-50 mx-auto py-3"%}
+<div>
+  <h2>{% translate "Add a part" %}</h2>
+  {% url 'part_create' pk=debt.pk as ndh_form_action %}
+  {% include "ndh/form.html" with ndh_form_action=ndh_form_action %}
 </div>
 
 <table class="table">
@@ -21,6 +23,8 @@
       <th scope="col">{% translate "Description" %}</th>
       <th scope="col" class="text-center">{% translate "Parts" %}</th>
       <th scope="col" class="text-end">{% translate "Debt" %}</th>
+      <th scope="col" class="text-center">{% translate "Update" %}</th>
+      <th scope="col" class="text-center">{% translate "Delete" %}</th>
     </tr>
   </thead>
   <tbody>
@@ -30,6 +34,8 @@
       <td>{{ part.description }}</td>
       <td class="nombre text-center">{{ part.part }}</td>
       <td class="euro">{{ part.value|floatformat:2 }}</td>
+      <td class="text-center"><a href="{% url 'part_update' pk=part.pk %}">✏️</a></td>
+      <td class="text-center"><a href="{% url 'part_delete' pk=part.pk %}">❌</a></td>
     </tr>
     {% endfor %}
   </tbody>

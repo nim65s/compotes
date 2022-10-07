@@ -57,7 +57,7 @@ class CompotesTests(TestCase):
         self.assertEqual(debt.get_parts_url(), "/debt/1/parts")
         self.assertEqual(debt.get_debitors(), 4)
         self.assertEqual(
-            str(Part.objects.first()), "Part of 25.0075 € from a for debt 1: "
+            str(Part.objects.first()), "Part of 25.01 € from a for debt 1: "
         )
 
     def test_models_pool(self):

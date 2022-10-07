@@ -166,7 +166,7 @@ class Part(models.Model):
     def __str__(self):
         """Describe this Part."""
         return (
-            f"Part of {self.value} € from {self.debitor} for {self.debt}: "
+            f"Part of {self.value:.2f} € from {self.debitor} for {self.debt}: "
             f"{self.description}"
         )
 
@@ -181,6 +181,10 @@ class Part(models.Model):
         super().save(*args, **kwargs)
         if allow_recursion:
             self.debt.save()
+
+    def get_absolute_url(self) -> str:
+        """Url to debt."""
+        return self.debt.get_absolute_url()
 
 
 class Pool(Links, TimeStampedModel, NamedModel):

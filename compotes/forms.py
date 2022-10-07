@@ -23,3 +23,13 @@ class DebtForm(ModelForm):
 
         model = Debt
         fields = ["name", "date", "creditor", "description", "value"]
+
+
+class PartForm(ModelForm):
+    """Form for Parts."""
+
+    class Meta:
+        """Meta."""
+
+        model = Part
+        fields = ["debitor", "part", "description"]
