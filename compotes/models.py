@@ -128,10 +128,6 @@ class Debt(Links, TimeStampedModel):
         """Url to edit self."""
         return reverse("debt_update", kwargs={"pk": self.pk})
 
-    def get_parts_url(self) -> str:
-        """Url to update self parts."""
-        return reverse("parts_update", kwargs={"pk": self.pk})
-
     def save(self, *args, **kwargs):
         """Update part_value, parts, and balances."""
         if self.pk:

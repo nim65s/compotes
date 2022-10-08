@@ -54,7 +54,6 @@ class CompotesTests(TestCase):
         self.assertEqual(str(debt), "debt 1")
         self.assertEqual(debt.get_absolute_url(), "/debt/1")
         self.assertEqual(debt.get_edit_url(), "/debt/1/update")
-        self.assertEqual(debt.get_parts_url(), "/debt/1/parts")
         self.assertEqual(debt.get_debitors(), 4)
         self.assertEqual(
             str(Part.objects.first()), "Part of 25.01 € from a for debt 1: "
@@ -146,30 +145,20 @@ class CompotesTests(TestCase):
         }
         r = self.client.post(reverse("debt_create"), debt)
         self.assertEqual(Debt.objects.count(), 1)
+        debt = Debt.objects.first()
 
         # No balance change → no mails
         self.assertEqual(len(mail.outbox), 0)
 
-        # Add parts
-        parts = {
-            "part_set-TOTAL_FORMS": 2,
-            "part_set-INITIAL_FORMS": 0,
-            "part_set-MIN_NUM_FORMS": 0,
-            "part_set-MAX_NUM_FORMS": 1000,
-            "part_set-0-debitor": 1,
-            "part_set-0-part": 1,
-            "part_set-0-description": "aha",
-            "part_set-0-id": "",
-            "part_set-0-debt": 1,
-            "part_set-1-debitor": 2,
-            "part_set-1-part": 2,
-            "part_set-1-description": "bhb",
-            "part_set-1-id": "",
-            "part_set-1-debt": 1,
-        }
+        # Add a part
+        part = {"debitor": "1", "part": "2", "description": "test"}
+        r = self.client.post(reverse("part_create", kwargs={"pk": debt.pk}), part)
+        self.assertEqual(Part.objects.count(), 1)
+        part = Part.objects.first()
+
+        # Delete it
+        r = self.client.post(reverse("part_delete", kwargs={"pk": part.pk}))
         self.assertEqual(Part.objects.count(), 0)
-        r = self.client.post(reverse("parts_update", kwargs={"pk": 1}), parts)
-        self.assertEqual(Part.objects.count(), 2)
 
     def test_pool_views_mails(self):
         """Check pool views."""
@@ -258,9 +247,6 @@ class CompotesTests(TestCase):
 
         # Check debt detail
         self.client.get(reverse("debt_detail", kwargs={"pk": 1}))
-
-        # Check parts update
-        self.client.get(reverse("parts_update", kwargs={"pk": 1}))
 
         # Check user detail
         self.client.get(reverse("user_detail", kwargs={"slug": "a"}))
