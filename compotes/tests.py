@@ -157,21 +157,26 @@ class CompotesTests(TestCase):
         r = self.client.post(reverse("part_create", kwargs={"pk": debt.pk}), part)
         self.assertEqual(Part.objects.count(), 1)
         self.assertEqual(Action.objects.count(), 2)
-        part = Part.objects.first()
+        inst = Part.objects.first()
+
+        # Update it
+        part["part"] = "3"
+        r = self.client.post(reverse("part_update", kwargs={"pk": inst.pk}), part)
+        self.assertEqual(Action.objects.count(), 3)
 
         # Delete it
-        r = self.client.post(reverse("part_delete", kwargs={"pk": part.pk}))
+        r = self.client.post(reverse("part_delete", kwargs={"pk": inst.pk}))
         self.assertEqual(Part.objects.count(), 0)
-        self.assertEqual(Action.objects.count(), 3)
+        self.assertEqual(Action.objects.count(), 4)
         self.assertEqual(
-            Action.objects.last(),
+            Action.objects.last().item(),
             {
                 "model": "compotes.part",
                 "pk": None,
                 "fields": {
                     "debt": 1,
                     "debitor": 1,
-                    "part": 2.0,
+                    "part": 3.0,
                     "value": 30.0,
                     "description": "test",
                 },
