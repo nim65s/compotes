@@ -86,7 +86,7 @@ class DebtDetailView(LoginRequiredMixin, DetailView):
         return super().get_context_data(form=PartForm(), **kwargs)
 
 
-class PartCreateView(LoginRequiredMixin, CreateView):
+class PartCreateView(LoginRequiredMixin, ActionCreateMixin, CreateView):
     """Create a Part."""
 
     model = Part
@@ -98,7 +98,7 @@ class PartCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class PartUpdateView(LoginRequiredMixin, NDHFormMixin, UpdateView):
+class PartUpdateView(LoginRequiredMixin, NDHFormMixin, ActionUpdateMixin, UpdateView):
     """Update a Part."""
 
     model = Part

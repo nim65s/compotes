@@ -124,6 +124,7 @@ class CompotesTests(TestCase):
     def test_debt_views_mails(self):
         """Check debt views."""
         self.assertEqual(len(mail.outbox), 0)
+        self.assertEqual(Action.objects.count(), 0)
 
         # Client not logged in
         r = self.client.get(reverse("debt_create"))
@@ -145,6 +146,7 @@ class CompotesTests(TestCase):
         }
         r = self.client.post(reverse("debt_create"), debt)
         self.assertEqual(Debt.objects.count(), 1)
+        self.assertEqual(Action.objects.count(), 1)
         debt = Debt.objects.first()
 
         # No balance change → no mails
@@ -154,11 +156,13 @@ class CompotesTests(TestCase):
         part = {"debitor": "1", "part": "2", "description": "test"}
         r = self.client.post(reverse("part_create", kwargs={"pk": debt.pk}), part)
         self.assertEqual(Part.objects.count(), 1)
+        self.assertEqual(Action.objects.count(), 2)
         part = Part.objects.first()
 
         # Delete it
         r = self.client.post(reverse("part_delete", kwargs={"pk": part.pk}))
         self.assertEqual(Part.objects.count(), 0)
+        self.assertEqual(Action.objects.count(), 3)
 
     def test_pool_views_mails(self):
         """Check pool views."""
