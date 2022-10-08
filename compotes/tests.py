@@ -163,6 +163,20 @@ class CompotesTests(TestCase):
         r = self.client.post(reverse("part_delete", kwargs={"pk": part.pk}))
         self.assertEqual(Part.objects.count(), 0)
         self.assertEqual(Action.objects.count(), 3)
+        self.assertEqual(
+            Action.objects.last(),
+            {
+                "model": "compotes.part",
+                "pk": None,
+                "fields": {
+                    "debt": 1,
+                    "debitor": 1,
+                    "part": 2.0,
+                    "value": 30.0,
+                    "description": "test",
+                },
+            },
+        )
 
     def test_pool_views_mails(self):
         """Check pool views."""
