@@ -26,3 +26,9 @@ class ActionUpdateMixin(ActionMixin):
     """Action mixin for Updated objects."""
 
     act = "U"
+
+
+class ActionDeleteMixin(ActionMixin):
+    """Action mixin for Deleted objects."""
+
+    act = "D"

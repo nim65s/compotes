@@ -12,7 +12,7 @@ from django_filters.views import FilterView
 from ndh.mixins import NDHFormMixin, NDHDeleteMixin
 
 # from actions.models import Action, to_json
-from actions.views import ActionCreateMixin, ActionUpdateMixin
+from actions.views import ActionCreateMixin, ActionUpdateMixin, ActionDeleteMixin
 
 from .models import Debt, User, Pool, Share, Part
 from .forms import DebtForm, PartForm
@@ -105,7 +105,7 @@ class PartUpdateView(LoginRequiredMixin, NDHFormMixin, ActionUpdateMixin, Update
     fields = ["debitor", "part", "description"]
 
 
-class PartDeleteView(LoginRequiredMixin, NDHDeleteMixin, DeleteView):
+class PartDeleteView(LoginRequiredMixin, NDHDeleteMixin, ActionDeleteMixin, DeleteView):
     """Delete a Part."""
 
     model = Part
