@@ -10,7 +10,7 @@
 
 {% include "compotes/_debt_detail.html" %}
 
-<div>
+<div class="bg-secondary p-3 rounded border" style="--bs-bg-opacity: .2;">
   <h2>{% translate "Add a part" %}</h2>
   {% url 'part_create' pk=debt.pk as ndh_form_action %}
   {% include "ndh/form.html" with ndh_form_action=ndh_form_action %}
