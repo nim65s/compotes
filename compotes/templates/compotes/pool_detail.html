@@ -12,28 +12,83 @@
 
 {% include "compotes/_pool_detail.html" %}
 
-<div class="d-flex align-items-center my-3">
-  {% bootstrap_button _("Edit my share") href=pool.get_share_url extra_classes="w-50 mx-auto py-3"%}
+<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        {% translate "Edit my share" %}
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        {% include "ndh/form.html" with ndh_form_action=pool.get_share_url %}
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        {% translate "Participants" %}
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">{% translate "Participant" %}</th>
+              <th scope="col" class="text-center">{% translate "Maxi" %}</th>
+              <th scope="col" class="text-end">{% translate "Share" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for share in pool.real_shares %}
+            <tr{% if share.participant == request.user %} class="table-primary"{% endif %}>
+              <td>{{ share.participant }}</td>
+              <td class="euro text-center">{{ share.maxi }}</td>
+              <td class="euro">{{ share.value|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingThree">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+        {% translate "Pool History" %}
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">{% translate "Timestamp" %}</th>
+              <th scope="col">{% translate "User" %}</th>
+              <th scope="col">{% translate "Action" %}</th>
+              <th scope="col">{% translate "JSON" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for action in actions %}
+            <tr>
+              <td>{% include "ndh/dt.html" with dt=action.created %}</td>
+              <td>{{ action.user }}</td>
+              <td class="text-center">{{ action.emoji }}</td>
+              <td>{{ action.json }}</td>
+            </tr>
+            {% endfor %}
+          <tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">{% translate "Participant" %}</th>
-      <th scope="col" class="text-center">{% translate "Maxi" %}</th>
-      <th scope="col" class="text-end">{% translate "Share" %}</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for share in pool.real_shares %}
-    <tr{% if share.participant == request.user %} class="table-primary"{% endif %}>
-      <td>{{ share.participant }}</td>
-      <td class="euro text-center">{{ share.maxi }}</td>
-      <td class="euro">{{ share.value|floatformat:2 }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
 
 <div class="d-flex align-items-center my-3">
   {% bootstrap_button _("Back") href="/" button_class="btn-secondary" extra_classes="w-25 mx-auto py-3" %}

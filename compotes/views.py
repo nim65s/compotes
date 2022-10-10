@@ -13,7 +13,7 @@ from django_tables2 import SingleTableMixin, SingleTableView  # type: ignore
 from ndh.mixins import NDHDeleteMixin, NDHFormMixin
 
 from .filters import DebtFilter
-from .forms import DebtForm, PartForm
+from .forms import DebtForm, PartForm, ShareForm
 from .models import Debt, Part, Pool, Share, User
 from .tables import DebtTable, PoolTable, UserTable
 
@@ -80,7 +80,7 @@ class DebtDetailView(LoginRequiredMixin, DetailView):
     model = Debt
 
     def get_context_data(self, **kwargs):
-        """Add a Part form to create one."""
+        """Add a Part form to create one, and related actions."""
         actions = Action.objects.filter(
             Q(json__model="compotes.part", json__fields__debt=self.object.pk)
             | Q(json__model="compotes.debt", json__pk=self.object.pk)
@@ -134,6 +134,18 @@ class PoolDetailView(LoginRequiredMixin, DetailView):
     """Pool detail view."""
 
     model = Pool
+
+    def get_context_data(self, **kwargs):
+        """Add related actions."""
+        share = Share.objects.filter(pool=self.object, participant=self.request.user)
+        form = ShareForm(
+            initial={"maxi": share.first().maxi} if share.exists() else None
+        )
+        actions = Action.objects.filter(
+            Q(json__model="compotes.pool", json__pk=self.object.pk)
+            | Q(json__model="compotes.share", json__fields__pool=self.object.pk)
+        )
+        return super().get_context_data(actions=actions, form=form, **kwargs)
 
 
 class PoolUpdateView(LoginRequiredMixin, NDHFormMixin, ActionUpdateMixin, UpdateView):

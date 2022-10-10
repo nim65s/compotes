@@ -2,10 +2,9 @@
 
 from django.forms import ModelForm
 from django.utils import timezone
-
 from ndh.forms import AccessibleDateTimeField
 
-from .models import Debt, Part
+from .models import Debt, Part, Share
 
 
 class DebtForm(ModelForm):
@@ -28,3 +27,13 @@ class PartForm(ModelForm):
 
         model = Part
         fields = ["debitor", "part", "description"]
+
+
+class ShareForm(ModelForm):
+    """Form for Share."""
+
+    class Meta:
+        """Meta."""
+
+        model = Share
+        fields = ["maxi"]
