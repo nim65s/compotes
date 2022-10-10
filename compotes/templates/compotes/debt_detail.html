@@ -81,7 +81,7 @@
           <tbody>
             {% for action in actions %}
             <tr>
-              <td>{{ action.created }}</td>
+              <td>{% include "ndh/dt.html" with dt=action.created %}</td>
               <td>{{ action.user }}</td>
               <td class="text-center">{{ action.emoji }}</td>
               <td>{{ action.json }}</td>

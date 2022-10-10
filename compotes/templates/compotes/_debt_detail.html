@@ -1,9 +1,9 @@
 {% load i18n %}
 
 <dl class="row">
-  <dt class="col-6">{% translate "Date" %}</dt><dd class="col-6">{{ debt.date }}</dd>
-  <dt class="col-6">{% translate "Created" %}</dt><dd class="col-6">{{ debt.created }}</dd>
-  <dt class="col-6">{% translate "Last Update" %}</dt><dd class="col-6">{{ debt.updated }}</dd>
+  <dt class="col-6">{% translate "Date" %}</dt><dd class="col-6">{% include "ndh/dt.html" with dt=debt.date %}</dd>
+  <dt class="col-6">{% translate "Created" %}</dt><dd class="col-6">{% include "ndh/dt.html" with dt=debt.created %}</dd>
+  <dt class="col-6">{% translate "Last Update" %}</dt><dd class="col-6">{% include "ndh/dt.html" with dt=debt.updated %}</dd>
   <dt class="col-6">{% translate "Creditor" %}</dt><dd class="col-6">{{ debt.creditor }}</dd>
   <dt class="col-6">{% translate "Value" %}</dt><dd class="col-6 euro text-start">{{ debt.value }}</dd>
   <dt class="col-6">{% translate "Part value" %}</dt><dd class="col-6 euro text-start">{{ debt.part_value|floatformat:2 }}</dd>
