@@ -1,23 +1,21 @@
 """Compotes views."""
 
+from actions.models import Action
+from actions.views import ActionCreateMixin, ActionDeleteMixin, ActionUpdateMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q, QuerySet
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
-
-from django_tables2 import SingleTableMixin, SingleTableView  # type: ignore
+from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 from django_filters.views import FilterView
-from ndh.mixins import NDHFormMixin, NDHDeleteMixin
+from django_tables2 import SingleTableMixin, SingleTableView  # type: ignore
+from ndh.mixins import NDHDeleteMixin, NDHFormMixin
 
-# from actions.models import Action, to_json
-from actions.views import ActionCreateMixin, ActionUpdateMixin, ActionDeleteMixin
-
-from .models import Debt, User, Pool, Share, Part
-from .forms import DebtForm, PartForm
-from .tables import DebtTable, PoolTable, UserTable
 from .filters import DebtFilter
+from .forms import DebtForm, PartForm
+from .models import Debt, Part, Pool, Share, User
+from .tables import DebtTable, PoolTable, UserTable
 
 
 class UserListView(LoginRequiredMixin, SingleTableView):
@@ -83,7 +81,11 @@ class DebtDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         """Add a Part form to create one."""
-        return super().get_context_data(form=PartForm(), **kwargs)
+        actions = Action.objects.filter(
+            Q(json__model="compotes.part", json__fields__debt=self.object.pk)
+            | Q(json__model="compotes.debt", json__pk=self.object.pk)
+        )
+        return super().get_context_data(actions=actions, form=PartForm(), **kwargs)
 
 
 class PartCreateView(LoginRequiredMixin, ActionCreateMixin, CreateView):

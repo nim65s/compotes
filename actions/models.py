@@ -3,10 +3,9 @@ from json import loads
 
 from django.apps import apps
 from django.conf import settings
-from django.utils.translation import gettext_lazy as _
-from django.db import models
 from django.core.serializers import serialize
-
+from django.db import models
+from django.utils.translation import gettext_lazy as _
 from ndh.models import TimeStampedModel
 
 
@@ -26,7 +25,20 @@ class Action(TimeStampedModel):
 
     def __str__(self):
         """Describe this action."""
-        return f"{self.user} {self.get_act_display()} {self.item()}"
+        return _("%(user)s %(act)s %(item)s") % {
+            "user": self.user,
+            "act": self.get_act_display(),
+            "item": self.item(),
+        }
+
+    @property
+    def emoji(self):
+        """Act → Emoji."""
+        if self.act == "C":
+            return "\u2795"
+        if self.act == "U":
+            return "✏️"
+        return "❌"
 
     def item(self):
         """Get item, if it still exist, or an older serialized version."""
