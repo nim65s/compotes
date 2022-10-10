@@ -161,10 +161,13 @@ class Part(models.Model):
 
     def __str__(self):
         """Describe this Part."""
-        return (
-            f"Part of {self.value:.2f} € from {self.debitor} for {self.debt}: "
-            f"{self.description}"
-        )
+        return _(
+            "Part of %(value).2f € from %(debitor)s for %(debt)s: %(description)s"
+        ) % {
+            "debt": self.debt,
+            "debitor": self.debitor,
+            **vars(self),
+        }
 
     class Meta:
         """Meta."""
