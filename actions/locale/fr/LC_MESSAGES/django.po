@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-08 23:32+0200\n"
+"POT-Creation-Date: 2022-10-11 01:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,14 +17,44 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-#: actions/models.py:19
+
+#: actions/models.py:18
 msgid "created"
 msgstr "créé"
 
-#: actions/models.py:20
+#: actions/models.py:19
 msgid "updated"
 msgstr "modifié"
 
-#: actions/models.py:21
+#: actions/models.py:20
 msgid "deleted"
 msgstr "supprimé"
+
+#: actions/models.py:28
+#, python-format
+msgid "%(user)s %(act)s %(item)s"
+msgstr "%(user)s a %(act)s %(item)s"
+
+#: actions/templates/actions/action_table.html:6
+msgid "Timestamp"
+msgstr "Timestamp"
+
+#: actions/templates/actions/action_table.html:7
+msgid "User"
+msgstr "Utilisateur"
+
+#: actions/templates/actions/action_table.html:8
+msgid "Act"
+msgstr "Acte"
+
+#: actions/templates/actions/action_table.html:9
+msgid "Model"
+msgstr "Modèle"
+
+#: actions/templates/actions/action_table.html:10
+msgid "ID"
+msgstr "ID"
+
+#: actions/templates/actions/action_table.html:11
+msgid "JSON"
+msgstr "JSON"
