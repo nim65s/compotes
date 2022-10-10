@@ -40,11 +40,19 @@ class Action(TimeStampedModel):
             return "✏️"
         return "❌"
 
+    @property
+    def verbose_name(self):
+        """Get the model's verbose name."""
+        return self.model()._meta.verbose_name
+
+    def model(self):
+        """Return the Model."""
+        app_label, model_name = self.json["model"].split(".")
+        return apps.get_model(app_label=app_label, model_name=model_name)
+
     def item(self):
         """Get item, if it still exist, or an older serialized version."""
-        app_label, model_name = self.json["model"].split(".")
-        model = apps.get_model(app_label=app_label, model_name=model_name)
-        obj = model.objects.filter(pk=self.json["pk"])
+        obj = self.model().objects.filter(pk=self.json["pk"])
         if obj.exists():
             return obj.first()
         return self.json

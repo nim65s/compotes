@@ -5,7 +5,9 @@
     <tr>
       <th scope="col">{% translate "Timestamp" %}</th>
       <th scope="col">{% translate "User" %}</th>
-      <th scope="col">{% translate "Action" %}</th>
+      <th scope="col">{% translate "Act" %}</th>
+      <th scope="col">{% translate "Model" %}</th>
+      <th scope="col text-end">{% translate "ID" %}</th>
       <th scope="col">{% translate "JSON" %}</th>
     </tr>
   </thead>
@@ -15,7 +17,9 @@
       <td>{% include "ndh/dt.html" with dt=action.created %}</td>
       <td>{{ action.user }}</td>
       <td class="text-center">{{ action.emoji }}</td>
-      <td>{{ action.json }}</td>
+      <td>{{ action.verbose_name }}</td>
+      <td class="number">{{ action.json.pk|default_if_none:"" }}</td>
+      <td><code>{{ action.json.fields }}</code></td>
     </tr>
     {% endfor %}
     <tbody>
