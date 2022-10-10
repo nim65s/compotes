@@ -69,26 +69,7 @@
     </h2>
     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">{% translate "Timestamp" %}</th>
-              <th scope="col">{% translate "User" %}</th>
-              <th scope="col">{% translate "Action" %}</th>
-              <th scope="col">{% translate "JSON" %}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for action in actions %}
-            <tr>
-              <td>{% include "ndh/dt.html" with dt=action.created %}</td>
-              <td>{{ action.user }}</td>
-              <td class="text-center">{{ action.emoji }}</td>
-              <td>{{ action.json }}</td>
-            </tr>
-            {% endfor %}
-          <tbody>
-        </table>
+        {% include "actions/action_table.html" %}
       </div>
     </div>
   </div>
