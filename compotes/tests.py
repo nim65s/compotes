@@ -3,16 +3,15 @@
 from decimal import Decimal
 from random import randint
 
+from actions.models import Action
 from django.core import mail
 from django.core.management import call_command
 from django.db import models
 from django.test import TestCase
 from django.urls import reverse
-
 from ndh.utils import query_sum
 
-from actions.models import Action
-from .models import User, Debt, Part, Pool, Share
+from .models import Debt, Part, Pool, Share, User
 
 
 class CompotesTests(TestCase):
@@ -183,6 +182,9 @@ class CompotesTests(TestCase):
             },
         )
 
+        # Get list
+        self.client.get(reverse("debt_detail", kwargs={"pk": debt.pk}))
+
     def test_pool_views_mails(self):
         """Check pool views."""
         self.assertEqual(len(mail.outbox), 0)
@@ -213,6 +215,9 @@ class CompotesTests(TestCase):
         self.client.login(username="c", password="c")
         r = self.client.post(url, {"maxi": 30})
         self.assertEqual(Share.objects.count(), 3)
+
+        # Get Pool Detail view
+        self.client.get(reverse("pool_detail", kwargs={"slug": "z"}))
 
     def test_views(self):
         """Check missing views."""
