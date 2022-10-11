@@ -64,6 +64,10 @@ class DebtTable(tables.Table):
         """Format .2f."""
         return f"{value:.2f}"
 
+    def render_parts(self, value) -> str:
+        """Format .2f."""
+        return f"{value:.2f}"
+
 
 class PoolTable(tables.Table):
     """List Pools."""
