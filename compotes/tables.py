@@ -36,7 +36,7 @@ class DebtTable(tables.Table):
         accessor="get_debitors", orderable=False, verbose_name=_("Debitors")
     )
     parts = tables.Column(
-        accessor="get_parts", orderable=False, verbose_name=_("Parts")
+        accessor="get_parts", orderable=False, verbose_name=_("Parts"), attrs=NBR
     )
     value = tables.Column(attrs=EUR)
     part_value = tables.Column(attrs=EUR)
