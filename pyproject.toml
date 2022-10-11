@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "compotes"
-version = "1.0.1"
+version = "2.0.0"
 description = "Track debts & pools"
 authors = ["Guilhem Saurel <guilhem.saurel@laas.fr>"]
 license = "BSD-2-Clause"
