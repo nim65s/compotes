@@ -1,8 +1,35 @@
 {% extends 'ndh.html' %}
-{% load ndh %}
+{% load ndh i18n %}
 
 {% block pagetitle %}Compotes{% endblock %}
 {% block sitetitle %}Compotes{% endblock %}
 
 {% block navbarleft %}
+
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" id="DebtDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+    {% translate "Debts" %}
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="DebtDropdown">
+    <li><a class="dropdown-item" href="{% url 'debt_list' %}">{% translate "List" %}</a></li>
+    <li><a class="dropdown-item" href="{% url 'debt_create' %}">{% translate "Add" %}</a></li>
+    {% if request.user.is_superuser %}
+    <li><a class="dropdown-item" href="{% url 'admin:compotes_debt_changelist' %}">{% translate "Admin" %}</a></li>
+    {% endif %}
+  </ul>
+</li>
+
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" id="PoolDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+    {% translate "Pools" %}
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="PoolDropdown">
+    <li><a class="dropdown-item" href="{% url 'pool_list' %}">{% translate "Liste" %}</a></li>
+    <li><a class="dropdown-item" href="{% url 'pool_create' %}">{% translate "Add" %}</a></li>
+    {% if request.user.is_superuser %}
+    <li><a class="dropdown-item" href="{% url 'admin:compotes_pool_changelist' %}">{% translate "Admin" %}</a></li>
+    {% endif %}
+  </ul>
+</li>
+
 {% endblock %}
