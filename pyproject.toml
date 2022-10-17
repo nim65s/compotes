@@ -6,9 +6,9 @@ authors = ["Guilhem Saurel <guilhem.saurel@laas.fr>"]
 license = "BSD-2-Clause"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 ndh = "^5.11.3"
-dmdm = "^1.4.5"
+dmdm = "^2.0.2"
 django-tables2 = "^2.4.1"
 yeouia = "^4.0.0"
 django-filter = "^22.1"
