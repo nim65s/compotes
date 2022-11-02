@@ -22,7 +22,7 @@ flake8 = "^3.9.2"
 #mypy = "^0.812"
 pre-commit = "^2.11.1"
 pydocstyle = "^6.0.0"
-safety = "^1.10.3"
+safety = "^2.2.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
