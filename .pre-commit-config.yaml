@@ -47,3 +47,8 @@ repos:
     -   id: pyupgrade
         args:
         -   --py310-plus
+-   repo: https://github.com/adamchainz/django-upgrade
+    rev: 1.11.0
+    hooks:
+    -   id: django-upgrade
+        args: [--target-version, "4.1"]
