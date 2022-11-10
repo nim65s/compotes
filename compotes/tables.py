@@ -24,7 +24,7 @@ class UserTable(tables.Table):
 
         model = User
         attrs = {"class": "table"}
-        fields = ["balance", "user"]
+        fields = ["balance", "user", "respo"]
         template_name = "ndh/tables.html"
         order_by = "balance"
 

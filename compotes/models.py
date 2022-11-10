@@ -2,6 +2,7 @@
 
 from smtplib import SMTPException
 
+from autoslug import AutoSlugField  # type: ignore
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.core.mail import mail_admins
@@ -10,10 +11,8 @@ from django.db.models import Q
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-
-from autoslug import AutoSlugField  # type: ignore
 from dmdm import send_mail
-from ndh.models import Links, TimeStampedModel, NamedModel
+from ndh.models import Links, NamedModel, TimeStampedModel
 from ndh.utils import query_sum
 
 
@@ -24,6 +23,7 @@ class User(Links, AbstractUser):
     balance = models.DecimalField(
         _("Balance"), max_digits=8, decimal_places=2, default=0
     )
+    respo = models.ForeignKey("self", on_delete=models.PROTECT, blank=True, null=True)
 
     class Meta:
         """Meta."""

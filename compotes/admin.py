@@ -11,7 +11,7 @@ from . import models
 class UserAdmin(BaseUserAdmin):
     """Add balance to UserAdmin.list_display."""
 
-    list_display = list(BaseUserAdmin.list_display) + ["balance"]
+    list_display = list(BaseUserAdmin.list_display) + ["balance", "respo"]
 
     def get_urls(self):
         """Add update_balance url."""
