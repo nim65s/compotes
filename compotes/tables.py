@@ -15,9 +15,8 @@ class UserTable(tables.Table):
     """List Users."""
 
     balance = tables.Column(attrs=EUR)
-    user = tables.Column(
-        accessor="get_link", order_by="username", verbose_name=_("User")
-    )
+    user = tables.Column(accessor="get_link", verbose_name=_("User"))
+    respo = tables.Column()
 
     class Meta:
         """Meta."""
