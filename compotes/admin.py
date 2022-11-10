@@ -8,10 +8,12 @@ from django.urls import path, reverse
 from . import models
 
 
+@admin.register(models.User)
 class UserAdmin(BaseUserAdmin):
     """Add balance to UserAdmin.list_display."""
 
     list_display = list(BaseUserAdmin.list_display) + ["balance", "respo"]
+    fieldsets = list(BaseUserAdmin.fieldsets) + [("compotes", {"fields": ("respo",)})]
 
     def get_urls(self):
         """Add update_balance url."""
@@ -28,6 +30,3 @@ class UserAdmin(BaseUserAdmin):
 
 for model in (models.Debt, models.Part, models.Pool, models.Share):
     admin.site.register(model)
-
-
-admin.site.register(models.User, UserAdmin)
