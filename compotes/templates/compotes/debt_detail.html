@@ -38,7 +38,7 @@
             <tr>
               <th scope="col">{% translate "Debitor" %}</th>
               <th scope="col">{% translate "Description" %}</th>
-              <th scope="col" class="text-center">{% translate "Parts" %}</th>
+              <th scope="col" class="text-end">{% translate "Parts" %}</th>
               <th scope="col" class="text-end">{% translate "Debt" %}</th>
               <th scope="col" class="text-center">{% translate "Update" %}</th>
               <th scope="col" class="text-center">{% translate "Delete" %}</th>
@@ -49,7 +49,7 @@
             <tr>
               <td>{{ part.debitor }}</td>
               <td>{{ part.description }}</td>
-              <td class="nombre text-center">{{ part.part }}</td>
+              <td class="nombre">{{ part.part }}</td>
               <td class="euro">{{ part.value|floatformat:2 }}</td>
               <td class="text-center"><a href="{% url 'part_update' pk=part.pk %}">✏️</a></td>
               <td class="text-center"><a href="{% url 'part_delete' pk=part.pk %}">❌</a></td>
