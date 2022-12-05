@@ -116,6 +116,15 @@ class PartDeleteView(LoginRequiredMixin, NDHDeleteMixin, ActionDeleteMixin, Dele
         """Return to Debt."""
         return self.object.get_absolute_url()
 
+    def form_valid(self, form):
+        """Update balance."""
+        debt = self.object.debt
+        debitor = self.object.debitor
+        ret = super().form_valid(form)
+        debitor.save()
+        debt.save()
+        return ret
+
 
 class PoolCreateView(LoginRequiredMixin, NDHFormMixin, ActionCreateMixin, CreateView):
     """Pool create view."""
