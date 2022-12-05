@@ -365,3 +365,47 @@ class CompotesTests(TestCase):
         Share.objects.create(pool=y, participant=d, maxi=40)
         data = self.client.get(reverse("pool_list")).content.decode()
         self.assertIn("table-warning", data)
+
+    def test_delete_debitor(self):
+        """Check user balances are updated on delete."""
+        a, b, *_ = User.objects.all()
+
+        # Create Debt
+        self.client.login(username="a", password="a")
+        r = self.client.get(reverse("debt_create"))
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(Debt.objects.count(), 0)
+        debt = {
+            "name": "test",
+            "creditor": 1,
+            "description": "test",
+            "value": 30,
+            "date_0": "2022-08-29",
+            "date_1": "23:33:30",
+        }
+        r = self.client.post(reverse("debt_create"), debt)
+        self.assertEqual(Debt.objects.count(), 1)
+        self.assertEqual(Action.objects.count(), 1)
+        debt = Debt.objects.first()
+
+        # Add a part
+        part = {"debitor": "2", "part": "2", "description": "test"}
+        r = self.client.post(reverse("part_create", kwargs={"pk": debt.pk}), part)
+        self.assertEqual(Part.objects.count(), 1)
+        self.assertEqual(Action.objects.count(), 2)
+        part = Part.objects.first()
+
+        # Check b balance
+        a, b, *_ = User.objects.all()
+        self.assertEqual(a.balance, 30)
+        self.assertEqual(b.balance, -30)
+
+        # Remove the part
+        r = self.client.post(reverse("part_delete", kwargs={"pk": part.pk}))
+        self.assertEqual(Part.objects.count(), 0)
+        self.assertEqual(Action.objects.count(), 3)
+
+        # Check b balance
+        a, b, *_ = User.objects.all()
+        self.assertEqual(a.balance, 0)
+        self.assertEqual(b.balance, 0)
