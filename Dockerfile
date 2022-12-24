@@ -29,6 +29,6 @@ ENV PATH=/root/.local/bin:$PATH
 ADD pyproject.toml poetry.lock ./
 RUN --mount=type=cache,sharing=locked,target=/root/.cache \
     python -m venv .venv \
- && poetry install --no-dev --no-root --no-interaction --no-ansi
+ && poetry install --with prod --no-root --no-interaction --no-ansi
 
 ADD . .
