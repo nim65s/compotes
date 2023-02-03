@@ -9,6 +9,10 @@
 
 Track debts & pools
 
+![Logo](compotes/static/Compotes.png)
+
+*Logo by @Sedith, cc-by-sa 4.0*
+
 ## Dev
 
 ```bash
