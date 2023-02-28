@@ -74,7 +74,6 @@ TEMPLATES = [
 WSGI_APPLICATION = f"{PROJECT}.wsgi.application"
 
 # Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DB = os.environ.get("DB", "db.sqlite3")
 DATABASES = {
@@ -93,7 +92,6 @@ if DB == "postgres":  # pragma: no cover
     )
 
 # Password validation
-# https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
 _APV = "django.contrib.auth.password_validation"
 AUTH_PASSWORD_VALIDATORS = [
@@ -112,7 +110,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-# https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
 
@@ -123,7 +120,6 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 MEDIA_ROOT = f"/srv/{PROJECT}/media/"
 MEDIA_URL = "/media/"
@@ -142,7 +138,6 @@ REPLY_TO = f"webmaster@{DOMAIN_NAME}"
 ADMINS = [(f"{PROJECT_VERBOSE} Webmasters", f"webmaster@{DOMAIN_NAME}")]
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
