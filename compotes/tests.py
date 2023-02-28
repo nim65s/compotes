@@ -3,13 +3,15 @@
 from decimal import Decimal
 from random import randint
 
-from actions.models import Action
 from django.core import mail
 from django.core.management import call_command
 from django.db import models
 from django.test import TestCase
 from django.urls import reverse
+
 from ndh.utils import query_sum
+
+from actions.models import Action
 
 from .models import Debt, Part, Pool, Share, User
 

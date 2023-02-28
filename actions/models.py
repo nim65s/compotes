@@ -6,6 +6,7 @@ from django.conf import settings
 from django.core.serializers import serialize
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 from ndh.models import TimeStampedModel
 
 

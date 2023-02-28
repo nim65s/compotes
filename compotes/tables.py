@@ -1,7 +1,8 @@
 """Compotes Tables."""
 
-import django_tables2 as tables  # type: ignore
 from django.utils.translation import gettext_lazy as _
+
+import django_tables2 as tables  # type: ignore
 
 from .models import Debt, Pool, User
 

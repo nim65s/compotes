@@ -32,6 +32,11 @@ optional = true
 gunicorn = "^20.1.0"
 psycopg2 = "^2.9.5"
 
+[tool.isort]
+profile = "black"
+known_django = "django"
+sections = "FUTURE,STDLIB,DJANGO,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"

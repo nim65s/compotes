@@ -1,16 +1,18 @@
 """Compotes views."""
 
-from actions.models import Action
-from actions.views import ActionCreateMixin, ActionDeleteMixin, ActionUpdateMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q, QuerySet
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
+
 from django_filters.views import FilterView
 from django_tables2 import SingleTableMixin, SingleTableView  # type: ignore
 from ndh.mixins import NDHDeleteMixin, NDHFormMixin
+
+from actions.models import Action
+from actions.views import ActionCreateMixin, ActionDeleteMixin, ActionUpdateMixin
 
 from .filters import DebtFilter
 from .forms import DebtForm, PartForm, ShareForm
