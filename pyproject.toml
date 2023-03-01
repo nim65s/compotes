@@ -12,7 +12,7 @@ dmdm = "^2.0.3"
 django-tables2 = "^2.4.1"
 yeouia = "^4.0.0"
 django-filter = "^22.1"
-ipython = "^8.0.1"
+ipython = "^8.11.0"
 
 [tool.poetry.group.dev]
 optional = true
