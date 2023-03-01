@@ -13,7 +13,7 @@ jobs:
           python-version: "3.10"
           cache: poetry
       - name: setup
-        run: poetry install --no-interaction --no-ansi
+        run: poetry --with dev install --no-interaction --no-ansi
       - run: poetry run ./manage.py migrate
         env:
           PYTHONWARNINGS: error
