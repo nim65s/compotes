@@ -8,7 +8,7 @@ readme = "README.md"
 homepage = "https://github.com/nim65s/compotes"
 
 [tool.poetry.urls]
-"changelog" = "https://github.com/nim65s/compotes/blob/main/CHANGELOG.md"
+changelog = "https://github.com/nim65s/compotes/blob/main/CHANGELOG.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -23,13 +23,13 @@ yeouia = "^4.0.0"
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-black = "^22.3.0"
+black = "^23.1.0"
 coverage = "^5.5"
-flake8 = "^3.9.2"
+flake8 = "^6.0.0"
 isort = "^5.12.0"
 pre-commit = "^2.11.1"
 pydocstyle = "^6.0.0"
-safety = "^2.2.0"
+safety = {version = "^2.4.0b1", allow-prereleases = true}
 
 [tool.poetry.group.prod]
 optional = true
