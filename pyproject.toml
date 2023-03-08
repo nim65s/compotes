@@ -1,22 +1,28 @@
-[tool.poetry]
-name = "compotes"
-version = "2.0.0"
-description = "Track debts & pools"
-authors = ["Guilhem Saurel <guilhem.saurel@laas.fr>"]
-license = "BSD-2-Clause"
-readme = "README.md"
-homepage = "https://github.com/nim65s/compotes"
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
 
-[tool.poetry.urls]
-changelog = "https://github.com/nim65s/compotes/blob/main/CHANGELOG.md"
+[tool.isort]
+known_django = "django"
+profile = "black"
+sections = "FUTURE,STDLIB,DJANGO,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+
+[tool.poetry]
+authors = ["Guilhem Saurel <guilhem.saurel@laas.fr>"]
+description = "Track debts & pools"
+homepage = "https://github.com/nim65s/compotes"
+license = "BSD-2-Clause"
+name = "compotes"
+readme = "README.md"
+version = "2.0.0"
 
 [tool.poetry.dependencies]
-python = "^3.10"
 django-filter = "^22.1"
 django-tables2 = "^2.4.1"
 dmdm = "^2.0.3"
 ipython = "^8.11.0"
 ndh = "^5.11.3"
+python = "^3.10"
 yeouia = "^4.0.0"
 
 [tool.poetry.group.dev]
@@ -29,7 +35,7 @@ flake8 = "^6.0.0"
 isort = "^5.12.0"
 pre-commit = "^2.11.1"
 pydocstyle = "^6.0.0"
-safety = {version = "^2.4.0b1", allow-prereleases = true}
+safety = {allow-prereleases = true, version = "^2.4.0b1"}
 
 [tool.poetry.group.prod]
 optional = true
@@ -38,14 +44,11 @@ optional = true
 gunicorn = "^20.1.0"
 psycopg2 = "^2.9.5"
 
-[tool.isort]
-profile = "black"
-known_django = "django"
-sections = "FUTURE,STDLIB,DJANGO,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+[tool.poetry.urls]
+changelog = "https://github.com/nim65s/compotes/blob/main/CHANGELOG.md"
 
 [tool.pydocstyle]
 match_dir = "(?=[^\\.])(?!migrations).*"
 
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+[tool.tomlsort]
+all = true
