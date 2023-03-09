@@ -4,7 +4,7 @@ EXPOSE 8000
 
 WORKDIR /app
 
-ENV PYTHONUNBUFFERED=1 PATH=/root/.local/bin:$PATH
+ENV POETRY_VIRTUALENVS_IN_PROJECT=true PYTHONUNBUFFERED=1 PATH=/root/.local/bin:$PATH
 
 CMD while ! nc -z postgres 5432; do sleep 1; done \
  && poetry run ./manage.py migrate \
@@ -27,7 +27,6 @@ RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
 
 ADD pyproject.toml poetry.lock ./
 RUN --mount=type=cache,sharing=locked,target=/root/.cache \
-    python -m venv .venv \
- && poetry install --with prod --no-root --no-interaction --no-ansi
+    poetry install --with prod --no-root --no-interaction --no-ansi
 
 ADD . .
