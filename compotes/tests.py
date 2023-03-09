@@ -38,7 +38,7 @@ class CompotesTests(TestCase):
         self.assertEqual(repr(User.objects.first()), "Jane Dohn")
 
     def test_models_debt(self):
-        """Test 100.3€ debt between 4 users, CLI only."""
+        """Test 100.3 € debt between 4 users, CLI only."""
         creditor = User.objects.first()
         debt = Debt.objects.create(creditor=creditor, value=100.03, name="debt 1")
         for user in User.objects.all():
@@ -60,11 +60,11 @@ class CompotesTests(TestCase):
         self.assertEqual(debt.get_debitors(), 4)
         self.assertEqual(
             str(Part.objects.first()),
-            "Part of 25.01 € from a for debt 1: ",
+            "Part of 25.01 € from a for debt 1: ",
         )
 
     def test_models_pool(self):
-        """Test 100€ pool for 4 users ready to give 30€ each, CLI only."""
+        """Test 100 € pool for 4 users ready to give 30 € each, CLI only."""
         organiser = User.objects.first()
         pool = Pool.objects.create(
             name="smth",
@@ -101,7 +101,7 @@ class CompotesTests(TestCase):
         self.assertEqual(pool.missing(), -20)
 
     def test_multiple_parts_per_user(self):
-        """Test 109€ debt for 20x4 users, with one of those users having another 29."""
+        """Test 109 € debt for 20x4 users, with one of those users having another 29."""
         creditor = User.objects.first()
         debt = Debt.objects.create(creditor=creditor, value=109)
         for user in User.objects.all():
