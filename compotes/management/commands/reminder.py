@@ -7,7 +7,7 @@ from compotes.models import User
 class Command(BaseCommand):
     """Reminder management command."""
 
-    help = "run User.reminder() for all users"
+    help = "run User.reminder() for all users"  # noqa: A003
 
     def handle(self, *args, **options):
         """Reminder management command."""

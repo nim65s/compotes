@@ -37,8 +37,8 @@ class UserListView(LoginRequiredMixin, SingleTableView):
             "row_attrs": {
                 "class": lambda record: "table-primary"
                 if record == self.request.user
-                else ""
-            }
+                else "",
+            },
         }
 
 
@@ -85,7 +85,7 @@ class DebtDetailView(LoginRequiredMixin, DetailView):
         """Add a Part form to create one, and related actions."""
         actions = Action.objects.filter(
             Q(json__model="compotes.part", json__fields__debt=self.object.pk)
-            | Q(json__model="compotes.debt", json__pk=self.object.pk)
+            | Q(json__model="compotes.debt", json__pk=self.object.pk),
         )
         return super().get_context_data(actions=actions, form=PartForm(), **kwargs)
 
@@ -150,11 +150,11 @@ class PoolDetailView(LoginRequiredMixin, DetailView):
         """Add related actions."""
         share = Share.objects.filter(pool=self.object, participant=self.request.user)
         form = ShareForm(
-            initial={"maxi": share.first().maxi} if share.exists() else None
+            initial={"maxi": share.first().maxi} if share.exists() else None,
         )
         actions = Action.objects.filter(
             Q(json__model="compotes.pool", json__pk=self.object.pk)
-            | Q(json__model="compotes.share", json__fields__pool=self.object.pk)
+            | Q(json__model="compotes.share", json__fields__pool=self.object.pk),
         )
         return super().get_context_data(actions=actions, form=form, **kwargs)
 
@@ -189,5 +189,5 @@ class PoolListView(LoginRequiredMixin, SingleTableView):
     def get_queryset(self) -> QuerySet:
         """Show only those the user knows."""
         return self.model.objects.filter(
-            Q(organiser=self.request.user) | Q(share__participant=self.request.user)
+            Q(organiser=self.request.user) | Q(share__participant=self.request.user),
         ).distinct()

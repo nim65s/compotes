@@ -31,10 +31,9 @@ optional = true
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
 coverage = "^5.5"
-flake8 = "^6.0.0"
 isort = "^5.12.0"
 pre-commit = "^2.11.1"
-pydocstyle = "^6.0.0"
+ruff = "^0.0.254"
 safety = {allow-prereleases = true, version = "^2.4.0b1"}
 
 [tool.poetry.group.prod]
@@ -47,8 +46,12 @@ psycopg2 = "^2.9.5"
 [tool.poetry.urls]
 changelog = "https://github.com/nim65s/compotes/blob/main/CHANGELOG.md"
 
-[tool.pydocstyle]
-match_dir = "(?=[^\\.])(?!migrations).*"
+[tool.ruff]
+allow-confusables = [" "]
+extend-exclude = ["migrations"]
+extend-ignore = ["D203", "D213"]
+extend-select = ["A", "B", "C", "COM", "D", "DJ", "EM", "EXE", "G", "N", "PTH", "RET", "RUF", "UP", "W", "YTT"]
+target-version = "py310"
 
 [tool.tomlsort]
 all = true

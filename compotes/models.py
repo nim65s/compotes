@@ -22,7 +22,10 @@ class User(Links, AbstractUser):
 
     slug = AutoSlugField(populate_from="username", unique=True)
     balance = models.DecimalField(
-        _("Balance"), max_digits=8, decimal_places=2, default=0
+        _("Balance"),
+        max_digits=8,
+        decimal_places=2,
+        default=0,
     )
     respo = models.ForeignKey("self", on_delete=models.PROTECT, blank=True, null=True)
 
@@ -86,7 +89,8 @@ class User(Links, AbstractUser):
             )
         except SMTPException:  # pragma: no cover
             mail_admins(
-                f"SMTP Exception for {self} <{self.email}>", f"{subject=}\n{message=}"
+                f"SMTP Exception for {self} <{self.email}>",
+                f"{subject=}\n{message=}",
             )
 
     def reminder(self):
@@ -106,7 +110,9 @@ class Debt(Links, TimeStampedModel):
     name = models.CharField(_("Name"), max_length=200)
     date = models.DateTimeField(_("Date"), default=timezone.now)
     creditor = models.ForeignKey(
-        User, on_delete=models.PROTECT, verbose_name=_("Creditor")
+        User,
+        on_delete=models.PROTECT,
+        verbose_name=_("Creditor"),
     )
     value = models.DecimalField(_("Value"), max_digits=8, decimal_places=2)
     part_value = models.FloatField(_("Part value"), default=0)
@@ -154,7 +160,9 @@ class Part(models.Model):
 
     debt = models.ForeignKey(Debt, on_delete=models.PROTECT, verbose_name=_("Debt"))
     debitor = models.ForeignKey(
-        User, on_delete=models.PROTECT, verbose_name=_("Debitor")
+        User,
+        on_delete=models.PROTECT,
+        verbose_name=_("Debitor"),
     )
     part = models.FloatField(_("Part"), default=1)
     value = models.FloatField(_("Value"), default=0)
@@ -163,7 +171,7 @@ class Part(models.Model):
     def __str__(self):
         """Describe this Part."""
         return _(
-            "Part of %(value).2f € from %(debitor)s for %(debt)s: %(description)s"
+            "Part of %(value).2f € from %(debitor)s for %(debt)s: %(description)s",
         ) % {
             "debt": self.debt,
             "debitor": self.debitor,
@@ -191,7 +199,9 @@ class Pool(Links, TimeStampedModel, NamedModel):
     """Create a crowd funding."""
 
     organiser = models.ForeignKey(
-        User, on_delete=models.PROTECT, verbose_name=_("Organiser")
+        User,
+        on_delete=models.PROTECT,
+        verbose_name=_("Organiser"),
     )
     description = models.TextField(_("Description"), blank=True)
     value = models.DecimalField(_("Value"), max_digits=8, decimal_places=2)
@@ -243,7 +253,9 @@ class Share(models.Model):
 
     pool = models.ForeignKey(Pool, on_delete=models.PROTECT, verbose_name=_("Pool"))
     participant = models.ForeignKey(
-        User, on_delete=models.PROTECT, verbose_name=_("Participant")
+        User,
+        on_delete=models.PROTECT,
+        verbose_name=_("Participant"),
     )
     maxi = models.DecimalField(_("Maxi"), max_digits=8, decimal_places=2, default=0)
     value = models.FloatField(_("Value"), default=0)

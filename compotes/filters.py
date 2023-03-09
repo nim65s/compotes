@@ -49,11 +49,11 @@ class DebtFilter(django_filters.FilterSet):
             | Q(creditor__first_name__icontains=value)
             | Q(part__debitor__username__icontains=value)
             | Q(part__debitor__last_name__icontains=value)
-            | Q(part__debitor__first_name__icontains=value)
+            | Q(part__debitor__first_name__icontains=value),
         ).distinct()
 
     def debt_filter(self, queryset, nam, value):
         """Filter debts by name / description."""
         return queryset.filter(
-            Q(name__icontains=value) | Q(description__icontains=value)
+            Q(name__icontains=value) | Q(description__icontains=value),
         )

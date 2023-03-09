@@ -32,10 +32,15 @@ class DebtTable(tables.Table):
     """List Debts."""
 
     debitors = tables.Column(
-        accessor="get_debitors", orderable=False, verbose_name=_("Debitors")
+        accessor="get_debitors",
+        orderable=False,
+        verbose_name=_("Debitors"),
     )
     parts = tables.Column(
-        accessor="get_parts", orderable=False, verbose_name=_("Parts"), attrs=NBR
+        accessor="get_parts",
+        orderable=False,
+        verbose_name=_("Parts"),
+        attrs=NBR,
     )
     value = tables.Column(attrs=EUR)
     part_value = tables.Column(attrs=EUR)
@@ -84,7 +89,7 @@ class PoolTable(tables.Table):
         template_name = "ndh/tables.html"
         order_by = "updated"
         row_attrs = {
-            "class": lambda record: "table-warning" if record.ratio == 0 else ""
+            "class": lambda record: "table-warning" if record.ratio == 0 else "",
         }
 
     def render_ratio(self, value) -> str:

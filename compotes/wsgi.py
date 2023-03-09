@@ -1,5 +1,4 @@
-"""
-WSGI config for compotes project.
+"""WSGI config for compotes project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

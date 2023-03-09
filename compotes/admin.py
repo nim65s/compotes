@@ -12,14 +12,15 @@ from . import models
 class UserAdmin(BaseUserAdmin):
     """Add balance to UserAdmin.list_display."""
 
-    list_display = list(BaseUserAdmin.list_display) + ["balance", "respo"]
-    fieldsets = list(BaseUserAdmin.fieldsets) + [("compotes", {"fields": ("respo",)})]
+    list_display = (*BaseUserAdmin.list_display, "balance", "respo")
+    fieldsets = (*BaseUserAdmin.fieldsets, ("compotes", {"fields": ("respo",)}))
 
     def get_urls(self):
         """Add update_balance url."""
         return [
-            path("update-balance", self.admin_site.admin_view(self.update_balance))
-        ] + super().get_urls()
+            path("update-balance", self.admin_site.admin_view(self.update_balance)),
+            *super().get_urls(),
+        ]
 
     def update_balance(self, request):  # pragma: no cover
         """View to update balances."""

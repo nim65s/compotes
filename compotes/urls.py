@@ -24,6 +24,8 @@ urlpatterns = [
     path("pool/<slug:slug>", views.PoolDetailView.as_view(), name="pool_detail"),
     path("pool/<slug:slug>/update", views.PoolUpdateView.as_view(), name="pool_update"),
     path(
-        "pool/<slug:slug>/share", views.ShareUpdateView.as_view(), name="share_update"
+        "pool/<slug:slug>/share",
+        views.ShareUpdateView.as_view(),
+        name="share_update",
     ),
 ]

@@ -48,7 +48,9 @@ class CompotesTests(TestCase):
         self.assertEqual(User.objects.first().balance, Decimal("75.02"))
         self.assertEqual(User.objects.last().balance, Decimal("-25.01"))
         total = query_sum(
-            User.objects.all(), "balance", output_field=models.DecimalField()
+            User.objects.all(),
+            "balance",
+            output_field=models.DecimalField(),
         )
         self.assertLess(total, Decimal("0.02"))
         self.assertGreater(total, Decimal("-0.02"))
@@ -57,14 +59,18 @@ class CompotesTests(TestCase):
         self.assertEqual(debt.get_edit_url(), "/debt/1/update")
         self.assertEqual(debt.get_debitors(), 4)
         self.assertEqual(
-            str(Part.objects.first()), "Part of 25.01 € from a for debt 1: "
+            str(Part.objects.first()),
+            "Part of 25.01 € from a for debt 1: ",
         )
 
     def test_models_pool(self):
         """Test 100€ pool for 4 users ready to give 30€ each, CLI only."""
         organiser = User.objects.first()
         pool = Pool.objects.create(
-            name="smth", organiser=organiser, description="smth", value=100
+            name="smth",
+            organiser=organiser,
+            description="smth",
+            value=100,
         )
         for user in User.objects.all():
             Share.objects.create(pool=pool, participant=user, maxi=30)
@@ -74,7 +80,9 @@ class CompotesTests(TestCase):
         self.assertEqual(User.objects.last().balance, -25)
         self.assertEqual(
             query_sum(
-                User.objects.all(), "balance", output_field=models.DecimalField()
+                User.objects.all(),
+                "balance",
+                output_field=models.DecimalField(),
             ),
             0,
         )
@@ -82,10 +90,12 @@ class CompotesTests(TestCase):
         self.assertEqual(pool.get_edit_url(), "/pool/smth/update")
         self.assertEqual(pool.get_share_url(), "/pool/smth/share")
         self.assertEqual(
-            pool.share_set.first().get_absolute_url(), pool.get_absolute_url()
+            pool.share_set.first().get_absolute_url(),
+            pool.get_absolute_url(),
         )
         self.assertEqual(
-            str(Share.objects.first()), "Share of 25.0 / 30.00 from a for smth"
+            str(Share.objects.first()),
+            "Share of 25.0 / 30.00 from a for smth",
         )
         self.assertEqual(pool.real_shares().count(), 4)
         self.assertEqual(pool.missing(), -20)
@@ -112,12 +122,17 @@ class CompotesTests(TestCase):
         for i in range(randint(2, 10)):
             value = randint(1000, 20000) / 100
             pool = Pool.objects.create(
-                name=f"rand_{i}", organiser=user, description="rand", value=value
+                name=f"rand_{i}",
+                organiser=user,
+                description="rand",
+                value=value,
             )
             for user in User.objects.all():
                 Share.objects.create(pool=pool, participant=user, maxi=randint(10, 50))
         total = query_sum(
-            User.objects.all(), "balance", output_field=models.DecimalField()
+            User.objects.all(),
+            "balance",
+            output_field=models.DecimalField(),
         )
         self.assertLess(total, Decimal("0.02"))
         self.assertGreater(total, Decimal("-0.02"))

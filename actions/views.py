@@ -11,7 +11,9 @@ class ActionMixin:
         """Log this action."""
         ret = super().form_valid(form)
         Action.objects.create(
-            user=self.request.user, act=self.act, json=to_json(self.object)
+            user=self.request.user,
+            act=self.act,
+            json=to_json(self.object),
         )
         return ret
 
