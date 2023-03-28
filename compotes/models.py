@@ -168,6 +168,11 @@ class Part(models.Model):
     value = models.FloatField(_("Value"), default=0)
     description = models.CharField(_("Description"), max_length=1000, blank=True)
 
+    class Meta:
+        """Meta."""
+
+        verbose_name = _("Part")
+
     def __str__(self):
         """Describe this Part."""
         return _(
@@ -177,11 +182,6 @@ class Part(models.Model):
             "debitor": self.debitor,
             **vars(self),
         }
-
-    class Meta:
-        """Meta."""
-
-        verbose_name = _("Part")
 
     def save(self, *args, allow_recursion=True, **kwargs):
         """Update value."""
@@ -260,18 +260,18 @@ class Share(models.Model):
     maxi = models.DecimalField(_("Maxi"), max_digits=8, decimal_places=2, default=0)
     value = models.FloatField(_("Value"), default=0)
 
+    class Meta:
+        """Meta."""
+
+        unique_together = ["pool", "participant"]
+        verbose_name = _("Share")
+
     def __str__(self):
         """Describe this Share."""
         return (
             f"Share of {self.value} / {self.maxi} "
             f"from {self.participant} for {self.pool}"
         )
-
-    class Meta:
-        """Meta."""
-
-        unique_together = ["pool", "participant"]
-        verbose_name = _("Share")
 
     def save(self, *args, allow_recursion=True, **kwargs):
         """Update value, and trigger pool update."""
