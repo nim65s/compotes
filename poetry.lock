@@ -934,14 +934,14 @@ files = [
 
 [[package]]
 name = "ndh"
-version = "5.12.1"
+version = "6.0.0"
 description = "Nim's Django Helpers"
 category = "main"
 optional = false
-python-versions = ">=3.8,<4.0"
+python-versions = ">=3.10,<4.0"
 files = [
-    {file = "ndh-5.12.1-py3-none-any.whl", hash = "sha256:5c1515a6d43f2fc521a72a5c940fc7ebc0ac5d460fd083c7f623360f632b7523"},
-    {file = "ndh-5.12.1.tar.gz", hash = "sha256:0642628abecce7b8363bce418eb06c9cbfb3e0e6d2b97beacce30f3db2a3d9ae"},
+    {file = "ndh-6.0.0-py3-none-any.whl", hash = "sha256:bdec01d2999a76c9f5ad70d3ac38191a2344671e0aa68d111eff30e25ad4f4da"},
+    {file = "ndh-6.0.0.tar.gz", hash = "sha256:497f4ecd2f2e6c291aa7cf7cfec8143bd658679dcaef1b5930ca8242e98033a0"},
 ]
 
 [package.dependencies]
@@ -1586,4 +1586,4 @@ Django = ">=2.2,<5.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "ce220d8f42155c35bfe24ad15893c5f56836f39c93fba64da36683ee60b04cb9"
+content-hash = "98edfa675b7b1f9dc5f2808c6e57e49ff7b3bcd53678a38147b19ebb01ba4553"
