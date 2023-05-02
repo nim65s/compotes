@@ -1067,14 +1067,14 @@ test = ["appdirs (==1.4.4)", "covdefaults (>=2.2.2)", "pytest (>=7.2.1)", "pytes
 
 [[package]]
 name = "pre-commit"
-version = "3.2.1"
+version = "3.3.0"
 description = "A framework for managing and maintaining multi-language pre-commit hooks."
 category = "dev"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "pre_commit-3.2.1-py2.py3-none-any.whl", hash = "sha256:a06a7fcce7f420047a71213c175714216498b49ebc81fe106f7716ca265f5bb6"},
-    {file = "pre_commit-3.2.1.tar.gz", hash = "sha256:b5aee7d75dbba21ee161ba641b01e7ae10c5b91967ebf7b2ab0dfae12d07e1f1"},
+    {file = "pre_commit-3.3.0-py2.py3-none-any.whl", hash = "sha256:7577a012399334d9f001873b5553f9fabc1ccc5b3e2b29e0793f84ce18e9d042"},
+    {file = "pre_commit-3.3.0.tar.gz", hash = "sha256:06acda43a7b6b63fdcc29aa90bf1228cf4d4029a4e4d70971347a9d2593c94d4"},
 ]
 
 [package.dependencies]
@@ -1586,4 +1586,4 @@ Django = ">=2.2,<5.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "f4134ff5306917fe5f77a9f8cda5fdbacbfcd0a4a90180ea6a0d964c688542c2"
+content-hash = "447a73cbeea6a5af34408b90b1199f33499d005cbe3943f5c57e71a3f13fbfb8"
