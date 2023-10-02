@@ -49,7 +49,7 @@ changelog = "https://github.com/nim65s/compotes/blob/main/CHANGELOG.md"
 [tool.ruff]
 allowed-confusables = [" "]
 extend-exclude = ["migrations"]
-extend-ignore = ["D203", "D213"]
+extend-ignore = ["D203", "D213", "RUF012"]
 extend-select = ["A", "B", "C", "COM", "D", "DJ", "EM", "EXE", "G", "N", "PTH", "RET", "RUF", "UP", "W", "YTT"]
 target-version = "py310"
 
