@@ -17,11 +17,11 @@ readme = "README.md"
 version = "2.0.0"
 
 [tool.poetry.dependencies]
-django-filter = "^23.2"
+django-filter = "^23.3"
 django-tables2 = "^2.6.0"
 dmdm = "^2.0.3"
-ipython = "^8.13.2"
-ndh = "^6.2.0"
+ipython = "^8.16.1"
+ndh = "^6.5.3"
 python = "^3.10"
 yeouia = "^4.0.0"
 
@@ -29,19 +29,19 @@ yeouia = "^4.0.0"
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.3.0"
-coverage = "^7.2"
+black = "^23.9.1"
+coverage = "^7.3.2"
 isort = "^5.12.0"
-pre-commit = "^3.2.1"
-ruff = "^0.0.270"
+pre-commit = "^3.4.0"
+ruff = "^0.0.292"
 safety = {allow-prereleases = true, version = "^2.4.0b1"}
 
 [tool.poetry.group.prod]
 optional = true
 
 [tool.poetry.group.prod.dependencies]
-gunicorn = "^20.1.0"
-psycopg2 = "^2.9.5"
+gunicorn = "^21.2.0"
+psycopg2 = "^2.9.8"
 
 [tool.poetry.urls]
 changelog = "https://github.com/nim65s/compotes/blob/main/CHANGELOG.md"
@@ -49,7 +49,7 @@ changelog = "https://github.com/nim65s/compotes/blob/main/CHANGELOG.md"
 [tool.ruff]
 allowed-confusables = [" "]
 extend-exclude = ["migrations"]
-extend-ignore = ["D203", "D213"]
+extend-ignore = ["D203", "D213", "RUF012"]
 extend-select = ["A", "B", "C", "COM", "D", "DJ", "EM", "EXE", "G", "N", "PTH", "RET", "RUF", "UP", "W", "YTT"]
 target-version = "py310"
 
