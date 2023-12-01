@@ -22,7 +22,7 @@ RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
     libpq-dev \
     netcat \
  && python -m pip install -U pip \
- && python -m pip install -U pipx \
+ && python -m pip install pipx \
  && python -m pipx install poetry
 
 ADD pyproject.toml poetry.lock ./
