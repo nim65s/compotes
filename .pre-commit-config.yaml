@@ -1,6 +1,6 @@
 repos:
 - repo: https://github.com/PyCQA/isort
-  rev: 5.13.0
+  rev: 5.13.2
   hooks:
   - id: isort
 - repo: https://github.com/adamchainz/django-upgrade
@@ -11,7 +11,7 @@ repos:
     - --target-version
     - '4.1'
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.1.7
+  rev: v0.1.14
   hooks:
   - id: ruff
     args:
@@ -45,7 +45,7 @@ repos:
   - id: mixed-line-ending
   - id: trailing-whitespace
 - repo: https://github.com/psf/black
-  rev: 23.11.0
+  rev: 24.1.1
   hooks:
   - id: black
 - repo: https://gitlab.com/smop/pre-commit-hooks
