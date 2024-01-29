@@ -35,9 +35,9 @@ class UserListView(LoginRequiredMixin, SingleTableView):
         """Color current user row."""
         return {
             "row_attrs": {
-                "class": lambda record: "table-primary"
-                if record == self.request.user
-                else "",
+                "class": lambda record: (
+                    "table-primary" if record == self.request.user else ""
+                ),
             },
         }
 

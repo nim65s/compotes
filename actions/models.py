@@ -1,4 +1,5 @@
 """Model to log users actions."""
+
 from json import loads
 
 from django.apps import apps

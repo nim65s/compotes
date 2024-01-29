@@ -1,4 +1,5 @@
 """Reminder management command."""
+
 from django.core.management.base import BaseCommand
 
 from compotes.models import User
@@ -7,7 +8,7 @@ from compotes.models import User
 class Command(BaseCommand):
     """Reminder management command."""
 
-    help = "run User.reminder() for all users"  # noqa: A003
+    help = "run User.reminder() for all users"
 
     def handle(self, *args, **options):
         """Reminder management command."""

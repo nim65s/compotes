@@ -1,4 +1,5 @@
 """Action tracking."""
+
 from django.apps import AppConfig
 
 
