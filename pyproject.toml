@@ -17,11 +17,11 @@ readme = "README.md"
 version = "2.0.0"
 
 [tool.poetry.dependencies]
-django-filter = "^23.4"
+django-filter = "^23.5"
 django-tables2 = "^2.7.0"
 dmdm = "^2.0.3"
-ipython = "^8.19.0"
-ndh = "^6.5.3"
+ipython = "^8.21.0"
+ndh = "^6.9.0"
 python = "^3.10"
 yeouia = "^4.0.0"
 
@@ -29,12 +29,12 @@ yeouia = "^4.0.0"
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.12.1"
-coverage = "^7.4.0"
-isort = "^5.12.0"
-pre-commit = "^3.5.0"
-ruff = "^0.1.9"
-safety = {allow-prereleases = true, version = "^2.4.0b2"}
+black = "^24.1.1"
+coverage = "^7.4.1"
+isort = "^5.13.2"
+pre-commit = "^3.6.0"
+ruff = "^0.1.15"
+safety = {allow-prereleases = true, version = "^3.0.1"}
 
 [tool.poetry.group.prod]
 optional = true
