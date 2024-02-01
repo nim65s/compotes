@@ -1,4 +1,5 @@
 """Action Mixins."""
+
 from django.http import HttpResponse
 
 from actions.models import Action, to_json
