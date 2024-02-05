@@ -4,4 +4,4 @@ OnFailure=sendmail-wrapper@compotes.service
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/docker exec compotes-app-1 ./manage.py reminder
+ExecStart=/usr/bin/docker exec compotes-app-1 poetry run ./manage.py reminder
