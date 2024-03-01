@@ -32,7 +32,7 @@ optional = true
 black = "^24.1.1"
 coverage = "^7.4.1"
 isort = "^5.13.2"
-pre-commit = "^3.6.0"
+pre-commit = "^3.6.2"
 ruff = "^0.3.0"
 safety = {allow-prereleases = true, version = "^3.0.1"}
 
