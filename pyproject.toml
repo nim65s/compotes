@@ -33,7 +33,7 @@ safety = {allow-prereleases = true, version = "^3.2.3"}
 optional = true
 
 [tool.poetry.group.prod.dependencies]
-gunicorn = "^21.2.0"
+gunicorn = "^22.0.0"
 psycopg2 = "^2.9.9"
 
 [tool.poetry.urls]
