@@ -30,7 +30,7 @@ optional = true
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.2.0"
-coverage = "^7.5.3"
+coverage = "^7.5.4"
 isort = "^5.13.2"
 pre-commit = "^3.7.1"
 ruff = "^0.4.7"
