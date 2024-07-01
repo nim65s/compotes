@@ -2,11 +2,6 @@
 build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core>=1.0.0"]
 
-[tool.isort]
-known_django = "django"
-profile = "black"
-sections = "FUTURE,STDLIB,DJANGO,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
-
 [tool.poetry]
 authors = ["Guilhem Saurel <guilhem.saurel@laas.fr>"]
 description = "Track debts & pools"
@@ -20,7 +15,7 @@ version = "2.0.0"
 django-filter = "^23.5"
 django-tables2 = "^2.7.0"
 dmdm = "^2.0.3"
-ipython = "^8.22.1"
+ipython = "^8.26.0"
 ndh = "^6.9.1"
 python = "^3.10"
 yeouia = "^4.0.0"
@@ -29,12 +24,10 @@ yeouia = "^4.0.0"
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-black = "^24.2.0"
-coverage = "^7.5.3"
-isort = "^5.13.2"
+coverage = "^7.5.4"
 pre-commit = "^3.7.1"
 ruff = "^0.4.7"
-safety = {allow-prereleases = true, version = "^3.0.1"}
+safety = {allow-prereleases = true, version = "^3.2.3"}
 
 [tool.poetry.group.prod]
 optional = true
@@ -47,11 +40,13 @@ psycopg2 = "^2.9.9"
 changelog = "https://github.com/nim65s/compotes/blob/main/CHANGELOG.md"
 
 [tool.ruff]
-allowed-confusables = [" "]
 extend-exclude = ["migrations"]
-extend-ignore = ["D203", "D213", "RUF012"]
-extend-select = ["A", "B", "C", "COM", "D", "DJ", "EM", "EXE", "G", "N", "PTH", "RET", "RUF", "UP", "W", "YTT"]
 target-version = "py310"
+
+[tool.ruff.lint]
+allowed-confusables = [" "]
+extend-ignore = ["COM812", "D203", "D213", "RUF012"]
+extend-select = ["A", "B", "C", "COM", "D", "DJ", "EM", "EXE", "G", "N", "PTH", "RET", "RUF", "UP", "W", "YTT"]
 
 [tool.tomlsort]
 all = true
