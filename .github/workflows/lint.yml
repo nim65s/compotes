@@ -13,7 +13,7 @@ jobs:
       - name: setup
         run: poetry install --with dev
       - run: poetry run black .
-      - run: poetry run ruff .
+      - run: poetry run ruff check .
       #- run: poetry run mypy .
       - run: poetry run safety check
       - run: poetry run poetry check
