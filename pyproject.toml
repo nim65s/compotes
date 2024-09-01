@@ -12,7 +12,7 @@ readme = "README.md"
 version = "2.0.0"
 
 [tool.poetry.dependencies]
-django-filter = "^23.5"
+django-filter = "^24.3"
 django-tables2 = "^2.7.0"
 dmdm = "^2.0.3"
 ipython = "^8.26.0"
