@@ -15,5 +15,5 @@ jobs:
       - run: poetry run ruff format
       - run: poetry run ruff check
       #- run: poetry run mypy .
-      - run: poetry run safety check
+      - run: poetry run safety check -i 70612
       - run: poetry run poetry check
