@@ -12,10 +12,10 @@ readme = "README.md"
 version = "2.0.0"
 
 [tool.poetry.dependencies]
-django-filter = "^23.5"
+django-filter = "^24.3"
 django-tables2 = "^2.7.0"
 dmdm = "^2.0.3"
-ipython = "^8.26.0"
+ipython = "^8.27.0"
 ndh = "^6.9.1"
 python = "^3.10"
 yeouia = "^4.0.0"
@@ -24,16 +24,16 @@ yeouia = "^4.0.0"
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-coverage = "^7.5.4"
-pre-commit = "^3.7.1"
+coverage = "^7.6.1"
+pre-commit = "^3.8.0"
 ruff = "^0.5.0"
-safety = {allow-prereleases = true, version = "^3.2.3"}
+safety = {allow-prereleases = true, version = "^3.2.8"}
 
 [tool.poetry.group.prod]
 optional = true
 
 [tool.poetry.group.prod.dependencies]
-gunicorn = "^21.2.0"
+gunicorn = "^23.0.0"
 psycopg2 = "^2.9.9"
 
 [tool.poetry.urls]
