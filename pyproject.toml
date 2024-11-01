@@ -27,7 +27,7 @@ optional = true
 coverage = "^7.6.1"
 pre-commit = "^4.0.1"
 ruff = "^0.7.1"
-safety = {allow-prereleases = true, version = "^3.2.8"}
+safety = {allow-prereleases = true, version = "^3.2.10"}
 
 [tool.poetry.group.prod]
 optional = true
