@@ -742,13 +742,13 @@ all = ["flake8 (>=7.1.1)", "mypy (>=1.11.2)", "pytest (>=8.3.2)", "ruff (>=0.6.2
 
 [[package]]
 name = "ipython"
-version = "8.27.0"
+version = "8.29.0"
 description = "IPython: Productive Interactive Computing"
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "ipython-8.27.0-py3-none-any.whl", hash = "sha256:f68b3cb8bde357a5d7adc9598d57e22a45dfbea19eb6b98286fa3b288c9cd55c"},
-    {file = "ipython-8.27.0.tar.gz", hash = "sha256:0b99a2dc9f15fd68692e898e5568725c6d49c527d36a9fb5960ffbdeaa82ff7e"},
+    {file = "ipython-8.29.0-py3-none-any.whl", hash = "sha256:0188a1bd83267192123ccea7f4a8ed0a78910535dbaa3f37671dca76ebd429c8"},
+    {file = "ipython-8.29.0.tar.gz", hash = "sha256:40b60e15b22591450eef73e40a027cf77bd652e757523eebc5bd7c7c498290eb"},
 ]
 
 [package.dependencies]
@@ -1953,4 +1953,4 @@ Django = ">=2.2,<5.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "f925d0658b0870dff5cf3fd34ddcb248454aa9d10eb7339bb8359c77850d5816"
+content-hash = "276981a33969d830325981cb27387bde52417abe8b7211b6719a461edbfc46ef"
