@@ -16,7 +16,7 @@ django-filter = "^24.3"
 django-tables2 = "^2.7.0"
 dmdm = "^2.0.3"
 ipython = "^8.30.0"
-ndh = "^6.9.1"
+ndh = "^6.9.2"
 python = "^3.10"
 yeouia = "^4.0.0"
 
