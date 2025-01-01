@@ -13,7 +13,7 @@ version = "2.0.0"
 
 [tool.poetry.dependencies]
 django-filter = "^24.3"
-django-tables2 = "^2.7.0"
+django-tables2 = "^2.7.4"
 dmdm = "^2.0.3"
 ipython = "^8.30.0"
 ndh = "^6.9.2"
