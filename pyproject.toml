@@ -32,7 +32,7 @@ ruff = "^0.15.9"
 optional = true
 
 [tool.poetry.group.prod.dependencies]
-gunicorn = ">=23,<26"
+gunicorn = ">=23,<27"
 psycopg2 = "^2.9.10"
 
 [tool.poetry.urls]
