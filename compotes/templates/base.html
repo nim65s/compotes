@@ -24,6 +24,19 @@
 </li>
 
 <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" id="EventDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+    {% translate "Events" %}
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="EventDropdown">
+    <li><a class="dropdown-item" href="{% url 'event_list' %}">{% translate "List" %}</a></li>
+    <li><a class="dropdown-item" href="{% url 'event_create' %}">{% translate "Add" %}</a></li>
+    {% if request.user.is_superuser %}
+    <li><a class="dropdown-item" href="{% url 'admin:compotes_event_changelist' %}">{% translate "Admin" %}</a></li>
+    {% endif %}
+  </ul>
+</li>
+
+<li class="nav-item dropdown">
   <a class="nav-link dropdown-toggle" id="PoolDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
     {% translate "Pools" %}
   </a>

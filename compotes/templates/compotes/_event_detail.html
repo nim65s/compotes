@@ -1,0 +1,15 @@
+{% load i18n %}
+
+<dl class="row">
+  <dt class="col-6">{% translate "Organiser" %}</dt><dd class="col-6">{{ event.organiser }}</dd>
+  <dt class="col-6">{% translate "Status" %}</dt>
+  <dd class="col-6">
+    {% if event.is_closed %}
+      {% blocktranslate with date=event.closed_at %}Closed on {{ date }}{% endblocktranslate %}
+    {% else %}
+      {% translate "Open" %}
+    {% endif %}
+  </dd>
+</dl>
+
+<p>{{ event.description }}</p>

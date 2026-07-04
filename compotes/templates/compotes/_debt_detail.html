@@ -5,6 +5,9 @@
   <dt class="col-6">{% translate "Created" %}</dt><dd class="col-6">{% include "ndh/dt.html" with dt=debt.created %}</dd>
   <dt class="col-6">{% translate "Last Update" %}</dt><dd class="col-6">{% include "ndh/dt.html" with dt=debt.updated %}</dd>
   <dt class="col-6">{% translate "Creditor" %}</dt><dd class="col-6">{{ debt.creditor }}</dd>
+  {% if debt.event %}
+  <dt class="col-6">{% translate "Event" %}</dt><dd class="col-6">{{ debt.event.get_link }}</dd>
+  {% endif %}
   <dt class="col-6">{% translate "Value" %}</dt><dd class="col-6 euro text-start">{{ debt.value }}</dd>
   <dt class="col-6">{% translate "Part value" %}</dt><dd class="col-6 euro text-start">{{ debt.part_value|floatformat:2 }}</dd>
 </dl>
