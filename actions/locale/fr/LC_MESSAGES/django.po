@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-11 01:39+0200\n"
+"POT-Creation-Date: 2026-07-19 23:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,19 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: actions/models.py:18
+#: actions/models.py:20
 msgid "created"
 msgstr "créé"
 
-#: actions/models.py:19
+#: actions/models.py:21
 msgid "updated"
 msgstr "modifié"
 
-#: actions/models.py:20
+#: actions/models.py:22
 msgid "deleted"
 msgstr "supprimé"
 
-#: actions/models.py:28
+#: actions/models.py:30
 #, python-format
 msgid "%(user)s %(act)s %(item)s"
 msgstr "%(user)s a %(act)s %(item)s"
