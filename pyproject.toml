@@ -9,8 +9,8 @@ homepage = "https://github.com/nim65s/compotes"
 license = "BSD-2-Clause"
 name = "compotes"
 packages = [
-    {include = "compotes"},
-    {include = "actions"},
+  {include = "actions"},
+  {include = "compotes"}
 ]
 readme = "README.md"
 version = "2.0.0"
