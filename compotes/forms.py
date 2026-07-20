@@ -5,7 +5,17 @@ from django.utils import timezone
 
 from ndh.forms import AccessibleDateTimeField
 
-from .models import Debt, Part, Share
+from .models import Debt, Event, Part, Share
+
+
+class EventForm(ModelForm):
+    """Form for Events."""
+
+    class Meta:
+        """Meta."""
+
+        model = Event
+        fields = ["name", "description"]
 
 
 class DebtForm(ModelForm):
@@ -17,7 +27,7 @@ class DebtForm(ModelForm):
         """Meta."""
 
         model = Debt
-        fields = ["name", "date", "creditor", "description", "value"]
+        fields = ["name", "date", "creditor", "event", "description", "value"]
 
 
 class PartForm(ModelForm):

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 i18n %}
+
+{% block content %}
+<h1>{% translate "Event" %}: {{ event }}</h1>
+
+{% if event.organiser == request.user %}
+  <div class="d-flex align-items-center my-3">
+    {% bootstrap_button _("Edit Event") href=event.get_edit_url extra_classes="w-50 mx-auto py-3"%}
+  </div>
+{% endif %}
+
+{% include "compotes/_event_detail.html" %}
+
+<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        {% translate "Balances" %}
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">{% translate "User" %}</th>
+              <th scope="col" class="text-end">{% translate "Balance" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user, balance in balances %}
+            <tr{% if user == request.user %} class="table-primary"{% endif %}>
+              <td>{{ user }}</td>
+              <td class="euro">{{ balance|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <form method="post" action="{% if event.is_closed %}{% url 'event_reopen' slug=event.slug %}{% else %}{% url 'event_close' slug=event.slug %}{% endif %}">
+          {% csrf_token %}
+          {% if not event.is_closed %}
+            {% if unsettled %}
+            <div class="form-check my-2">
+              <input class="form-check-input" type="checkbox" name="confirm" value="1" id="id_confirm" required>
+              <label class="form-check-label" for="id_confirm">
+                {% translate "I understand outstanding balances will move to the global balance." %}
+              </label>
+            </div>
+            {% endif %}
+            <button class="btn btn-warning" type="submit">{% translate "Close event" %}</button>
+          {% else %}
+            <button class="btn btn-secondary" type="submit">{% translate "Reopen event" %}</button>
+          {% endif %}
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        {% translate "History" %}
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        {% include "actions/action_table.html" %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

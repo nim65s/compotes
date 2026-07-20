@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 i18n %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+<h1>{% translate "Events" %}</h1>
+
+{% render_table table %}
+
+{% endblock %}

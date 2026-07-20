@@ -59,13 +59,45 @@ class User(Links, AbstractUser):
                 "value",
                 output_field=models.FloatField(),
             )
-            parts = query_sum(self.part_set, "value", output_field=models.FloatField())
+            parts = query_sum(
+                self.get_parts(), "value", output_field=models.FloatField()
+            )
             self.balance = self.get_pool_sum() + debts - parts
         super().save(*args, **kwargs)
 
-    def get_debts(self):
-        """Get debts excluding those without value."""
-        return self.debt_set.exclude(part_value=0)
+    def get_debts(self, event=None):
+        """Get debts excluding those without value, scoped to an Event.
+
+        With no event, only debts outside any Event (or in a closed one)
+        count: an open Event's debts are settled on their own, separately
+        from the global balance.
+        """
+        debts = self.debt_set.exclude(part_value=0)
+        if event is not None:
+            return debts.filter(event=event)
+        return debts.filter(Q(event__isnull=True) | Q(event__closed_at__isnull=False))
+
+    def get_parts(self, event=None):
+        """Get parts owed by this user, scoped to an Event like get_debts."""
+        if event is not None:
+            return self.part_set.filter(debt__event=event)
+        return self.part_set.filter(
+            Q(debt__event__isnull=True) | Q(debt__event__closed_at__isnull=False),
+        )
+
+    def get_event_balance(self, event):
+        """Compute this user's net balance within a single Event."""
+        debts = query_sum(
+            self.get_debts(event),
+            "value",
+            output_field=models.FloatField(),
+        )
+        parts = query_sum(
+            self.get_parts(event),
+            "value",
+            output_field=models.FloatField(),
+        )
+        return debts - parts
 
     def get_pool_sum(self):
         """Get sum of Pool participations."""
@@ -104,6 +136,62 @@ class User(Links, AbstractUser):
         )
 
 
+class Event(Links, TimeStampedModel, NamedModel):
+    """Isolate a group of Debts, e.g. a holiday, settled independently.
+
+    While open, an Event's Debts are excluded from participants' global
+    balance; closing it folds any leftover balance back into the global one.
+    """
+
+    organiser = models.ForeignKey(
+        User,
+        on_delete=models.PROTECT,
+        verbose_name=_("Organiser"),
+    )
+    description = models.TextField(_("Description"), blank=True)
+    closed_at = models.DateTimeField(_("Closed at"), blank=True, null=True)
+
+    class Meta:
+        """Meta."""
+
+        verbose_name = _("Event")
+
+    def get_absolute_url(self) -> str:
+        """Url to detail self."""
+        return reverse("event_detail", kwargs={"slug": self.slug})
+
+    def get_edit_url(self) -> str:
+        """Url to edit self."""
+        return reverse("event_update", kwargs={"slug": self.slug})
+
+    @property
+    def is_closed(self) -> bool:
+        """Whether this Event's Debts count towards the global balance."""
+        return self.closed_at is not None
+
+    def save(self, *args, **kwargs):
+        """Update every participant's balance, e.g. after opening/closing."""
+        super().save(*args, **kwargs)
+        for user in self.participants():
+            user.save()
+
+    def participants(self):
+        """Get every User involved in this Event, as creditor or debitor."""
+        return User.objects.filter(
+            Q(debt__event=self) | Q(part__debt__event=self),
+        ).distinct()
+
+    def close(self):
+        """Close the Event, folding its Debts into the global balance."""
+        self.closed_at = timezone.now()
+        self.save()
+
+    def reopen(self):
+        """Reopen the Event, isolating its Debts from the global balance again."""
+        self.closed_at = None
+        self.save()
+
+
 class Debt(Links, TimeStampedModel):
     """Declare a debt amount."""
 
@@ -113,6 +201,13 @@ class Debt(Links, TimeStampedModel):
         User,
         on_delete=models.PROTECT,
         verbose_name=_("Creditor"),
+    )
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True,
+        verbose_name=_("Event"),
     )
     value = models.DecimalField(_("Value"), max_digits=8, decimal_places=2)
     part_value = models.FloatField(_("Part value"), default=0)

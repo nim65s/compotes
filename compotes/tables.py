@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 import django_tables2 as tables  # type: ignore
 
-from .models import Debt, Pool, User
+from .models import Debt, Event, Pool, User
 
 END, NBR, EUR = (
     {"th": {"class": "text-end"}, "td": {"class": cls}}
@@ -56,6 +56,7 @@ class DebtTable(tables.Table):
             "date",
             "updated",
             "creditor",
+            "event",
             "debitors",
             "parts",
             "value",
@@ -71,6 +72,30 @@ class DebtTable(tables.Table):
     def render_parts(self, value) -> str:
         """Format .2f."""
         return f"{value:.2f}"
+
+
+class EventTable(tables.Table):
+    """List Events."""
+
+    link = tables.Column(accessor="get_link", orderable=False, verbose_name=_("Link"))
+    status = tables.Column(
+        accessor="is_closed",
+        orderable=False,
+        verbose_name=_("Status"),
+    )
+
+    class Meta:
+        """Meta."""
+
+        model = Event
+        attrs = {"class": "table"}
+        fields = ["link", "updated", "organiser", "status"]
+        template_name = "ndh/tables.html"
+        order_by = "-updated"
+
+    def render_status(self, value) -> str:
+        """Show Open/Closed instead of True/False."""
+        return _("Closed") if value else _("Open")
 
 
 class PoolTable(tables.Table):

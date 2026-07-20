@@ -29,5 +29,5 @@ class UserAdmin(BaseUserAdmin):
         return HttpResponseRedirect(reverse("admin:compotes_user_changelist"))
 
 
-for model in (models.Debt, models.Part, models.Pool, models.Share):
+for model in (models.Debt, models.Event, models.Part, models.Pool, models.Share):
     admin.site.register(model)

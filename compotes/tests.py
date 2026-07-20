@@ -13,7 +13,7 @@ from ndh.utils import query_sum
 
 from actions.models import Action
 
-from .models import Debt, Part, Pool, Share, User
+from .models import Debt, Event, Part, Pool, Share, User
 
 
 class CompotesTests(TestCase):
@@ -426,3 +426,115 @@ class CompotesTests(TestCase):
         a, b, *_ = User.objects.all()
         self.assertEqual(a.balance, 0)
         self.assertEqual(b.balance, 0)
+
+
+class EventTests(TestCase):
+    """Test the Event isolation/close/reopen feature."""
+
+    def setUp(self):
+        """Create a few guys for all tests."""
+        for guy in "abcd":
+            User.objects.create_user(guy, email=f"{guy}@example.org", password=guy)
+
+    def test_event_isolates_balance(self):
+        """A Debt scoped to an open Event doesn't affect the global balance."""
+        a, b, *_ = User.objects.all()
+        event = Event.objects.create(name="trip", organiser=a)
+        debt = Debt.objects.create(creditor=a, value=100, name="hotel", event=event)
+        Part.objects.create(debt=debt, debitor=b, part=1)
+
+        a.refresh_from_db()
+        b.refresh_from_db()
+        self.assertEqual(a.balance, 0)
+        self.assertEqual(b.balance, 0)
+        self.assertEqual(a.get_event_balance(event), 100)
+        self.assertEqual(b.get_event_balance(event), -100)
+        self.assertIn(a, event.participants())
+        self.assertIn(b, event.participants())
+
+    def test_event_close_and_reopen(self):
+        """Closing folds leftover balances into the global one; reopening undoes it."""
+        a, b, *_ = User.objects.all()
+        event = Event.objects.create(name="trip", organiser=a)
+        debt = Debt.objects.create(creditor=a, value=100, name="hotel", event=event)
+        Part.objects.create(debt=debt, debitor=b, part=1)
+
+        event.close()
+        a.refresh_from_db()
+        b.refresh_from_db()
+        self.assertEqual(a.balance, 100)
+        self.assertEqual(b.balance, -100)
+
+        event.reopen()
+        a.refresh_from_db()
+        b.refresh_from_db()
+        self.assertEqual(a.balance, 0)
+        self.assertEqual(b.balance, 0)
+
+    def test_event_views(self):
+        """Check the Event web views, including the close confirmation."""
+        a, b, *_ = User.objects.all()
+        self.client.login(username="a", password="a")
+
+        r = self.client.post(
+            reverse("event_create"),
+            {"name": "trip", "description": ""},
+        )
+        self.assertEqual(Event.objects.count(), 1)
+        event = Event.objects.first()
+        self.assertEqual(event.organiser, a)
+
+        debt = {
+            "name": "hotel",
+            "creditor": a.pk,
+            "event": event.pk,
+            "description": "",
+            "value": 100,
+            "date_0": "2026-07-04",
+            "date_1": "10:00:00",
+        }
+        self.client.post(reverse("debt_create"), debt)
+        Part.objects.create(debt=Debt.objects.get(), debitor=b, part=1)
+
+        page = self.client.get(event.get_absolute_url()).content.decode()
+        self.assertIn("trip", page)
+
+        # Closing without confirmation is refused, balances stay isolated
+        r = self.client.post(reverse("event_close", kwargs={"slug": event.slug}))
+        self.assertEqual(r.status_code, 302)
+        a.refresh_from_db()
+        self.assertEqual(a.balance, 0)
+        self.assertFalse(Event.objects.get().is_closed)
+
+        # Closing with confirmation folds balances into the global one
+        r = self.client.post(
+            reverse("event_close", kwargs={"slug": event.slug}),
+            {"confirm": "1"},
+        )
+        self.assertEqual(r.status_code, 302)
+        a.refresh_from_db()
+        self.assertEqual(a.balance, 100)
+        self.assertTrue(Event.objects.get().is_closed)
+
+        # Reopening isolates it again
+        self.client.post(reverse("event_reopen", kwargs={"slug": event.slug}))
+        a.refresh_from_db()
+        self.assertEqual(a.balance, 0)
+        self.assertFalse(Event.objects.get().is_closed)
+
+    def test_event_list_scoping(self):
+        """Only the organiser/creditor/debitor see an Event in the list."""
+        a, b, _c, _d = User.objects.all()
+        event = Event.objects.create(name="trip", organiser=a)
+        debt = Debt.objects.create(creditor=a, value=10, name="x", event=event)
+        Part.objects.create(debt=debt, debitor=b, part=1)
+
+        self.client.login(username="a", password="a")
+        self.assertIn("trip", self.client.get(reverse("event_list")).content.decode())
+        self.client.login(username="b", password="b")
+        self.assertIn("trip", self.client.get(reverse("event_list")).content.decode())
+        self.client.login(username="c", password="c")
+        self.assertNotIn(
+            "trip",
+            self.client.get(reverse("event_list")).content.decode(),
+        )
