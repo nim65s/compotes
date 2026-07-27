@@ -6,7 +6,6 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
-
 from django_filters.views import FilterView
 from django_tables2 import SingleTableMixin, SingleTableView  # type: ignore
 from ndh.mixins import NDHDeleteMixin, NDHFormMixin
